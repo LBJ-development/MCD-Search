@@ -2,19 +2,6 @@
 
 app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http",  "$log", "ServicesFtry", "DataFtry", "MCDSearch", "searchResult",  function(  $rootScope, $scope, $window, $state, $http, $log, ServicesFtry, DataFtry, MCDSearch, searchResult){
 
-/*	
- $scope.alerts = [
-	{ type: 'error', msg: 'Oh snap! Change a few things up and try submitting again.' }, 
-	{ type: 'success', msg: 'Well done! You successfully read this important alert message.' }
-  ];
-
-  $scope.addAlert = function() {
-	$scope.alerts.push({msg: "Another alert!"});
-  };
-
-  $scope.closeAlert = function(index) {
-	$scope.alerts.splice(index, 1);
-  };*/
 	var win = angular.element($window);
 
 	$scope.totalItems;
@@ -50,23 +37,15 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 		$scope.$apply();
 	});
 
-
 	$scope.getCase = function(evt){
-/*
-		console.log("FROM GET CASE!")
-		console.log(evt);*/
-
 
 		var caseN = searchResult.contextPath;
 
 		DataFtry.searchNCMEC(caseN).then(function(data){
-			
 			// console.log("FROM GET CASE!");
 			// console.log(data);
 			$rootScope.$broadcast('DISPLAYCASE',data);
 			//$state.go('searchResult.case');
-		
-		
 		});
 	}
 
@@ -93,7 +72,6 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 	$scope.$on('PAGECHANGED', function(event, page) {
 
 		var setPage =  ((page * 10) - 10);
-
 		url = MCDSearch.contextPath + searchString + "/" + setPage  + "/10/" + collection;
 
 		DataFtry.searchNCMEC(url).then(function(data){
@@ -130,10 +108,7 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 	})
 
 	$scope.pageChanged = function() {
-	
 		$log.log('Page changed to: ' + $scope.currentPage);
 		$rootScope.$broadcast('PAGECHANGED', $scope.currentPage);
 	};
-
-
 });

@@ -12,17 +12,20 @@
 		<li>|</li>
 		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">LEAs</a></li>
 		<li>|</li>
-		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">Cases</a></li>
+		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">Case</a></li>
 		<li>|</li>
 		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">Vehicles</a></li>
 		<li>|</li>
 		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">Links</a></li>
 	</ul>
 </div>
-<!-- <div class="h-sep" style="margin: 0px 10px 10px 45px; width: 90%" ></div> -->
 
 <div class="sectionWrapper">
-	<children-dir class="show-hide"></children-dir>
+	<children-dir class="show-hide" ng-show="children"></children-dir>
+	<guardian-dir class="show-hide" ng-show="guardians"></guardian-dir>
+	<csaw-dir class="show-hide" ng-show="csaws"></csaw-dir>
+	<lea-dir class="show-hide" ng-show="leas"></lea-dir>
+	<case-dir class="show-hide" ng-show="cases"></case-dir>
 
 
 <!--  	<div  ui-view=""></div>       -->  

@@ -1,0 +1,73 @@
+<section class="csaw" ng-repeat="csaw in csawList track by $index">
+	<div class="pers-sep" ng-show="$index >0"></div>
+	<div class="sub-title">CSAW {{$index + 1}}</div>
+	<!-- NAMES ///////////////////////////////////////////////////////////////////////// -->
+	<div class="row ">
+		<div class="col-sm-4 form-group" ng-show="csaw.firstname">
+			<label>First Name: </label> <span>{{csaw.firstname}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.middlename">
+			<label>Middle Name: </label> <span>{{csaw.middlename}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.lastname">
+			<label>Last Name: </label> <span>{{csaw.lastname}}</span>
+		</div>
+	</div>
+	<!-- ALIAS NAMES ///////////////////////////////////////////////////////////////////////// -->
+	<div class="row ">
+		<div class="col-sm-4 form-group" ng-show="csaw.aliasfirstname">
+			<label>Alias First Name: </label> <span>{{csaw.aliasfirstname}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.aliasmiddlename">
+			<label>Alias Middle Name: </label> <span>{{csaw.aliasmiddlename}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.aliaslastname">
+			<label>Alias Last Name: </label> <span>{{csaw.aliaslastname}}</span>
+		</div>
+	</div>
+	<!-- BIRTHDAY | SSN | SEX ///////////////////////////////////////////////////////////////////////// -->
+	<div class="row ">
+		<div class="col-sm-4 form-group" ng-show="csaw.birthdate">
+			<label>Birthday: </label> <span>{{csaw.birthdate}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.socialsecuritynumber">
+			<label>SSN: </label> <span>{{csaw.socialsecuritynumber}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.sex">
+			<label>Sex: </label> <span>{{csaw.sex}}</span>
+		</div>
+		<!-- RACE | HEIGHT | WEIGHT ///////////////////////////////////////////////////////////////////////// -->
+     	<div class="col-sm-4 form-group" ng-show="csaw.race">
+			<label>Race: </label> <span>{{csaw.race}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.height">
+			<label>Height: </label> <span>{{csaw.height}} inch</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.weight">
+			<label>Weight: </label> <span>{{csaw.weight}} pounds</span>
+		</div>
+	<!-- HAIR COLOR | EYE COLOR  | COMPLEXION ///////////////////////////////////////////////////////////////////////// -->
+		<div class="col-sm-4 form-group" ng-show="csaw.haircolor">
+			<label>Hair Color: </label> <span>{{csaw.haircolor}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.eyecolor">
+			<label>Eye Color: </label> <span>{{csaw.eyecolor}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.complexion">
+			<label>Complexion: </label> <span>{{csaw.complexion}}</span>
+		</div>
+	<!-- TEETH | BUILD | SCARS MARKS   ///////////////////////////////////////////////////////////////////////// -->
+		<div class="col-sm-4 form-group" ng-show="csaw.teeth">
+			<label>Teeth: </label> <span>{{csaw.teeth}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.build">
+			<label>Build: </label> <span>{{csaw.build}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.scarsmarks">
+			<label>Scars and Marks: </label> <span>{{csaw.scarsmarks}}</span>
+		</div>
+		<div class="col-sm-4 form-group" ng-show="csaw.marksdescription">
+			<label>Marks Description: </label> <span>{{csaw.marksdescription}}</span>
+		</div>
+	</div>
+</section>

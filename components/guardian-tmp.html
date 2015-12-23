@@ -1,0 +1,88 @@
+<section class="guardian" ng-repeat="guardian in guardiansList track by $index">
+        <div class="pers-sep" ng-show="$index >0"></div>
+        <div class="sub-title">Guardian {{$index + 1}}</div>
+         <!-- NAMES ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.firstname">
+                <label>First Name: </label> <span>{{guardian.firstname}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.middlename">
+                <label>Middle Name: </label> <span>{{guardian.middlename}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.lastname">
+                <label>Last Name: </label> <span>{{guardian.lastname}}</span>
+            </div>
+        </div>
+        <!-- RACE | SEX | SSN ///////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.race">
+                <label>Race: </label> <span>{{guardian.race}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.sex">
+                <label>Sex: </label> <span>{{guardian.sex}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.socialsecuritynumber">
+                <label>SSN: </label> <span>{{guardian.socialsecuritynumber}}</span>
+            </div>
+        <!-- </div> -->
+        <!-- HOME PHONE | CELL PHONE | FAX ///////////////////////////////////////////////////////////////////////// -->
+        <!-- <div class="row "> -->
+            <div class="col-sm-4 form-group" ng-show="guardian.homephone">
+                <label>Home Phone: </label> <span>{{guardian.homephone}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.cellphone">
+                <label>Cell Phone: </label> <span>{{guardian.cellphone}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.faxnumber">
+                <label>Fax: </label> <span>{{guardian.faxnumber}}</span>
+            </div>
+       <!--  </div> -->
+        <!-- EMAIL | PASSPORT # | PASSPORT FROM ///////////////////////////////////////////////////////////////////////// -->
+        <!-- <div class="row "> -->
+            <div class="col-sm-4 form-group" ng-show="guardian.emailaddress">
+                <label>Email: </label> <span>{{guardian.emailaddress}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.passportno">
+                <label>Passport #: </label> <span>{{guardian.passportno}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.passport_issuingcountry">
+                <label>Passport From: </label> <span>{{guardian.passport_issuingcountry}}</span>
+            </div>
+       <!--  </div> -->
+        <!-- ADDRESS | CITY | ZIP ///////////////////////////////////////////////////////////////////////// -->
+        <!-- <div class="row "> -->
+            <div class="col-sm-4 form-group" ng-show="guardian.address">
+                <label>Address: </label> <span>{{guardian.address}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.city">
+                <label>City: </label> <span>{{guardian.city}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.zip">
+                <label>Zip: </label> <span>{{guardian.zip}}</span>
+            </div>
+       <!--  </div> -->
+        <!-- COUNTY | STATE | COUNTRY 
+       ///////////////////////////////////////////////////////////////////////// -->
+        <!-- <div class="row "> -->
+            <div class="col-sm-4 form-group" ng-show="guardian.county">
+                <label>County: </label> <span>{{guardian.county}} inch</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.state">
+                <label>State: </label> <span>{{guardian.state}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.country">
+                <label>Country: </label> <span>{{guardian.country}}</span>
+            </div>
+        </div>
+          <!-- NOTES | STATE | COUNTRY 
+       ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-11 form-group" ng-show="guardian.notes">
+                <label>Notes: </label> <span>{{guardian.notes}}</span>
+            </div>
+           
+        </div>
+
+
+     
+    </section>

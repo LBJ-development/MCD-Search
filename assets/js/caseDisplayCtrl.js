@@ -2,12 +2,11 @@
 
 angular.module('MCDSearch.caseDisplay', [])
 
-
 // CASE DISPLAY CONTROLLER /////////////////////////////////////////////////////////
 .controller('CaseDisplayCtrl', function($scope, $state){
 
 	$scope.childrenList = [];
-	$scope.companionsList = [];
+	$scope.csawList = [];
 	$scope.guardiansList = [];
 	$scope.casesList = [];
 	$scope.leasList = [];
@@ -16,56 +15,120 @@ angular.module('MCDSearch.caseDisplay', [])
 
 	$scope.$on('DISPLAYCASE', function(event, data) {
 
-		$scope.childrenList 	= data.Children;
-		$scope.companionsList	= data.Companions;
-		$scope.guardiansList	= data.Guardians;
-		$scope.casesList 	= data.Cases;
-		$scope.leasList 	= data.Leas;
-		$scope.vehiclesList 	= data.Vehicles;
-		$scope.linksList 	= data.Links;
+		$scope.childrenList     = data.Children;
+		$scope.csawList  		= data.Companions;
+		$scope.guardiansList    = data.Guardians;
+		$scope.casesList        = data.Cases;
+		$scope.leasList         = data.Leas;
+		$scope.vehiclesList     = data.Vehicles;
+		$scope.linksList        = data.Links;
 
 		//$state.go('searchResult.case.children');
-
 		//console.log("FROM DISLAYCASE");
-
 	});
+
+	$scope.children = true;
+	$scope.guardians = $scope.csaws = $scope.leas = $scope.cases = $scope.vehicles = $scope.clinks = false;
 
 	$scope.selectSection = function(evt){
 
 		$(".caseMenuItem").removeClass("caseMenu-sel");
 		$(evt.currentTarget).addClass('caseMenu-sel');
 
-		//console.log(evt.currentTarget.text)
+		$scope.children = $scope.guardians = $scope.csaws = $scope.leas = $scope.cases = $scope.vehicles = $scope.clinks = false;
+
 		//$state.go('searchResult.case.children');
 
-	}
-})
+		var target = evt.currentTarget.text;
 
+		switch(target) {
+			case "Children":
+				$scope.children = true;
+				break;
+			case "Guardians":
+				$scope.guardians = true;
+				break;
+			case "CSAW":
+				$scope.csaws = true;
+				break;
+			case "LEAs":
+				$scope.leas = true;
+				break;
+			case "Case":
+				$scope.cases = true;
+				break;
+			case "Vehicles":
+				$scope.vehicles = true;
+				break;
+			case "Links":
+				$scope.clinks = true;
+				break;
+			default:
+				$scope.children = true;
+		}
+	};
+})
 
 // CASE DISPLAY DIRECTIVE ///////////////////////////////////////////////////////
 .directive ('caseDisplay',function ( $rootScope) {
 	return {
-	restrict: 'E',
-	transclude: true,
-	//scope: { },
-	controller: 'CaseDisplayCtrl',
-	templateUrl: 'components/caseDisplay-tmp.html',
-	link: function (scope, element, attrs){
-
+		restrict: 'E',
+		transclude: true,
+		controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/caseDisplay-tmp.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// CHILDREN DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('childrenDir',function ( $rootScope) {
+	return {
+		restrict: 'E',
+		controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/children-tmp.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// GUARDIAN DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('guardianDir',function ( $rootScope) {
+	return {
+		restrict: 'E',
+		controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/guardian-tmp.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// CSAW DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('csawDir',function ( $rootScope) {
+	return {
+		restrict: 'E',
+		controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/csaw-tmp.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// LEA DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('leaDir',function ( $rootScope) {
+	return {
+		restrict: 'E',
+		controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/lea-tmp.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// CASE DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('caseDir',function ( $rootScope) {
+	return {
+		restrict: 'E',
+		controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/case-tmp.html',
+		link: function (scope, element, attrs){
 		}
 	};
 })
 
-// CHILDREN DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('childrenDir',function ( $rootScope) {
-	return {
-	restrict: 'E',
-	//transclude: true,
-	//scope: { },
-	controller: 'CaseDisplayCtrl',
-	templateUrl: 'components/children-tmp.html',
-	link: function (scope, element, attrs){
 
-		}
-	};
-});

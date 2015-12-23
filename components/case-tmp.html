@@ -1,0 +1,26 @@
+<section class="case" ng-repeat="case in casesList track by $index">
+		<div class="pers-sep" ng-show="$index >0"></div>
+		<div class="sub-title">Case</div>
+		 <!-- NAMES ///////////////////////////////////////////////////////////////////////// -->
+		<div class="row ">
+			<div class="col-sm-4 form-group" ng-show="case.casetype">
+				<label>Case Type: </label> <span>{{case.casetype}}</span>
+			</div>
+			<div class="col-sm-4 form-group" ng-show="case.casestatus">
+				<label>Case Status: </label> <span>{{case.casestatus}}</span>
+			</div>
+			<div class="col-sm-4 form-group" ng-show="case.casenumber">
+				<label>Case #: </label> <span>{{case.casenumber}}</span>
+			</div>
+			<div class="col-sm-4 form-group" ng-show="case.confidential">
+				<label>Confidential: </label> <span>{{case.confidential}}</span>
+			</div>
+			<div class="col-sm-4 form-group" ng-show="case.request_type">
+				<label>Request Type: </label> <span>{{case.request_type}}</span>
+			</div>
+
+
+		</div>
+		
+	
+	</section>
