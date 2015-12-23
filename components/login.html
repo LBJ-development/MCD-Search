@@ -1,0 +1,45 @@
+<!-- 
+    <div class="step-content login" style="height:140px">
+                     <span class="status">${status}</span><br/>
+                    <form action="/rfi/login" method="POST" style="width: 300px; height:100px">
+                        <label for="username">Username:</label>
+                        <input type="text" value="" name="username"/>
+                        <br/>
+                        <label for="password">Password:</label>
+                        <input class="password" value="" type="password"  name="password"/>
+                        <br/>
+                        <input  value="" class="loginBtn" type="submit" />
+                    </form>
+                </div>
+            </div>
+        </div> -->
+<!--- ECMS //////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<div class="CC-title-big" style="width:100%"></div>
+
+<div role="login" class="login-panel">
+    <span class="panel-header"><span class="white-title">Login</span></span>
+
+    <div role="login-frm" style="padding:20px ">
+        <form name="form" role="form">
+
+            <login-directive>
+            <span style="padding:10px; display:inline-block;width:100%">
+                <label for="username"  style="width: 100px; float:left" >Username:</label>
+                <input  class="form-control"  style="width: 250px; float:left" id="username" type="text" ng-model="username" name="username" required>
+            </span>
+            <span  style="padding:10px; display:inline-block;width:100%">
+                <label for="password" style="width: 100px; float:left">Password:</label>
+                <input class="form-control"  style="width: 250px; float:left" id="password"class="form-control" type="password" ng-model="password" name="password" required>
+            </span>
+
+            <span  style="padding: 0 0 20px 250px">
+                   <button class="btn-primary"  ng-click="login()" ng-disabled="form.$invalid">LOGIN</button>
+               
+            </span>
+            <!--     <span class="{{errormessageclass}}">{{errormessage}}</span> -->
+
+            </login-directive>
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,41 @@
+<div  class="content-wrapper" context-path="${cp}">
+
+<!-- SEARCH RESULT  //////////////////////////////////////////////////////// -->
+	<div class="tabHead">
+		<span class="tab-title">MCD Search Result</span>
+		<span style="float:right; color:white; font-family:arial; font-size: 0.9em; padding: 3px 10px 0 0; " ng-show="totReports != 0">Number of Reports: {{totReports}}</span>
+	</div>
+	<div class="tabWrapper" style="opacity: 1; display:inline-block; background-color:white">
+		<div  class="clearfix">
+
+			<!-- SEARCH RESULT LIST ///////////////////////////////////////////////////-->
+			<ul style="list-style-type: none" class="searchResultList" id="resultList">
+				<li ng-repeat="result in results track by $index" style="padding: 10px 0 15px 0"  >
+					<div >
+						<!-- REAL LINK 
+						<a ng-href="{{result.u}}"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a> -->
+
+						<!-- FOR DEVELOPMENT -->
+						<a href="" ng-click="getCase(result.u)"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a>
+
+						<!--  <a ui-sref=".children"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a> -->
+					</div>
+					<div ng-bind-html="result.s | rawHtml" style="font-size:0.9em; color:#5e6778"> </div>
+				</li>
+			</ul>
+			<!-- CASE DISPLAY ///////////////////////////////////////////////////-->
+
+			<case-display class="caseDisplay" ></case-display>
+			<!-- <div ui-view class="fader-animation"></div> -->
+
+		</div>
+		<div class="h-sep" style="margin:20px 0 20px 0" ></div>
+		<div align="center" ng-controller="PaginationCtrl">
+			<div ng-show="showPagination" class="show-hide"> 
+				<uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="false" ng-change="pageChanged($event)">
+				</uib-pagination>
+			</div>
+		</div>
+	</div>   
+</div>
+

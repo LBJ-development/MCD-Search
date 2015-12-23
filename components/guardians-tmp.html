@@ -1,0 +1,113 @@
+<section class="guardian" ng-repeat="guardian in guardiansList track by $index">
+        <div class="pers-sep" ng-show="$index >0"></div>
+        <div class="sub-title">Guardian{{$index + 1}} Description</div>
+         <!-- NAMES ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.firstname">
+                <label>First Name: </label> <span>{{guardian.firstname}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.middlename">
+                <label>Middle Name: </label> <span>{{guardian.middlename}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.lastname">
+                <label>Last Name: </label> <span>{{guardian.lastname}}</span>
+            </div>
+        </div>
+        <!-- ALIAS NAMES ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.aliasfirstname">
+                <label>Alias First Name: </label> <span>{{guardian.aliasfirstname}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.aliasmiddlename">
+                <label>Alias Middle Name: </label> <span>{{guardian.aliasmiddlename}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.aliaslastname">
+                <label>Alias Last Name: </label> <span>{{guardian.aliaslastname}}</span>
+            </div>
+        </div>
+        <!-- BIRTHDAY | SSN | SEX ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.birthdate">
+                <label>Birthday: </label> <span>{{guardian.birthdate}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.socialsecuritynumber">
+                <label>SSN: </label> <span>{{guardian.socialsecuritynumber}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.sex">
+                <label>Sex: </label> <span>{{guardian.sex}}</span>
+            </div>
+        </div>
+        <!-- RACE | HEIGHT | WEIGHT ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.race">
+                <label>Race: </label> <span>{{guardian.race}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.height">
+                <label>Height: </label> <span>{{guardian.height}} inch</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.weight">
+                <label>Weight: </label> <span>{{guardian.weight}} pounds</span>
+            </div>
+        </div>
+        <!-- HAIR COLOR | EYE COLOR  | COMPLEXION ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.haircolor">
+                <label>Hair Color: </label> <span>{{guardian.haircolor}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.eyecolor">
+                <label>Eye Color: </label> <span>{{guardian.eyecolor}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.complexion">
+                <label>Complexion: </label> <span>{{guardian.complexion}}</span>
+            </div>
+        </div>
+        <!-- TEETH | BUILD | SCARS MARKS   ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.teeth">
+                <label>Teeth: </label> <span>{{guardian.teeth}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.build">
+                <label>Build: </label> <span>{{guardian.build}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.scarsmarks">
+                <label>Scars and Marks: </label> <span>{{guardian.scarsmarks}}</span>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-sm-12 form-group" ng-show="guardian.marksdescription">
+                <label>Marks Description: </label> <span>{{guardian.marksdescription}}</span>
+            </div>
+        </div>
+        <div class="sub-title">guardian {{$index + 1}} Missing Information</div>
+        <!-- MISSING INFORMATION///////////////////////////////////////////////////////////////////////// -->
+        <!-- DATE | LOCATION  ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.missingfromdate">
+                <label>Missing Date: </label> <span>{{guardian.missingfromdate}}</span>
+            </div>
+            <div class="col-sm-8 form-group" ng-show="guardian.missingfromlocation">
+                <label>Missing Location: </label> <span>{{guardian.missingfromlocation}}</span>
+            </div>
+        </div>
+        <!-- MISSING CITY | MISSING ZIP | MISSING COUNTY //////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.missingfromcity">
+                <label>Missing City: </label> <span>{{guardian.missingfromcity}}</span>
+            </div>
+            <div class="col-sm-8 form-group" ng-show="guardian.missingfromzip">
+                <label>Missing Zip: </label> <span>{{guardian.missingfromzip}}</span>
+            </div>
+            <div class="col-sm-8 form-group" ng-show="guardian.missingfromcounty">
+                <label>Missing County: </label> <span>{{guardian.missingfromcounty}}</span>
+            </div>
+        </div>
+        <!-- MISSING STATE | MISSING COUNTRY //////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="guardian.missingfromstate">
+                <label>Missing State: </label> <span>{{guardian.missingfromstate}}</span>
+            </div>
+            <div class="col-sm-8 form-group" ng-show="guardian.missingfromcountry">
+                <label>Missing Country: </label> <span>{{guardian.missingfromcountry}}</span>
+            </div>
+        </div>
+    </section>

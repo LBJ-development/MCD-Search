@@ -1,0 +1,113 @@
+<section class="children" ng-repeat="child in childrenList track by $index">
+        <div class="pers-sep" ng-show="$index >0"></div>
+        <div class="sub-title">Child {{$index + 1}} Description</div>
+         <!-- NAMES ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.firstname">
+                <label>First Name: </label> <span>{{child.firstname}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.middlename">
+                <label>Middle Name: </label> <span>{{child.middlename}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.lastname">
+                <label>Last Name: </label> <span>{{child.lastname}}</span>
+            </div>
+        </div>
+        <!-- ALIAS NAMES ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.aliasfirstname">
+                <label>Alias First Name: </label> <span>{{child.aliasfirstname}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.aliasmiddlename">
+                <label>Alias Middle Name: </label> <span>{{child.aliasmiddlename}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.aliaslastname">
+                <label>Alias Last Name: </label> <span>{{child.aliaslastname}}</span>
+            </div>
+        </div>
+        <!-- BIRTHDAY | SSN | SEX ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.birthdate">
+                <label>Birthday: </label> <span>{{child.birthdate}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.socialsecuritynumber">
+                <label>SSN: </label> <span>{{child.socialsecuritynumber}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.sex">
+                <label>Sex: </label> <span>{{child.sex}}</span>
+            </div>
+        </div>
+        <!-- RACE | HEIGHT | WEIGHT ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.race">
+                <label>Race: </label> <span>{{child.race}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.height">
+                <label>Height: </label> <span>{{child.height}} inch</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.weight">
+                <label>Weight: </label> <span>{{child.weight}} pounds</span>
+            </div>
+        </div>
+        <!-- HAIR COLOR | EYE COLOR  | COMPLEXION ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.haircolor">
+                <label>Hair Color: </label> <span>{{child.haircolor}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.eyecolor">
+                <label>Eye Color: </label> <span>{{child.eyecolor}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.complexion">
+                <label>Complexion: </label> <span>{{child.complexion}}</span>
+            </div>
+        </div>
+        <!-- TEETH | BUILD | SCARS MARKS   ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.teeth">
+                <label>Teeth: </label> <span>{{child.teeth}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.build">
+                <label>Build: </label> <span>{{child.build}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.scarsmarks">
+                <label>Scars and Marks: </label> <span>{{child.scarsmarks}}</span>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-sm-12 form-group" ng-show="child.marksdescription">
+                <label>Marks Description: </label> <span>{{child.marksdescription}}</span>
+            </div>
+        </div>
+        <div class="sub-title">Child {{$index + 1}} Missing Information</div>
+        <!-- MISSING INFORMATION///////////////////////////////////////////////////////////////////////// -->
+        <!-- DATE | LOCATION  ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.missingfromdate">
+                <label>Missing Date: </label> <span>{{child.missingfromdate}}</span>
+            </div>
+            <div class="col-sm-8 form-group" ng-show="child.missingfromlocation">
+                <label>Missing Location: </label> <span>{{child.missingfromlocation}}</span>
+            </div>
+        </div>
+        <!-- MISSING CITY | MISSING ZIP | MISSING COUNTY //////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.missingfromcity">
+                <label>Missing City: </label> <span>{{child.missingfromcity}}</span>
+            </div>
+            <div class="col-sm-8 form-group" ng-show="child.missingfromzip">
+                <label>Missing Zip: </label> <span>{{child.missingfromzip}}</span>
+            </div>
+            <div class="col-sm-8 form-group" ng-show="child.missingfromcounty">
+                <label>Missing County: </label> <span>{{child.missingfromcounty}}</span>
+            </div>
+        </div>
+        <!-- MISSING STATE | MISSING COUNTRY //////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.missingfromstate">
+                <label>Missing State: </label> <span>{{child.missingfromstate}}</span>
+            </div>
+            <div class="col-sm-8 form-group" ng-show="child.missingfromcountry">
+                <label>Missing Country: </label> <span>{{child.missingfromcountry}}</span>
+            </div>
+        </div>
+    </section>

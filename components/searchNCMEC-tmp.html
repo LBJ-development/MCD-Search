@@ -1,0 +1,23 @@
+<form>
+	<div class="row " style="padding-top: 60px">
+		<div class="col-sm-8 form-group center"  style="padding: 0 5px 0 100px">
+			<div class="col-sm-5 form-group" >
+				<input type="text" class="form-control" ng-model="search.searchString"  />
+			</div>	
+			<div class="col-sm-3 form-group"  style="padding: 0 5px 0 5px">
+				<select class="form-control" ng-model="search.collection">
+					<option value="">Select a Collection</option>
+					<option value="default_collection">All Collections</option>
+					<option value="intake">Intakes</option>
+					<option value="leads">Leads</option>
+					<option value="NIFs">NIFs</option>
+					<option value="SexOffenderTracking">Sex Offender Tracking</option>
+					<option value="TA">TA</option>
+				</select>
+			</div>	
+			<div class="col-sm-3 form-group " style="text-align:left; padding: 0 5px 0 15px" >
+				<button class="btn-primary" ng-click="searchNCMEC()">NCMEC SEARCH</button>
+			</div>
+		</div>
+	</div>
+<form>
