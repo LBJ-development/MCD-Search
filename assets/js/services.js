@@ -77,7 +77,7 @@ angular.module('RFIapp.services', [])
 		$promise.then(function(result){
 
 			deferred.resolve(result.data);
-			console.log("FROM SEARCH NCMEC!")
+			//console.log("FROM SEARCH NCMEC!")
 
 			/*if(result.data.status == 'SUCCESS'){
 				deferred.resolve(result.data.message);

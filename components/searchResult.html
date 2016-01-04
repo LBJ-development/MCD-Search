@@ -25,15 +25,19 @@
 			</ul>
 			<!-- CASE DISPLAY ///////////////////////////////////////////////////-->
 
-			<case-display class="caseDisplay" ></case-display>
+			<case-display class="caseDisplay show-hide" ng-show="showCase"></case-display>
 			<!-- <div ui-view class="fader-animation"></div> -->
 
 		</div>
-		<div class="h-sep" style="margin:20px 0 20px 0" ></div>
+	
 		<div align="center" ng-controller="PaginationCtrl">
 			<div ng-show="showPagination" class="show-hide"> 
 				<uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="false" ng-change="pageChanged($event)">
 				</uib-pagination>
+			</div>
+			<div class="col-sm-12 form-group">
+					<div class="h-sep" style="margin:0 30px 10px 0" ></div>
+				<span style="font-size:0.9em; color:#65768a"> Powered by Google Search Appliance</span>
 			</div>
 		</div>
 	</div>   

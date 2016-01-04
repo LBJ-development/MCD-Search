@@ -1,10 +1,10 @@
 <form>
 	<div class="row " style="padding-top: 60px">
-		<div class="col-sm-8 form-group center"  style="padding: 0 5px 0 100px">
+		<div class="col-sm-8 form-group center searchForm">
 			<div class="col-sm-5 form-group" >
 				<input type="text" class="form-control" ng-model="search.searchString"  />
 			</div>	
-			<div class="col-sm-3 form-group"  style="padding: 0 5px 0 5px">
+			<div class="col-sm-3 form-group">
 				<select class="form-control" ng-model="search.collection">
 					<option value="">Select a Collection</option>
 					<option value="default_collection">All Collections</option>
@@ -16,7 +16,7 @@
 				</select>
 			</div>	
 			<div class="col-sm-3 form-group " style="text-align:left; padding: 0 5px 0 15px" >
-				<button class="btn-primary" ng-click="searchNCMEC()">NCMEC SEARCH</button>
+				<button class="btn-primary" ng-click="searchNCMEC()">SEARCH</button>
 			</div>
 		</div>
 	</div>

@@ -4,6 +4,7 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 
 	var win = angular.element($window);
 
+
 	$scope.totalItems;
 	$scope.currentPage = 1;
 	$scope.maxSize = 9;
@@ -21,6 +22,7 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 
 	$scope.init = function (){
 		$rootScope.loggedIn = false; // If the "logout" link needs to be displayed
+
 	}
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
@@ -55,9 +57,9 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 		collection = $scope.search.collection != "" ? collection =  $scope.search.collection : collection = "default_collection" ;
 		url = MCDSearch.contextPath + searchString + "/0/10/" + collection;
 
+		$rootScope.$broadcast('resetPagination');
+
 		DataFtry.searchNCMEC(url).then(function(data){
-			
-			$rootScope.$broadcast('resetPagination');
 			
 			$scope.currentPage = 1;
 			$scope.results = [];
@@ -78,16 +80,16 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 			$scope.results = data.results;
 			$scope.totReports = data.numHits;
 			$scope.totalItems = data.numHits;
-			
 		});
 	});
 
 // LOGOUT & CLEANING /////////////////////////////////////////////////////////////////
 	$rootScope.logout = function(data) {
-		$rootScope.loggedIn = false;
+
 		$scope.log = '';
-		$location.path('/login');
-		$scope.cleanCase();
+		$state.go('login');
+		sessionStorage.clear();
+		//$scope.cleanCase();
 	};
 
 	$scope.emptyObject = function (){

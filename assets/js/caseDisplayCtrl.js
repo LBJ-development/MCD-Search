@@ -13,7 +13,15 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.vehiclesList = [];
 	$scope.linksList = [];
 
+	$scope.showCase = false;
+
+	$scope.$on('resetPagination', function(event) {
+		$scope.showCase = false;
+	})
+
 	$scope.$on('DISPLAYCASE', function(event, data) {
+
+		$scope.showCase = true;
 
 		$scope.childrenList     = data.Children;
 		$scope.csawList  		= data.Companions;
@@ -130,5 +138,16 @@ angular.module('MCDSearch.caseDisplay', [])
 		}
 	};
 })
+// VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('vehicleDir',function ( $rootScope) {
+	return {
+		restrict: 'E',
+		controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/vehicle-tmp.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+
 
 

@@ -65,13 +65,12 @@
 			<div id="masthead" class="clearfix">
 				<div id="MK-logo" ></div>
 				<div class="title show-hide" ng-show="stateName == 'mainSearch'">MCD Google Search</div>
-					<search-ncmec  ng-show="stateName == 'searchResult'"></search-ncmec>
-					<div id="logout-btn" ng-show="loggedIn">
-						<a href="" class="logout" ng-click="logout()" >Logout</a>
-					</div>
+				<search-ncmec  ng-show="stateName == 'searchResult'"></search-ncmec>
+				<div id="logout-btn" class="show-hide" ng-hide="sessionStorage.userName">
+					<a href="" class="logout" ng-click="logout()" >Logout</a>
 				</div>
-				<div ui-view="" class="fader-animation"  ></div>
 			</div>
+			<div ui-view="" class="fader-animation"></div>
 		</div>
 
 <!-- 		 <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>

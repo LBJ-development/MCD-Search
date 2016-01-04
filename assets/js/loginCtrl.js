@@ -25,12 +25,18 @@ angular.module('RFIapp.login', [])
                 success(function(data, status, headers, config){
                    /* console.log("FROM HTTP");
                     console.log(data);*/
+
+                    //$rootScope.currentUser =  $scope.username;
+                    
+                    // STORES THE USERNAME FOR THE SESSION
+                    sessionStorage.setItem('userName', JSON.stringify($scope.username));
+                  
                     $scope.username = "";
                     $scope.password = "";
                     if(data.status.status == 'SUCCESS') {
 
-                        console.log("FROM SUCCESS");
-                        console.log(data.user);
+                        // console.log("FROM SUCCESS");
+                        // console.log(data.user);
                         //ServicesFtry.setRequestor(data.user);
                         $rootScope.loggedIn =  true;
 
