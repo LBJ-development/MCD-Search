@@ -32,30 +32,48 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 
 	$scope.$watch (
 		function () {
-			$(".sectionWrapper").css("max-height", ($("#resultList").height() - 100));
+			//SET THE MAX HEIGHT OF THE CASE DISPLAY
+			//$(".sectionWrapper").css("max-height", ($("#resultList").height() - 100));
 		}
 	);
 	win.bind('resize', function () {
 		$scope.$apply();
 	});
 
-	$scope.getCase = function(evt){
+	$scope.getCase = function(link, caseID){
 
-		var caseN = searchResult.contextPath;
+		console.log("FROM GET CASE!");
+		console.log(caseID);
 
-		DataFtry.searchNCMEC(caseN).then(function(data){
-			// console.log("FROM GET CASE!");
-			// console.log(data);
-			$rootScope.$broadcast('DISPLAYCASE',data);
-			//$state.go('searchResult.case');
-		});
+		if(caseID == undefined){
+
+			$("#dialog").dialog({
+				modal: true,
+				show: { effect: "fadeIn", duration: 500 },
+				hide: { effect: "fadeOut", duration: 500 },
+				position: { my: "top+120", at: "top+120", of: window }
+			});
+
+			$scope.link = link;
+
+		} else {
+
+			var caseN = searchResult.contextPath + caseID;
+
+			DataFtry.searchNCMEC(caseN).then(function(data){
+			
+				$rootScope.$broadcast('DISPLAYCASE',data);
+				//$state.go('searchResult.case');
+			});
+		}
 	}
 
 	$scope.searchNCMEC = function() {
 
 		searchString = $scope.search.searchString;
 		collection = $scope.search.collection != "" ? collection =  $scope.search.collection : collection = "default_collection" ;
-		url = MCDSearch.contextPath + searchString + "/0/10/" + collection;
+		//url = MCDSearch.contextPath + searchString + "/0/10/" + collection;
+		url = MCDSearch.contextPath + searchString + "/0/10/" + "MCDTest";
 
 		$rootScope.$broadcast('resetPagination');
 
@@ -74,7 +92,8 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 	$scope.$on('PAGECHANGED', function(event, page) {
 
 		var setPage =  ((page * 10) - 10);
-		url = MCDSearch.contextPath + searchString + "/" + setPage  + "/10/" + collection;
+		//url = MCDSearch.contextPath + searchString + "/" + setPage  + "/10/" + collection;
+		url = MCDSearch.contextPath + searchString + setPage + "/10/" + "MCDTest";
 
 		DataFtry.searchNCMEC(url).then(function(data){
 			$scope.results = data.results;

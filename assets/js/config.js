@@ -6,11 +6,12 @@ angular.module('RFIapp.config', [])
 	})
 	.constant('MCDSearch', {
 		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/gsa/'
-		contextPath:'http://172.25.6.137:8080/ws-gsa/gsa/'
+		//contextPath:'http://172.25.6.137:8080/ws-gsa/gsa/'
+		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'
 	})
 	.constant('searchResult', {
 		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/mcd/gson/287'
-		//contextPath:'http://172.25.6.137:8080/ws-gsa/report/mcd/gson/287'
-		contextPath:'http://172.25.6.137:8080/ws-gsa/report/mcd/gson/1'
+		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/616541'
+		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/'
 	});
 

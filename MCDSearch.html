@@ -63,14 +63,20 @@
 <!-- HTML  //////////////////////////////////////////////////////// --> 
 		<div id="wrapper" class="clearfix" >
 			<div id="masthead" class="clearfix">
-				<div id="MK-logo" ></div>
-				<div class="title show-hide" ng-show="stateName == 'mainSearch'">MCD Google Search</div>
-				<search-ncmec  ng-show="stateName == 'searchResult'"></search-ncmec>
+				<div id="MK-logo" class="clearfix debugging"></div>
+				<div class="title show-hide debugging" ng-show="stateName == 'mainSearch'">MCD Google Search</div>
+				<search-ncmec  ng-show="stateName == 'searchResult'" class="debugging"></search-ncmec>
 				<div id="logout-btn" class="show-hide" ng-hide="sessionStorage.userName">
 					<a href="" class="logout" ng-click="logout()" >Logout</a>
 				</div>
 			</div>
 			<div ui-view="" class="fader-animation"></div>
+		</div>
+
+		<!-- ALERT BOX-->
+		<div id="dialog" title="Please follow this link:">
+  	
+  			<a ng-href='{{link}}' target="_blank">{{link}}</a>
 		</div>
 
 <!-- 		 <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
