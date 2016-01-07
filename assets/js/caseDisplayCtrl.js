@@ -15,9 +15,14 @@ angular.module('MCDSearch.caseDisplay', [])
 
 	$scope.showCase = false;
 
-	$scope.$on('resetPagination', function(event) {
+	$scope.$on('RESET-PAGINATION', function(event) {
 		$scope.showCase = false;
 	})
+
+	$scope.$on('RESET-CASE', function(event) {
+		$scope.showCase = false;
+	})
+
 
 	$scope.$on('DISPLAYCASE', function(event, data) {
 

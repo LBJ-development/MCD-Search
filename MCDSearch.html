@@ -42,45 +42,45 @@
 				<li ng-if="boundaryLinks" ng-class="{disabled: noPrevious()||ngDisabled}" class="pagination-first">
 					<a href ng-click"selectPage(1, $event)">{{getText('first')}}</a>
 				</li>
-    			<li ng-if="directionLinks" ng-class="{disabled: noPrevious()||ngDisabled}" class="pagination-prev">
-    				/*<a href ng-click="selectPage(page - 1, $event)">{{getText('previous')}}</a>*/
-    				<a href ng-click="selectPage(page - 1, $event)">Ludwig</a>
-    			</li>
-    			<li ng-repeat="page in pages track by $index" ng-class="{active: page.active,disabled: ngDisabled&&!page.active}" class="pagination-page">
-    				<a href ng-click="selectPage(page.number, $event)">{{page.text}}</a>
-    			</li>
-    			<li ng-if="directionLinks" ng-class="{disabled: noNext()||ngDisabled}" class="pagination-next">
-    				<a href ng-click="selectPage(page + 1, $event)">{{getText('next')}}</a>
-    			</li>
-    			<li ng-if="boundaryLinks" ng-class="{disabled: noNext()||ngDisabled}" class="pagination-last">
-    				<a href ng-click="selectPage(totalPages, $event)">{{getText('last')}}</a>
-    			</li>
-    		</ul>
+				<li ng-if="directionLinks" ng-class="{disabled: noPrevious()||ngDisabled}" class="pagination-prev">
+					/*<a href ng-click="selectPage(page - 1, $event)">{{getText('previous')}}</a>*/
+					<a href ng-click="selectPage(page - 1, $event)">Ludwig</a>
+				</li>
+				<li ng-repeat="page in pages track by $index" ng-class="{active: page.active,disabled: ngDisabled&&!page.active}" class="pagination-page">
+					<a href ng-click="selectPage(page.number, $event)">{{page.text}}</a>
+				</li>
+				<li ng-if="directionLinks" ng-class="{disabled: noNext()||ngDisabled}" class="pagination-next">
+					<a href ng-click="selectPage(page + 1, $event)">{{getText('next')}}</a>
+				</li>
+				<li ng-if="boundaryLinks" ng-class="{disabled: noNext()||ngDisabled}" class="pagination-last">
+					<a href ng-click="selectPage(totalPages, $event)">{{getText('last')}}</a>
+				</li>
+			</ul>
 		</script>
-	
 	</head>
 	<body ng-app="RFIapp" ng-controller="MCDCtrl">
 <!-- HTML  //////////////////////////////////////////////////////// --> 
 		<div id="wrapper" class="clearfix" >
 			<div id="masthead" class="clearfix">
-				<div id="MK-logo" class="clearfix debugging"></div>
-				<div class="title show-hide debugging" ng-show="stateName == 'mainSearch'">MCD Google Search</div>
-				<search-ncmec  ng-show="stateName == 'searchResult'" class="debugging"></search-ncmec>
-				<div id="logout-btn" class="show-hide" ng-hide="sessionStorage.userName">
-					<a href="" class="logout" ng-click="logout()" >Logout</a>
+				<div id="MK-logo" class="clearfix"></div>
+				<div class="logout-btn" class="show-hide" ng-hide="sessionStorage.userName">
+					<a href=""  ng-click="logout()" >Logout</a>
 				</div>
+				<div class="title show-hide" ng-show="stateName == 'mainSearch'">MCD Google Search</div>
+				<search-ncmec  ng-show="stateName == 'searchResult'" ></search-ncmec>
+				
 			</div>
 			<div ui-view="" class="fader-animation"></div>
 		</div>
 
 		<!-- ALERT BOX-->
 		<div id="dialog" title="Please follow this link:">
-  	
-  			<a ng-href='{{link}}' target="_blank">{{link}}</a>
+	
+			<a ng-href='{{link}}' target="_blank">{{link}}</a>
 		</div>
 
 <!-- 		 <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-      <button class='btn' ng-click="addAlert()">Add Alert</button> -->
+	  <button class='btn' ng-click="addAlert()">Add Alert</button> -->
 
 <!-- CONTROLER  //////////////////////////////////////////////////////// --> 
 		<script type="text/javascript" src="app.js"></script>         

@@ -42,8 +42,7 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 
 	$scope.getCase = function(link, caseID){
 
-		console.log("FROM GET CASE!");
-		console.log(caseID);
+		$rootScope.$broadcast('RESET-CASE');
 
 		if(caseID == undefined){
 
@@ -75,7 +74,7 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 		//url = MCDSearch.contextPath + searchString + "/0/10/" + collection;
 		url = MCDSearch.contextPath + searchString + "/0/10/" + "MCDTest";
 
-		$rootScope.$broadcast('resetPagination');
+		$rootScope.$broadcast('RESET-PAGINATION');
 
 		DataFtry.searchNCMEC(url).then(function(data){
 			
@@ -124,7 +123,7 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 .controller('PaginationCtrl', function ($rootScope, $scope, $log) {
 
 	//RESET THE PAGINATION TO THE FIRST PAGE WHEN USER MAKE A NEW SEARCH
-	$scope.$on('resetPagination', function(event) {
+	$scope.$on('RESET-PAGINATION', function(event) {
 		$scope.currentPage = 1;
 	})
 
