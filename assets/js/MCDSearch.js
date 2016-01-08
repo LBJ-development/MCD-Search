@@ -12,6 +12,9 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 	$scope.showPagination = false;
 	$scope.totReports = 0;
 
+	$scope.caseTitle;
+	$scope.caseLink;
+
 	var searchString;
 	var collection;
 	var url;
@@ -22,13 +25,11 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 
 	$scope.init = function (){
 		$rootScope.loggedIn = false; // If the "logout" link needs to be displayed
-
 	}
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
 		$scope.stateName = toState.name;
 	})
-
 
 	$scope.$watch (
 		function () {
@@ -40,12 +41,15 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 		$scope.$apply();
 	});
 
-	$scope.getCase = function(link, caseID){
+	$scope.getCase = function(link, caseID, title){
+
+		$scope.caseTitle 	= title;
+		$scope.caseLink 	= link;
 
 		$rootScope.$broadcast('RESET-CASE');
 
 		if(caseID == undefined){
-
+			// CREATE AN ERROR WINDOW WITH A LINK THAT ALLOWS TO DISPLAY THE CASE IN A NEW TAB
 			$("#dialog").dialog({
 				modal: true,
 				show: { effect: "fadeIn", duration: 500 },

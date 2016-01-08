@@ -110,4 +110,27 @@
                 <label>Missing Country: </label> <span>{{child.missingfromcountry}}</span>
             </div>
         </div>
+         <div class="sub-title">Child {{$index + 1}} Recovery Information</div>
+        <!-- MISSING INFORMATION///////////////////////////////////////////////////////////////////////// -->
+        <!-- DATE | LOCATION  ///////////////////////////////////////////////////////////////////////// -->
+        <div class="row ">
+            <div class="col-sm-4 form-group" ng-show="child.recoveryauthor">
+                <label>Recovery Author: </label> <span>{{child.recoveryauthor}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.recoveraddress">
+                <label>Recovery Address: </label> <span>{{child.recoveraddress}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.recoverlocation">
+                <label>Recovery Location: </label> <span>{{child.recoverlocation}}</span>
+            </div>
+             <div class="col-sm-4 form-group" ng-show="child.recoverlocdetail">
+                <label>Recovery Detail: </label> <span>{{child.recoverlocdetail}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="child.howchildrecovered">
+                <label>How Was Child Recovered: </label> <span>{{child.howchildrecovered}}</span>
+            </div>
+             <div class="col-sm-12 form-group" ng-show="child.recoverynarrative">
+                <label>Recovery Narrative: </label> <span>{{child.recoverynarrative}}</span>
+            </div>
+        </div>
     </section>

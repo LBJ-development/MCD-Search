@@ -24,6 +24,18 @@
             <div class="col-sm-4 form-group" ng-show="guardian.socialsecuritynumber">
                 <label>SSN: </label> <span>{{guardian.socialsecuritynumber}}</span>
             </div>
+             <div class="col-sm-4 form-group" ng-show="guardian.maritalstatus">
+                <label>Marital Status: </label> <span>{{guardian.maritalstatus}}</span>
+            </div>
+             <div class="col-sm-4 form-group" ng-show="guardian.countryofbirth">
+                <label>Country of Birth: </label> <span>{{guardian.countryofbirth}}</span>
+            </div>
+            <div class="col-sm-4 form-group" ng-show="guardian.relationship">
+                <label>Relation to Child: </label> <span>{{guardian.relationship}}</span>
+            </div>
+             <div class="col-sm-4 form-group" ng-show="guardian.custodytype">
+                <label>Custody Type: </label> <span>{{guardian.custodytype}}</span>
+            </div>
         <!-- </div> -->
         <!-- HOME PHONE | CELL PHONE | FAX ///////////////////////////////////////////////////////////////////////// -->
         <!-- <div class="row "> -->
@@ -65,7 +77,7 @@
        ///////////////////////////////////////////////////////////////////////// -->
         <!-- <div class="row "> -->
             <div class="col-sm-4 form-group" ng-show="guardian.county">
-                <label>County: </label> <span>{{guardian.county}} inch</span>
+                <label>County: </label> <span>{{guardian.county}}</span>
             </div>
             <div class="col-sm-4 form-group" ng-show="guardian.state">
                 <label>State: </label> <span>{{guardian.state}}</span>
