@@ -1,9 +1,8 @@
 'use strict';
 
-app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http",  "$log", "ServicesFtry", "DataFtry", "MCDSearch", "searchResult",  function(  $rootScope, $scope, $window, $state, $http, $log, ServicesFtry, DataFtry, MCDSearch, searchResult){
+app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http",  "$log", "ServicesFtry", "DataFtry", "MCDSearchPath", "searchResult", "searchParams",  function(  $rootScope, $scope, $window, $state, $http, $log, ServicesFtry, DataFtry, MCDSearchPath, searchResult, searchParams){
 
 	var win = angular.element($window);
-
 
 	$scope.totalItems;
 	$scope.currentPage = 1;
@@ -15,17 +14,11 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 	$scope.caseTitle;
 	$scope.caseLink;
 
-	var searchString;
-	var collection;
-	var url;
+	var searchString, collection, url;
 
 	$scope.stateName;
 	$scope.search = { searchString: "", collection: "" };
 	$scope.results = [];
-
-	$scope.init = function (){
-		$rootScope.loggedIn = false; // If the "logout" link needs to be displayed
-	}
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
 		$scope.stateName = toState.name;
@@ -37,6 +30,7 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 			//$(".sectionWrapper").css("max-height", ($("#resultList").height() - 100));
 		}
 	);
+
 	win.bind('resize', function () {
 		$scope.$apply();
 	});
@@ -45,7 +39,6 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 
 		$scope.caseTitle 	= title;
 		$scope.caseLink 	= link;
-
 		$rootScope.$broadcast('RESET-CASE');
 
 		if(caseID == undefined){
@@ -64,7 +57,6 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 			var caseN = searchResult.contextPath + caseID;
 
 			DataFtry.searchNCMEC(caseN).then(function(data){
-			
 				$rootScope.$broadcast('DISPLAYCASE',data);
 				//$state.go('searchResult.case');
 			});
@@ -75,8 +67,8 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 
 		searchString = $scope.search.searchString;
 		collection = $scope.search.collection != "" ? collection =  $scope.search.collection : collection = "default_collection" ;
-		//url = MCDSearch.contextPath + searchString + "/0/10/" + collection;
-		url = MCDSearch.contextPath + searchString + "/0/10/" + "MCDTest";
+		//url = MCDSearchPath.contextPath + searchString + "/0/10/" + collection;
+		url = MCDSearchPath.contextPath + searchString + "/0/10/" + "MCDTest";
 
 		$rootScope.$broadcast('RESET-PAGINATION');
 
@@ -95,8 +87,8 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 	$scope.$on('PAGECHANGED', function(event, page) {
 
 		var setPage =  ((page * 10) - 10);
-		//url = MCDSearch.contextPath + searchString + "/" + setPage  + "/10/" + collection;
-		url = MCDSearch.contextPath + searchString + setPage + "/10/" + "MCDTest";
+		//url = MCDSearchPath.contextPath + searchString + "/" + setPage  + "/10/" + collection;
+		url = MCDSearchPath.contextPath + searchString + setPage + "/10/" + "MCDTest";
 
 		DataFtry.searchNCMEC(url).then(function(data){
 			$scope.results = data.results;
@@ -105,12 +97,19 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 		});
 	});
 
+	$scope.$on('INIT-SEARCH', function(event) {
+		console.log("FROM INIT-SEARCH")
+		console.log(searchParams.getSearchString());
+		
+	})
+
 // LOGOUT & CLEANING /////////////////////////////////////////////////////////////////
 	$rootScope.logout = function(data) {
 
 		$scope.log = '';
 		$state.go('login');
 		sessionStorage.clear();
+		$rootScope.loggedIn = false;
 		//$scope.cleanCase();
 	};
 

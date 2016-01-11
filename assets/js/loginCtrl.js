@@ -34,11 +34,7 @@ angular.module('RFIapp.login', [])
                     $scope.username = "";
                     $scope.password = "";
                     if(data.status.status == 'SUCCESS') {
-
-                        // console.log("FROM SUCCESS");
-                        // console.log(data.user);
                         //ServicesFtry.setRequestor(data.user);
-                        $rootScope.loggedIn =  true;
 
                         //location.path('/mainSearch');
                         $state.go('mainSearch');

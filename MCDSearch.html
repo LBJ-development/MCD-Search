@@ -63,7 +63,7 @@
 		<div id="wrapper" class="clearfix" >
 			<div id="masthead" class="clearfix">
 				<div id="MK-logo" class="clearfix"></div>
-				<div class="logout-btn" class="show-hide" ng-hide="sessionStorage.userName">
+				<div class="logout-btn" class="show-hide" ng-hide="stateName == 'login'">
 					<a href=""  ng-click="logout()" >Logout</a>
 				</div>
 				<div class="title show-hide" ng-show="stateName == 'mainSearch'">MCD Google Search</div>
