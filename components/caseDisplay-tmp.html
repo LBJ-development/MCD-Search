@@ -2,7 +2,9 @@
 <div class="form-group"  style="padding: 0 5px 0 0px">
 	
 	<span  style="display: inline-block; float: right" class="tabPos2-btn detachCase-btn"><a ng-href='{{caseLink}}' target="_blank">Detach this Case</a></span>
-	<span style="font-size:1.2em; font-weight: 600; color:#1d57a0; float: left">{{caseTitle}}</span>
+	<!-- <span style="font-size:1.2em; font-weight: 600; color:#1d57a0; float: left">{{caseTitle  | rawHtml}}</span> -->
+	<span style="font-size:1.2em; font-weight: 600; color:#1d57a0; float: left" ng-bind-html="caseTitle | rawHtml"></span>
+	
 </div>
 <div class="caseMenu clearfix" style="padding:10px 20px 10px 0px; float: left; width:100%">
 	<ul>

@@ -88,7 +88,7 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 
 		var setPage =  ((page * 10) - 10);
 		//url = MCDSearchPath.contextPath + searchString + "/" + setPage  + "/10/" + collection;
-		url = MCDSearchPath.contextPath + searchString + setPage + "/10/" + "MCDTest";
+		url = MCDSearchPath.contextPath + searchString + "/" + setPage + "/10/" + "MCDTest";
 
 		DataFtry.searchNCMEC(url).then(function(data){
 			$scope.results = data.results;
@@ -111,6 +111,7 @@ app.controller('MCDCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http"
 		sessionStorage.clear();
 		$rootScope.loggedIn = false;
 		//$scope.cleanCase();
+		$scope.search.searchString = "";
 	};
 
 	$scope.emptyObject = function (){
