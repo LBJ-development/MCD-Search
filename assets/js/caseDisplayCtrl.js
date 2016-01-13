@@ -23,8 +23,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		$scope.showCase = false;
 	})
 
-
-	$scope.$on('DISPLAYCASE', function(event, data) {
+	$scope.$on('DISPLAY-CASE', function(event, data) {
 
 		$scope.showCase = true;
 

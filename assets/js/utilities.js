@@ -2,65 +2,30 @@
 
 angular.module('MCDSearch.utilities', [])
 
-.factory('searchParams', function(){
-
-	var searchString, collection, url;
-
-	return{
-		setSearchString: function(searchString){
-
-			searchString = searchString;
-			console.log("SET SEARCH...")
-			console.log(searchString);
-		},
-		getSearchString: function(){
-			console.log("GET SEARCH...")
-			console.log(searchString);
-		
-			return searchString;
-		},
-		setCollection: function(collection){
-			collection = collection;
-		},
-		getCollection: function(){
-			return collection;
-		}
-	}
-})
-
-// SUMMARY CONTROLLER /////////////////////////////////////////////////////////
-.controller('SearchCtrl', function($rootScope, $scope, searchParams){
-
-
-	$scope.testNCMEC = function() {
-
-		var collection = $scope.search.collection != "" ? collection =  $scope.search.collection : collection = "default_collection" ;
-		//url = MCDSearchPath.contextPath + searchString + "/0/10/" + collection;
-		//var url = MCDSearchPath.contextPath + searchString + "/0/10/" + "MCDTest";
-
-		searchParams.setSearchString($scope.search.searchString);
-		searchParams.setCollection(collection);
-
-		$rootScope.$broadcast('INIT-SEARCH');
-
-		/*DataFtry.searchNCMEC(url).then(function(data){
-			console.log(data);
-		});*/
-	};
-})
 // GOOGLE SEARCH DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('searchNcmec', function ( $rootScope, DataFtry, MCDSearchPath) {
+.directive ('searchNcmec', function () {
 	return {
 		restrict: 'E',
 		transclude: true,
-		controller: 'SearchCtrl',
 		//scope: true,
 		templateUrl: 'components/searchNCMEC-tmp.html',
 		link: function (scope, element, attrs){
-
 		}
 	};
 })
+// PAGINATION CONTROLER ///////////////////////////////////////////////////////
+.controller('PaginationCtrl', function ($rootScope, $scope, $log) {
+	//RESET THE PAGINATION TO THE FIRST PAGE WHEN USER MAKE A NEW SEARCH
+	$scope.$on('RESET-PAGINATION', function(event) {
+		$scope.currentPage = 1;
+	});
+
+	$scope.pageChanged = function() {
+		$log.log('Page changed to: ' + $scope.currentPage);
+		$rootScope.$broadcast('PAGE-CHANGED', $scope.currentPage);
+	};
+});
+
 
 /*
 // SUMMARY CONTROLLER /////////////////////////////////////////////////////////

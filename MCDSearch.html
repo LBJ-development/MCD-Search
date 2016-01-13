@@ -58,7 +58,7 @@
 			</ul>
 		</script>
 	</head>
-	<body ng-app="RFIapp" ng-controller="MCDCtrl">
+	<body ng-app="RFIapp" ng-controller="MainCtrl">
 <!-- HTML  //////////////////////////////////////////////////////// --> 
 		<div id="wrapper" class="clearfix" >
 			<div id="masthead" class="clearfix">
@@ -66,7 +66,7 @@
 				<div class="logout-btn" class="show-hide" ng-hide="stateName == 'login'">
 					<a href=""  ng-click="logout()" >Logout</a>
 				</div>
-				<div class="title show-hide" ng-show="stateName == 'mainSearch'">MCD Google Search</div>
+				<div class="title show-hide" ng-show="stateName == 'mainSearch' || stateName == 'login' ">MCD Google Search</div>
 				<search-ncmec  ng-show="stateName == 'searchResult'" ></search-ncmec>
 				
 			</div>
@@ -84,7 +84,7 @@
 
 <!-- CONTROLER  //////////////////////////////////////////////////////// --> 
 		<script type="text/javascript" src="app.js"></script>         
-		<script type="text/javascript" src="assets/js/MCDSearch.js"></script>
+		<script type="text/javascript" src="assets/js/mainCtrl.js"></script>
 		<script type="text/javascript" src="assets/js/loginCtrl.js"></script>
 		<script type="text/javascript" src="assets/js/services.js"></script>
 		<script type="text/javascript" src="assets/js/utilities.js"></script>

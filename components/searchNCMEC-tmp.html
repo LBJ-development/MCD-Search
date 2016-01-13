@@ -1,10 +1,11 @@
 <form class="searchForm">
 	<div class="row ">
 		<div class="col-sm-10 form-group center">
+			<div class="col-sm-3 form-group"></div>
 			<div class="col-sm-5 form-group" >
 				<input type="text" class="form-control" ng-model="search.searchString"  />
 			</div>	
-			<div class="col-sm-3 form-group">
+			<!-- <div class="col-sm-3 form-group">
 				<select class="form-control" ng-model="search.collection">
 					<option value="">Select a Collection</option>
 					<option value="default_collection">All Collections</option>
@@ -14,10 +15,9 @@
 					<option value="SexOffenderTracking">Sex Offender Tracking</option>
 					<option value="TA">TA</option>
 				</select>
-			</div>	
+			</div>	 -->
 			<div class="col-sm-3 form-group " style="text-align:left; padding: 0 5px 0 15px" >
-				<button class="btn-primary" ng-click="searchNCMEC()">SEARCH</button>
-				<button class="btn-primary" ng-click="testNCMEC()">TEST</button>
+				<button  ng-click="initSearch()" ng-disabled="search.searchString.length == 0" ng-class="search.searchString.length > 0 ? 'btn-primary' : 'btn-disabled' " >SEARCH</button>
 			</div>
 		</div>
 	</div>
