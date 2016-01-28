@@ -88,7 +88,11 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 			var caseN = searchResult.contextPath + caseID;
 
 			DataFtry.searchNCMEC(caseN).then(function(data){
+
+				console.log("FROM GETDATA!");
+
 				$rootScope.$broadcast('DISPLAY-CASE',data);
+
 				//$state.go('searchResult.case');
 			});
 		}

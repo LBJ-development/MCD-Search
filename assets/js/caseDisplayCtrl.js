@@ -36,7 +36,10 @@ angular.module('MCDSearch.caseDisplay', [])
 		$scope.linksList        = data.Links;
 
 		//$state.go('searchResult.case.children');
-		//console.log("FROM DISLAYCASE");
+
+		console.log("FROM DISLAYCASE");
+		//console.log(data)
+
 	});
 
 	$scope.children = true;
@@ -89,6 +92,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		controller: 'CaseDisplayCtrl',
 		templateUrl: 'components/caseDisplay-tmp.html',
 		link: function (scope, element, attrs){
+
 		}
 	};
 })
@@ -99,6 +103,8 @@ angular.module('MCDSearch.caseDisplay', [])
 		controller: 'CaseDisplayCtrl',
 		templateUrl: 'components/children-tmp.html',
 		link: function (scope, element, attrs){
+
+			// console.log("FROM CHILDREN DIRECTIVE!")
 		}
 	};
 })
