@@ -3,7 +3,15 @@
 angular.module('MCDSearch.caseDisplay', [])
 
 // CASE DISPLAY CONTROLLER /////////////////////////////////////////////////////////
-.controller('CaseDisplayCtrl', function($scope, $state){
+.controller('CaseDisplayCtrl', ["$scope", "$state", "MapArrayFtry", function($scope, $state, MapArrayFtry){
+
+	var dataScheme;
+
+	MapArrayFtry.mapArray().then(function(data){
+		dataScheme = data;
+		console.log("FROM MAIN");
+		console.log(data);
+	})
 
 	$scope.childrenList = [];
 	$scope.csawList = [];
@@ -37,7 +45,7 @@ angular.module('MCDSearch.caseDisplay', [])
 
 		//$state.go('searchResult.case.children');
 
-		console.log("FROM DISLAYCASE");
+		// console.log("FROM DISLAYCASE");
 		//console.log(data)
 
 	});
@@ -82,7 +90,7 @@ angular.module('MCDSearch.caseDisplay', [])
 				$scope.children = true;
 		}
 	};
-})
+}])
 
 // CASE DISPLAY DIRECTIVE ///////////////////////////////////////////////////////
 .directive ('caseDisplay',function ( $rootScope) {

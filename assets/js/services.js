@@ -3,27 +3,52 @@
 //  SETTER AND GETTER FOR THE REQUESTOR ///////////////////////////////////////////////////////////
 angular.module('RFIapp.services', [])
 
-.factory('ServicesFtry', function() {
 
-		var requestorInfo = {};
+.factory('MapArrayFtry', [ 'DataFtry' , '$q' ,   function(DataFtry, $q) {
 
-		var setRequestor = function(requestor) {
-				requestorInfo = requestor;
-		};
+	var mapArray = function(){
 
-		var getRequestor = function() {
-				return requestorInfo;
-		};
-		return {
-					setRequestor: setRequestor,
-				getRequestor: getRequestor
-		};
-})
+		var scheme = new Object({
+			tabsLabels : [],
+			fieldsLabels : [],
+			dbLabels : []
+		})
+
+		var url = "http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
+
+		var $promise =  DataFtry.getData(url).then(function(data){
+
+			for(var i = 1; i<(data.length - 1); i++){
+				
+				scheme.tabsLabels.push(data[i].Tab_Label);
+				scheme.fieldsLabels.push(data[i].display_columns
+					.toString()
+					.replace(/\t/g, '').replace(/\n/g, '')
+					.split(","));
+				scheme.dbLabels.push(data[i].dbcolumns
+					.toString()
+					.replace(/\t/g, '')
+					.replace(/\n/g, '')
+					.split(","));
+				}
+			})
+		var deferred = $q.defer();
+
+		$promise.then(function(){
+			deferred.resolve(scheme);
+			});
+		return deferred.promise;
+		}
+	return {
+		mapArray: mapArray,
+	}	
+}])
+
 
 //  DATA FACTORY ///////////////////////////////////////////////////////////
-.factory('DataFtry', [ '$http' , '$q' , 'RFIConfig',   function($http, $q, RFIConfig) {
+.factory('DataFtry', [ '$http' , '$q' ,   function($http, $q) {
 
-	var getData = function(url){
+/*	var getData = function(url){
 		var $promise =  $http({
 				method: 'GET',
 				url:  url,
@@ -31,11 +56,10 @@ angular.module('RFIapp.services', [])
 			});
 			var deferred = $q.defer();
 			$promise.then(function(result){
-/*        console.log("FROM GETDATA");
-				console.log(result);*/
+
 				if(result.data.status.status == 'SUCCESS'){
 					deferred.resolve(result);
-				} else  if(result.data.status.status == 'FAILED') {
+				} else  if( result.data.status.status == 'FAILED') {
 					alert(result.data.status.message);
 				}
 			});
@@ -64,34 +88,23 @@ angular.module('RFIapp.services', [])
 			});
 			return deferred.promise;
 		};
-
-	var searchNCMEC = function(url, data){
-
+*/
+	var getData = function(url){
 		var $promise =  $http({
 			method: 'GET',
 			url:  url,
-			headers: {'Content-Type': 'application/json'},
-			data: data
+			headers: {'Content-Type': 'application/json'}
 		});
+
 		var deferred = $q.defer();
+
 		$promise.then(function(result){
-
 			deferred.resolve(result.data);
-			//console.log("FROM SEARCH NCMEC!")
-
-			/*if(result.data.status == 'SUCCESS'){
-				deferred.resolve(result.data.message);
-				} else {
-					alert('Woops something wen wrong with the AJAX call');
-				}*/
 			});
-			return deferred.promise;
+		return deferred.promise;
 		};
-
-		return {
-			getData		: getData,
-			sendDat		: sendData,
-			searchNCMEC	: searchNCMEC
+	return {
+		getData	: getData
 	};
 }]);
 

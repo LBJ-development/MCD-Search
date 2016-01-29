@@ -4,7 +4,7 @@
 
 angular.module('RFIapp.login', [])
 
-    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http', 'ServicesFtry' , 'MCDSearchPath', function($rootScope, $scope,  $state, $http, ServicesFtry, MCDSearchPath) {
+    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http',  'MCDSearchPath', function($rootScope, $scope,  $state, $http, MCDSearchPath) {
 
         $scope.login = function() {
           /*  console.log("FROM LOGIN");

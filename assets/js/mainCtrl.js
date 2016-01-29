@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http",  "$log", "ServicesFtry", "DataFtry", "MCDSearchPath", "searchResult",  function(  $rootScope, $scope, $window, $state, $http, $log, ServicesFtry, DataFtry, MCDSearchPath, searchResult){
+app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry",  function(  $rootScope, $scope, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry){
 
 	var win = angular.element($window);
 	var searchString, collection, url, setPage;
@@ -17,6 +17,14 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 	$scope.stateName;
 	$scope.search = { searchString: "", collection: "" };
 	$scope.results = [];
+
+/*	var dataScheme;
+
+	MapArrayFtry.mapArray().then(function(data){
+		dataScheme = data;
+		console.log("FROM MAIN");
+		console.log(data);
+	})*/
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
 		$scope.stateName = toState.name;
@@ -53,7 +61,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 		//url = MCDSearchPath.contextPath + searchString + "/0/10/" + collection;
 		url = MCDSearchPath.contextPath + searchString + "/" + setPage + "/10/" + "MCDTest";
 
-		DataFtry.searchNCMEC(url).then(function(data){
+		DataFtry.getData(url).then(function(data){
 
 			if(setPage === 0){
 				$scope.setPage = 1;
@@ -87,9 +95,9 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 			// DISPLAY THE CASE WITHIN THE APP. 
 			var caseN = searchResult.contextPath + caseID;
 
-			DataFtry.searchNCMEC(caseN).then(function(data){
+			DataFtry.getData(caseN).then(function(data){
 
-				console.log("FROM GETDATA!");
+				// console.log("FROM GETDATA!");
 
 				$rootScope.$broadcast('DISPLAY-CASE',data);
 
