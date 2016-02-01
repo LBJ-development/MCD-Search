@@ -112,18 +112,10 @@
 			}
 		},
 		{
-			"file": "components/children-tmp.html",
-			"settings":
-			{
-				"buffer_size": 7935,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "components/caseDisplay-tmp.html",
 			"settings":
 			{
-				"buffer_size": 1809,
+				"buffer_size": 1827,
 				"line_ending": "Windows"
 			}
 		},
@@ -139,7 +131,15 @@
 			"file": "assets/js/services.js",
 			"settings":
 			{
-				"buffer_size": 2426,
+				"buffer_size": 2502,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "components/children-mapped.html",
+			"settings":
+			{
+				"buffer_size": 550,
 				"line_ending": "Windows"
 			}
 		},
@@ -155,15 +155,15 @@
 			"file": "assets/js/caseDisplayCtrl.js",
 			"settings":
 			{
-				"buffer_size": 4238,
+				"buffer_size": 5292,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "assets/js/loginCtrl.js",
+			"file": "assets/js/utilities.js",
 			"settings":
 			{
-				"buffer_size": 2845,
+				"buffer_size": 5922,
 				"line_ending": "Windows"
 			}
 		}
@@ -252,6 +252,8 @@
 	},
 	"file_history":
 	[
+		"/D/workingProgress-D/MCD-googleSearch/MCD-Search/components/children-test.html",
+		"/D/workingProgress-D/MCD-googleSearch/MCD-Search/assets/js/loginCtrl.js",
 		"/C/Users/ljablonski/Documents/workingProgress-L/MCD-googleSearch/MCD-Search/components/guardian-tmp.html",
 		"/C/Users/ljablonski/Documents/workingProgress-L/MCD-googleSearch/MCD-Search/assets/js/MCDSearch.js",
 		"/C/Users/ljablonski/Documents/workingProgress-L/MCD-googleSearch/MCD-Search/MCDSearch.html",
@@ -269,7 +271,6 @@
 		"/D/workingProgress-D/MCD-googleSearch/MCD-Search/assets/less/MCD-googleSearch.less",
 		"/D/workingProgress-D/MCD-googleSearch/MCD-Search/assets/less/RFI-general.less",
 		"/D/workingProgress-D/MCD-googleSearch/MCD-Search/assets/less/RFI-typography.less",
-		"/D/workingProgress-D/MCD-googleSearch/MCD-Search/assets/js/loginCtrl.js",
 		"/D/workingProgress-D/MCD-googleSearch/MCD-Search/components/searchResult.html",
 		"/D/workingProgress-D/MCD-googleSearch/MCD-Search/components/guardian-tmp.html",
 		"/D/workingProgress-D/MCD-googleSearch/MCD-Search/components/caseDisplay-tmp.html",
@@ -378,8 +379,7 @@
 		"/D/workingProgress-D/ECMS-SVN/src/main/webapp/assets/less/kendoUI-redefined.less",
 		"/D/workingProgress-D/RFI/webapp/assets/less/.NCMEC-bootstrap.less",
 		"/C/Users/ljablonski/Desktop/temp/client/modules/home/header.html",
-		"/C/Users/ljablonski/Desktop/temp/client/modules/home/home.html",
-		"/C/Users/ljablonski/Desktop/temp/client/assets/js/routes.js"
+		"/C/Users/ljablonski/Desktop/temp/client/modules/home/home.html"
 	],
 	"find":
 	{
@@ -387,7 +387,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 90.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"C:\\Users\\ljablonski\\Documents\\workingProgress-L\\RFI\\RFI-FORM\\components,C:\\Users\\ljablonski\\Documents\\workingProgress-L\\MCD-googleSearch\\MCD-Search\\assets\\js",
@@ -402,6 +402,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"true",
 			"ServicesFtry",
 			"getData",
 			"ServicesFtry",
@@ -528,8 +529,7 @@
 			"loggedIn",
 			"caseDto",
 			"caseNumber",
-			"datepicker",
-			"1"
+			"datepicker"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -663,143 +663,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 927.0,
+						"translation.y": 895.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "components/children-tmp.html",
-					"settings":
-					{
-						"buffer_size": 7935,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"devel": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": "load-save",
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "components/caseDisplay-tmp.html",
 					"settings":
 					{
-						"buffer_size": 1809,
+						"buffer_size": 1827,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1219,
-								1219
+								1387,
+								1387
 							]
 						],
 						"settings":
@@ -904,7 +786,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "components/searchResult.html",
 					"settings":
 					{
@@ -1015,25 +897,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 255.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "assets/js/services.js",
 					"settings":
 					{
-						"buffer_size": 2426,
+						"buffer_size": 2502,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								202,
-								202
+								972,
+								972
 							]
 						],
 						"settings":
@@ -1133,6 +1015,124 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 85.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "components/children-mapped.html",
+					"settings":
+					{
+						"buffer_size": 550,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								414,
+								414
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"devel": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1265,15 +1265,15 @@
 					"file": "assets/js/caseDisplayCtrl.js",
 					"settings":
 					{
-						"buffer_size": 4238,
+						"buffer_size": 5292,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								316,
-								316
+								1471,
+								1471
 							]
 						],
 						"settings":
@@ -1372,25 +1372,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1008.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 7,
-					"file": "assets/js/loginCtrl.js",
+					"file": "assets/js/utilities.js",
 					"settings":
 					{
-						"buffer_size": 2845,
+						"buffer_size": 5922,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								189,
-								189
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1485,11 +1485,9 @@
 								"Ruby on Rails": "ruby"
 							},
 							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
-						"translation.x": 247.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -1526,7 +1524,7 @@
 		"cols":
 		[
 			0.0,
-			0.489689478577,
+			0.370662174823,
 			1.0
 		],
 		"rows":

@@ -1,5 +1,5 @@
 <!-- <div ng-controller="CaseDisplayCtrl"> -->
-<div class="form-group"  style="padding: 0 5px 0 0px">
+<div class="form-group"  style="padding: 0 5px 0 0px" on-in>
 	
 	<span  style="display: inline-block; float: right" class="tabPos2-btn detachCase-btn"><a ng-href='{{caseLink}}' target="_blank">Detach this Case</a></span>
 	<!-- <span style="font-size:1.2em; font-weight: 600; color:#1d57a0; float: left">{{caseTitle  | rawHtml}}</span> -->
@@ -24,7 +24,7 @@
 	</ul>
 </div>
 
-<div class="sectionWrapper" style="float: left">
+<div class="sectionWrapper" style="float: left; width:100%">
 	<children-dir class="show-hide" ng-show="children"></children-dir>
 	<guardian-dir class="show-hide" ng-show="guardians"></guardian-dir>
 	<csaw-dir class="show-hide" ng-show="csaws"></csaw-dir>

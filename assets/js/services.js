@@ -14,7 +14,9 @@ angular.module('RFIapp.services', [])
 			dbLabels : []
 		})
 
-		var url = "http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
+		var url = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
+
+		//var urlServer = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/";
 
 		var $promise =  DataFtry.getData(url).then(function(data){
 

@@ -1,0 +1,14 @@
+<!-- <section class="children" ng-repeat="child in childrenList track by $index"> -->
+		<div class="pers-sep"></div>
+		<!--<div class="sub-title">Child {{$index + 1}} Description</div>-->
+		<!-- NAMES ///////////////////////////////////////////////////////////////////////// -->
+		<div class="row ">
+			<div  ng-repeat="childData in childrenData track by $index">
+				<div class="{{childData.fieldsize}} form-group">
+					<label>{{childData.label}}: </label> <span>{{childData.value}}</span>
+				</div>
+			</div>
+		</div>
+
+   
+<!--     </section> -->
