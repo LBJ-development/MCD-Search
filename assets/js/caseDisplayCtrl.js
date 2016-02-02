@@ -7,10 +7,9 @@ angular.module('MCDSearch.caseDisplay', [])
 
 	var dataScheme;
 
-	MapArrayFtry.mapArray().then(function(data){
+	// GET THE DATA SCHEME WHEN APP INIT
+	MapArrayFtry.getScheme().then(function(data){
 		dataScheme = data;
-		// console.log("FROM MAIN");
-		// console.log(data);
 	});
 
 	$scope.childrenList = [];
@@ -38,65 +37,69 @@ angular.module('MCDSearch.caseDisplay', [])
 
 		$scope.showCase = true;
 
-		$scope.childrenList     = data.Children;
-		$scope.csawList  		= data.Companions;
-		$scope.guardiansList    = data.Guardians;
-		$scope.casesList        = data.Cases;
-		$scope.leasList         = data.Leas;
-		$scope.vehiclesList     = data.Vehicles;
-		$scope.linksList        = data.Links;
+		var sections = {
+			"header" 	: 0 ,
+			"summary" 	: 1 , 
+			"children" 	: 2 ,  
+			"links" 		: 3,
+			"lea"		: 4,
+			"vehicle"	: 5,
+			"companion"	: 6,
+			"parents"	: 7,
+			"other"		: 8
+			};
+
+		$scope.childrenList 	= mapData(data.Children, sections.children);
+		$scope.csawList 	= data.Companions;
+		$scope.guardiansList	= mapData(data.Guardians, sections.parents);
+		$scope.casesList	= data.Cases;
+		$scope.leasList		= data.Leas;
+		$scope.vehiclesList 	= data.Vehicles;
+		$scope.linksList	= data.Links;
 
 		//$state.go('searchResult.case.children');
-		mapTest(data.Children);
-
 	});
 
-	function mapTest(data){
+	function mapData(data, section){
 
-		var dbLabelArray = $.map(data[0], function(value, label){
+		// MAP THE LABEL DATA INTO AN ARRAY/////////////////////////////////
+		var dbLabelArray = dbLabelArray = $.map(data[0], function(value, label){
 			return [label]
 		});
-		var valueArray = $.map(data[0], function(value, label){
-			return [value]
-		});
+		var dataSet	= []; // TO STORE THE ORIGINAL DATA VALUE SET BEFORE MAPPING
+		var valueArray 	= [];
 
-		var childrenData = [];
-
-		for(var i=0;  i< dataScheme.dbLabels[1].length; i++){
-
-			for(var n=0; n < dbLabelArray.length; n++){
-
-				if(valueArray[n].length > 0 && valueArray[n] !== "0"){
-
-					if(dataScheme.dbLabels[1][i] == dbLabelArray[n]){
-
-						var fieldsize = valueArray[n].length > 100 ? "col-sm-12" : "col-sm-4"
-
-						childrenData.push({"label" : dataScheme.fieldsLabels[1][i], "value" : valueArray[n], "fieldsize" : fieldsize })
-
-						//console.log(dataScheme.fieldsLabels[1][i] + " : " + valueArray[n]);
-					
-					}
-				}	
-			}
-
-			$scope.childrenData = childrenData;
-			//console.log($scope.childrenData);
+		// MAP THEVALUE DATA INTO AN ARRAY FOR EACH PERSONS /////////////////////////////////
+		for (var key in data){
+			valueArray = $.map(data[key], function(value, label){
+				return [value]
+			});
+			dataSet.push(valueArray);
 		}
+		//console.log(dataSet);
+		var sectionSet 	= [];
 		
-		//console.log("FROM MAPTEST");
-		// NUMBER OF CHILDREN
-		//console.log(data.length);
+		for (var key in dataSet){
 
-		//console.log(dbLabelArray);
-		//console.log(valueArray);
+			var sectionData = [];
+			for(var i=0;  i< dataScheme.dbLabels[section].length; i++){
 
-		//console.log(dataScheme.dbLabels[1]);
+				for(var n=0; n < dbLabelArray.length; n++){
+					// DON'T DISPLAY IS THERE IS NO VALUE
+					if(dataSet[key][n].length > 0 && dataSet[key][n] !== "0"){
 
+						if(dataScheme.dbLabels[section][i] == dbLabelArray[n]){
+							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
+							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4"
 
-
-
-
+							sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" : dataSet[key][n], "fieldsize" : fieldsize })
+						}
+					}	
+				}
+			}
+			sectionSet.push(sectionData)
+		}
+		return sectionSet
 	}
 
 	$scope.children = true;
@@ -170,7 +173,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/guardian-tmp.html',
+		templateUrl: 'components/guardian-mapped.html',
 		link: function (scope, element, attrs){
 		}
 	};

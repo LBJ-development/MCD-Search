@@ -6,7 +6,7 @@ angular.module('RFIapp.services', [])
 
 .factory('MapArrayFtry', [ 'DataFtry' , '$q' ,   function(DataFtry, $q) {
 
-	var mapArray = function(){
+	var getScheme = function(){
 
 		var scheme = new Object({
 			tabsLabels : [],
@@ -20,7 +20,7 @@ angular.module('RFIapp.services', [])
 
 		var $promise =  DataFtry.getData(url).then(function(data){
 
-			for(var i = 1; i<(data.length - 1); i++){
+			for(var i = 0; i < data.length; i++){
 				
 				scheme.tabsLabels.push(data[i].Tab_Label);
 				scheme.fieldsLabels.push(data[i].display_columns
@@ -42,7 +42,7 @@ angular.module('RFIapp.services', [])
 		return deferred.promise;
 		}
 	return {
-		mapArray: mapArray,
+		getScheme: getScheme,
 	}	
 }])
 
