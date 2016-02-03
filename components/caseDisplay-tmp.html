@@ -7,7 +7,14 @@
 	
 </div>
 <div class="caseMenu clearfix" style="padding:10px 20px 10px 0px; float: left; width:100%">
-	<ul>
+	<ul> 
+		<div ng-if="$index > 0" ng-repeat="label in tabsLabels track by $index" id="{{$index}}">
+			<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">{{label}}</a></li>
+			<li>|</li>
+		</div>
+	</ul>
+
+	<!-- <ul>
 		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem caseMenu-sel">Children</a></li>
 		<li>|</li>
 		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">Guardians</a></li>
@@ -21,7 +28,7 @@
 		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">Vehicles</a></li>
 		<li>|</li>
 		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">Links</a></li>
-	</ul>
+	</ul> -->
 </div>
 
 <div class="sectionWrapper" style="float: left; width:100%">
@@ -31,9 +38,11 @@
 	<lea-dir class="show-hide" ng-show="leas"></lea-dir>
 	<case-dir class="show-hide" ng-show="cases"></case-dir>
 	<vehicle-dir class="show-hide" ng-show="vehicles"></vehicle-dir>
+	<links-dir class="show-hide" ng-show="clinks"></links-dir>
 
 
 <!--  	<div  ui-view=""></div>       -->  
 
 </div>
 <!-- </div> -->
+

@@ -1,0 +1,11 @@
+<section class="links" ng-repeat="links in linksList track by $index"> 
+	<div class="pers-sep"  ng-show="$index >0"></div>
+	<div class="sub-title">Related Data</div>
+	<div class="row ">
+		<div  ng-repeat="link in linksList[$index] track by $index">
+			<div class="{{link.fieldsize}} form-group">
+				<label>{{link.label}}: </label> <span>{{link.value}}</span>
+			</div>
+		</div>
+	</div>
+</section> 

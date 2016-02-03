@@ -5,20 +5,23 @@ angular.module('MCDSearch.caseDisplay', [])
 // CASE DISPLAY CONTROLLER /////////////////////////////////////////////////////////
 .controller('CaseDisplayCtrl', ["$scope", "$state", "MapArrayFtry", function($scope, $state, MapArrayFtry){
 
+	$scope.childrenList = [];
+	$scope.csawList = [];
+	$scope.guardiansList = [];
+	$scope.summaryList = [];
+	$scope.leasList = [];
+	$scope.vehiclesList = [];
+	$scope.linksList = [];
+
+	$scope.tabsLabels = [];
+
 	var dataScheme;
 
 	// GET THE DATA SCHEME WHEN APP INIT
 	MapArrayFtry.getScheme().then(function(data){
 		dataScheme = data;
+		$scope.tabsLabels = data.tabsLabels;
 	});
-
-	$scope.childrenList = [];
-	$scope.csawList = [];
-	$scope.guardiansList = [];
-	$scope.casesList = [];
-	$scope.leasList = [];
-	$scope.vehiclesList = [];
-	$scope.linksList = [];
 
 	// MAPPED DATA
 	$scope.childrenData = [];
@@ -41,23 +44,28 @@ angular.module('MCDSearch.caseDisplay', [])
 			"header" 	: 0 ,
 			"summary" 	: 1 , 
 			"children" 	: 2 ,  
-			"links" 		: 3,
-			"lea"		: 4,
-			"vehicle"	: 5,
+			"links" 	: 3,
+			"leas"		: 4,
+			"vehicles"	: 5,
 			"companion"	: 6,
 			"parents"	: 7,
 			"other"		: 8
 			};
 
-		$scope.childrenList 	= mapData(data.Children, sections.children);
-		$scope.csawList 	= data.Companions;
-		$scope.guardiansList	= mapData(data.Guardians, sections.parents);
-		$scope.casesList	= data.Cases;
-		$scope.leasList		= data.Leas;
-		$scope.vehiclesList 	= data.Vehicles;
-		$scope.linksList	= data.Links;
+		// FIRST EMPTY THE EXISTING DATA
+		$scope.childrenList = $scope.csawList = $scope.guardiansList = $scope.summaryList = $scope.leasList = $scope.vehiclesList = $scope.linksList = [];
 
-		//$state.go('searchResult.case.children');
+		if(data.Children.length >0)$scope.childrenList 	= mapData(data.Children, sections.children);
+		if(data.Companions.length >0)$scope.csawList 	= mapData(data.Companions, sections.companion);
+		if(data.Guardians.length >0)$scope.guardiansList= mapData(data.Guardians, sections.parents);
+		if(data.Cases.length >0)$scope.summaryList		= mapData(data.Cases, sections.summary);
+		if(data.Leas.length >0)$scope.leasList			= mapData(data.Leas, sections.leas);
+		if(data.Vehicles.length >0) $scope.vehiclesList = mapData(data.Vehicles, sections.vehicles);
+		if(data.Links.length >0)$scope.linksList		= mapData(data.Links, sections.links);
+
+		// DISPLAYS THE FIRST TAB TO BE SELECTED ONLY IF NO OTHER IS SELECTED
+		if($(".caseMenuItem").hasClass( "caseMenu-sel" )){} 
+			else { $(".caseMenuItem").first().addClass('caseMenu-sel');}
 	});
 
 	function mapData(data, section){
@@ -69,14 +77,14 @@ angular.module('MCDSearch.caseDisplay', [])
 		var dataSet	= []; // TO STORE THE ORIGINAL DATA VALUE SET BEFORE MAPPING
 		var valueArray 	= [];
 
-		// MAP THEVALUE DATA INTO AN ARRAY FOR EACH PERSONS /////////////////////////////////
+		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH PERSONS /////////////////////////////////
 		for (var key in data){
 			valueArray = $.map(data[key], function(value, label){
 				return [value]
 			});
 			dataSet.push(valueArray);
 		}
-		//console.log(dataSet);
+
 		var sectionSet 	= [];
 		
 		for (var key in dataSet){
@@ -102,8 +110,9 @@ angular.module('MCDSearch.caseDisplay', [])
 		return sectionSet
 	}
 
-	$scope.children = true;
-	$scope.guardians = $scope.csaws = $scope.leas = $scope.cases = $scope.vehicles = $scope.clinks = false;
+	$scope.cases = true;
+	$scope.children = $scope.guardians = $scope.csaws = $scope.leas = $scope.vehicles = $scope.clinks = false;
+	
 
 	$scope.selectSection = function(evt){
 
@@ -114,32 +123,32 @@ angular.module('MCDSearch.caseDisplay', [])
 
 		//$state.go('searchResult.case.children');
 
-		var target = evt.currentTarget.text;
+		var target = evt.currentTarget.parentElement.parentElement.id;
 
 		switch(target) {
-			case "Children":
+			case "2":
 				$scope.children = true;
 				break;
-			case "Guardians":
+			case "7":
 				$scope.guardians = true;
 				break;
-			case "CSAW":
+			case "6":
 				$scope.csaws = true;
 				break;
-			case "LEAs":
+			case "4":
 				$scope.leas = true;
 				break;
-			case "Case":
+			case "1":
 				$scope.cases = true;
 				break;
-			case "Vehicles":
+			case "5":
 				$scope.vehicles = true;
 				break;
-			case "Links":
+			case "3":
 				$scope.clinks = true;
 				break;
 			default:
-				$scope.children = true;
+				$scope.cases = true;
 		}
 	};
 }])
@@ -183,7 +192,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/csaw-tmp.html',
+		templateUrl: 'components/csaw-mapped.html',
 		link: function (scope, element, attrs){
 		}
 	};
@@ -193,7 +202,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/lea-tmp.html',
+		templateUrl: 'components/lea-mapped.html',
 		link: function (scope, element, attrs){
 		}
 	};
@@ -203,7 +212,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/case-tmp.html',
+		templateUrl: 'components/summary-mapped.html',
 		link: function (scope, element, attrs){
 		}
 	};
@@ -213,11 +222,22 @@ angular.module('MCDSearch.caseDisplay', [])
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/vehicle-tmp.html',
+		templateUrl: 'components/vehicle-mapped.html',
 		link: function (scope, element, attrs){
 		}
 	};
 })
+// VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('linksDir',function ( $rootScope) {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/links-mapped.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+
 
 
 

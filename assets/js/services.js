@@ -20,7 +20,7 @@ angular.module('RFIapp.services', [])
 
 		var $promise =  DataFtry.getData(url).then(function(data){
 
-			for(var i = 0; i < data.length; i++){
+			for(var i = 0; i < (data.length -1); i++){
 				
 				scheme.tabsLabels.push(data[i].Tab_Label);
 				scheme.fieldsLabels.push(data[i].display_columns
