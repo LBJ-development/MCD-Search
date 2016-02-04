@@ -14,6 +14,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.linksList = [];
 
 	$scope.tabsLabels = [];
+	$scope.header = "";
 
 	var dataScheme;
 
@@ -55,13 +56,15 @@ angular.module('MCDSearch.caseDisplay', [])
 		// FIRST EMPTY THE EXISTING DATA
 		$scope.childrenList = $scope.csawList = $scope.guardiansList = $scope.summaryList = $scope.leasList = $scope.vehiclesList = $scope.linksList = [];
 
-		if(data.Children.length >0)$scope.childrenList 	= mapData(data.Children, sections.children);
-		if(data.Companions.length >0)$scope.csawList 	= mapData(data.Companions, sections.companion);
-		if(data.Guardians.length >0)$scope.guardiansList= mapData(data.Guardians, sections.parents);
+		if(data.Children.length >0)$scope.childrenList 		= mapData(data.Children, sections.children);
+		if(data.Companions.length >0)$scope.csawList 		= mapData(data.Companions, sections.companion);
+		if(data.Guardians.length >0)$scope.guardiansList	= mapData(data.Guardians, sections.parents);
 		if(data.Cases.length >0)$scope.summaryList		= mapData(data.Cases, sections.summary);
 		if(data.Leas.length >0)$scope.leasList			= mapData(data.Leas, sections.leas);
-		if(data.Vehicles.length >0) $scope.vehiclesList = mapData(data.Vehicles, sections.vehicles);
-		if(data.Links.length >0)$scope.linksList		= mapData(data.Links, sections.links);
+		if(data.Vehicles.length >0) $scope.vehiclesList 		= mapData(data.Vehicles, sections.vehicles);
+		//if(data.Links.length >0)$scope.linksList			= mapData(data.Links, sections.links);
+		$scope.linksList					= data.Links;
+		$scope.header				 		= data.Header[0].headerTxt;
 
 		// DISPLAYS THE FIRST TAB TO BE SELECTED ONLY IF NO OTHER IS SELECTED
 		if($(".caseMenuItem").hasClass( "caseMenu-sel" )){} 
@@ -151,10 +154,11 @@ angular.module('MCDSearch.caseDisplay', [])
 				$scope.cases = true;
 		}
 	};
+
 }])
 
 // CASE DISPLAY DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('caseDisplay',function ( $rootScope) {
+.directive ('caseDisplay',function ( ) {
 	return {
 		restrict: 'E',
 		transclude: true,
@@ -166,7 +170,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	};
 })
 // CHILDREN DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('childrenDir',function ( $rootScope) {
+.directive ('childrenDir',function ( ) {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
@@ -178,7 +182,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	};
 })
 // GUARDIAN DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('guardianDir',function ( $rootScope) {
+.directive ('guardianDir',function ( ) {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
@@ -188,7 +192,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	};
 })
 // CSAW DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('csawDir',function ( $rootScope) {
+.directive ('csawDir',function ( ) {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
@@ -198,7 +202,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	};
 })
 // LEA DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('leaDir',function ( $rootScope) {
+.directive ('leaDir',function () {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
@@ -208,7 +212,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	};
 })
 // CASE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('caseDir',function ( $rootScope) {
+.directive ('caseDir',function () {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
@@ -218,7 +222,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	};
 })
 // VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('vehicleDir',function ( $rootScope) {
+.directive ('vehicleDir',function ( ) {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
@@ -228,12 +232,13 @@ angular.module('MCDSearch.caseDisplay', [])
 	};
 })
 // VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('linksDir',function ( $rootScope) {
+.directive ('linksDir',function ($rootScope, DataFtry, searchResult) {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
 		templateUrl: 'components/links-mapped.html',
 		link: function (scope, element, attrs){
+		
 		}
 	};
 })

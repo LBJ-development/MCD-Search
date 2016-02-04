@@ -75,7 +75,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 	}
 
 	// GET THE SELECTED CASE //////////////////////////////////////
-	$scope.getCase = function(link, caseID, title){
+	$scope.getCase = function(caseID, link, title){
 		$scope.caseTitle 	= title;
 		$scope.caseLink 	= link;
 		$rootScope.$broadcast('RESET-CASE');
@@ -97,11 +97,8 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 
 			DataFtry.getData(caseN).then(function(data){
 
-				// console.log("FROM GETDATA!");
-
 				$rootScope.$broadcast('DISPLAY-CASE',data);
 
-				//$state.go('searchResult.case');
 			});
 		}
 	}

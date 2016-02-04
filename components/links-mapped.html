@@ -1,11 +1,24 @@
-<section class="links" ng-repeat="links in linksList track by $index"> 
-	<div class="pers-sep"  ng-show="$index >0"></div>
-	<div class="sub-title">Related Data</div>
+<section class="links" ng-repeat="link in linksList track by $index"> 
+	<div ng-show="$index ==0">
+		<div class="pers-sep"  ng-show="$index >0"></div>
+		<div class="sub-title">Related Data</div>
+	</div>
 	<div class="row ">
-		<div  ng-repeat="link in linksList[$index] track by $index">
-			<div class="{{link.fieldsize}} form-group">
-				<label>{{link.label}}: </label> <span>{{link.value}}</span>
-			</div>
+		
+		<div class="col-sm-2 form-group">
+			<label>ID: </label> <span>{{link.id}}</span>
 		</div>
+		<div class="col-sm-3 form-group">
+			<label>Case Type: </label> <span>{{link.casetype}}</span>
+		</div>
+		<div class="col-sm-3 form-group">
+			<label>Request Type: </label> <span>{{link.request_type}}</span>
+		</div>
+		
+		<div class="col-sm-3 form-group">
+			<a href="" ng-click="getCase(link.id)">Click here to open report</p></a>
+		</div>
+		
+		
 	</div>
 </section> 
