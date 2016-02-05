@@ -1,3 +1,4 @@
+<div class="sub-title" ng-show="childrenList.length == 0">No children found in this report</div> 
 <section class="children" ng-repeat="child in childrenList track by $index"> 
 	<div class="pers-sep"  ng-show="$index >0"></div>
 	<div class="sub-title">Child {{$index + 1}} </div>

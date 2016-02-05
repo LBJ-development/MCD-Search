@@ -1,3 +1,4 @@
+<div class="sub-title" ng-show="guardiansList.length == 0">No guardian found in this report</div> 
 <section class="children" ng-repeat="guardian in guardiansList track by $index"> 
 	<div class="pers-sep"  ng-show="$index >0"></div>
 	<div class="sub-title">Guardian {{$index + 1}} </div>

@@ -18,6 +18,9 @@ angular.module('MCDSearch.caseDisplay', [])
 
 	var dataScheme;
 
+	var reportHistory = [];
+	$scope.reportHistoryIndex = 0;
+
 	// GET THE DATA SCHEME WHEN APP INIT
 	MapArrayFtry.getScheme().then(function(data){
 		dataScheme = data;
@@ -59,12 +62,16 @@ angular.module('MCDSearch.caseDisplay', [])
 		if(data.Children.length >0)$scope.childrenList 		= mapData(data.Children, sections.children);
 		if(data.Companions.length >0)$scope.csawList 		= mapData(data.Companions, sections.companion);
 		if(data.Guardians.length >0)$scope.guardiansList	= mapData(data.Guardians, sections.parents);
-		if(data.Cases.length >0)$scope.summaryList		= mapData(data.Cases, sections.summary);
-		if(data.Leas.length >0)$scope.leasList			= mapData(data.Leas, sections.leas);
-		if(data.Vehicles.length >0) $scope.vehiclesList 		= mapData(data.Vehicles, sections.vehicles);
+		if(data.Cases.length >0)$scope.summaryList			= mapData(data.Cases, sections.summary);
+		if(data.Leas.length >0)$scope.leasList				= mapData(data.Leas, sections.leas);
+		if(data.Vehicles.length >0) $scope.vehiclesList 	= mapData(data.Vehicles, sections.vehicles);
 		//if(data.Links.length >0)$scope.linksList			= mapData(data.Links, sections.links);
 		$scope.linksList					= data.Links;
 		$scope.header				 		= data.Header[0].headerTxt;
+
+		// KEEP TRACK OF THE VISITED REPORTS
+		reportHistory.push(data.Cases[0].callid);
+		//$scope.reportHistoryIndex = reportHistory.length;
 
 		// DISPLAYS THE FIRST TAB TO BE SELECTED ONLY IF NO OTHER IS SELECTED
 		if($(".caseMenuItem").hasClass( "caseMenu-sel" )){} 
@@ -116,7 +123,6 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.cases = true;
 	$scope.children = $scope.guardians = $scope.csaws = $scope.leas = $scope.vehicles = $scope.clinks = false;
 	
-
 	$scope.selectSection = function(evt){
 
 		$(".caseMenuItem").removeClass("caseMenu-sel");
@@ -155,6 +161,17 @@ angular.module('MCDSearch.caseDisplay', [])
 		}
 	};
 
+	$scope.goToPreviousRep = function(evt){
+		if( $scope.reportHistoryIndex > 0 ) $scope.reportHistoryIndex --;
+		$scope.getCase(reportHistory[$scope.reportHistoryIndex]);
+		console.log(reportHistory)
+	}
+
+	$scope.goToNextRep = function(evt){
+		$scope.reportHistoryIndex ++;
+		$scope.getCase(reportHistory[$scope.reportHistoryIndex]);
+		console.log(reportHistory);
+	}
 }])
 
 // CASE DISPLAY DIRECTIVE ///////////////////////////////////////////////////////

@@ -1,4 +1,6 @@
-<section class="links" ng-repeat="link in linksList track by $index"> 
+<div class="sub-title" ng-show="linksList.length == 0">No related data found in this report</div> 
+<section class="links" ng-repeat="link in linksList track by $index">
+
 	<div ng-show="$index ==0">
 		<div class="pers-sep"  ng-show="$index >0"></div>
 		<div class="sub-title">Related Data</div>
