@@ -1,13 +1,13 @@
 <div class="form-group"  style="padding: 0 5px 15px 0px">
 	<span class="tabPos2-btn detachCase-btn" style="display: inline-block; float: right"><a ng-href='{{caseLink}}' target="_blank">Detach this Case</a></span>
 
-	<span class="tabPos2-btn previousRep-btn" style="display: inline-block; float: left">
+	<span class="tabPos2-btn previousRep-btn" ng-show="reportHistory.length > 1" style="display: inline-block; float: left">
 		<a  href="" ng-click="goToPreviousRep()" >Previous report</a>
 	</span>
-	<span  style="font-size:0.9em; color:#758098; display: inline-block; float: left; padding:1px 1px 0 10px"> | </span>
+	<!-- <span  style="font-size:0.9em; color:#758098; display: inline-block; float: left; padding:1px 1px 0 10px"> | </span>
 	<span class="tabPos2-btn nextRep-btn" style="display: inline-block; float: left; width:150px">
 		<a  href="" ng-click="goToNextRep()" style=" margin-left:10px">Next report</a>
-	</span>
+	</span> -->
 </div>
 <div class="form-group"  style="padding: 0 5px 0 0px">
 	<!-- <span  style="display: inline-block; float: right" class="tabPos2-btn detachCase-btn"><a ng-href='{{caseLink}}' target="_blank">Detach this Case</a></span> -->

@@ -75,9 +75,9 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 	}
 
 	// GET THE SELECTED CASE //////////////////////////////////////
-	$scope.getCase = function(caseID, link, title){
-		$scope.caseTitle 	= title;
-		$scope.caseLink 	= link;
+	$scope.getCase = function(caseID){
+
+		//$scope.caseLink 	= link;
 		$rootScope.$broadcast('RESET-CASE');
 
 		if(caseID == undefined){

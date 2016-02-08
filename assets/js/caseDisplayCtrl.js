@@ -18,8 +18,7 @@ angular.module('MCDSearch.caseDisplay', [])
 
 	var dataScheme;
 
-	var reportHistory = [];
-	$scope.reportHistoryIndex = 0;
+	$scope.reportHistory = [];
 
 	// GET THE DATA SCHEME WHEN APP INIT
 	MapArrayFtry.getScheme().then(function(data){
@@ -69,8 +68,12 @@ angular.module('MCDSearch.caseDisplay', [])
 		$scope.linksList					= data.Links;
 		$scope.header				 		= data.Header[0].headerTxt;
 
+		$scope.caseLink = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/view/" + data.Cases[0].callid;
+
 		// KEEP TRACK OF THE VISITED REPORTS
-		reportHistory.push(data.Cases[0].callid);
+		if($scope.reportHistory[$scope.reportHistory.length - 1] != data.Cases[0].callid){
+			 $scope.reportHistory.push(data.Cases[0].callid)
+		};
 		//$scope.reportHistoryIndex = reportHistory.length;
 
 		// DISPLAYS THE FIRST TAB TO BE SELECTED ONLY IF NO OTHER IS SELECTED
@@ -162,16 +165,19 @@ angular.module('MCDSearch.caseDisplay', [])
 	};
 
 	$scope.goToPreviousRep = function(evt){
-		if( $scope.reportHistoryIndex > 0 ) $scope.reportHistoryIndex --;
-		$scope.getCase(reportHistory[$scope.reportHistoryIndex]);
-		console.log(reportHistory)
-	}
+		//if( $scope.reportHistoryIndex > 0 ) 
+		//$scope.reportHistory.splice($scope.reportHistory.length - 1, 1);
+		$scope.reportHistory.pop();
 
+		$scope.getCase($scope.reportHistory[($scope.reportHistory.length - 1)]);
+		console.log($scope.reportHistory + " / " + $scope.reportHistory.length);
+	}
+/*
 	$scope.goToNextRep = function(evt){
 		$scope.reportHistoryIndex ++;
 		$scope.getCase(reportHistory[$scope.reportHistoryIndex]);
 		console.log(reportHistory);
-	}
+	}*/
 }])
 
 // CASE DISPLAY DIRECTIVE ///////////////////////////////////////////////////////
