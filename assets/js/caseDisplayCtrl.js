@@ -12,6 +12,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.leasList = [];
 	$scope.vehiclesList = [];
 	$scope.linksList = [];
+	$scope.narrativeList = [];
 
 	$scope.tabsLabels = [];
 	$scope.header = "";
@@ -43,6 +44,9 @@ angular.module('MCDSearch.caseDisplay', [])
 
 		$scope.showCase = true;
 
+		console.log("FROM DISPLAY CASE");
+		console.log(data)
+
 		var sections = {
 			"header" 	: 0 ,
 			"summary" 	: 1 , 
@@ -52,27 +56,31 @@ angular.module('MCDSearch.caseDisplay', [])
 			"vehicles"	: 5,
 			"companion"	: 6,
 			"parents"	: 7,
-			"other"		: 8
+			"narrative" : 8,
+			"other"		: 9
 			};
 
 		// FIRST EMPTY THE EXISTING DATA
-		$scope.childrenList = $scope.csawList = $scope.guardiansList = $scope.summaryList = $scope.leasList = $scope.vehiclesList = $scope.linksList = [];
+		$scope.childrenList = $scope.csawList = $scope.guardiansList = $scope.summaryList = $scope.leasList = $scope.vehiclesList =   $scope.narrativeList =[];
 
-		if(data.Children.length >0)$scope.childrenList 		= mapData(data.Children, sections.children);
-		if(data.Companions.length >0)$scope.csawList 		= mapData(data.Companions, sections.companion);
-		if(data.Guardians.length >0)$scope.guardiansList	= mapData(data.Guardians, sections.parents);
-		if(data.Cases.length >0)$scope.summaryList			= mapData(data.Cases, sections.summary);
-		if(data.Leas.length >0)$scope.leasList				= mapData(data.Leas, sections.leas);
-		if(data.Vehicles.length >0) $scope.vehiclesList 	= mapData(data.Vehicles, sections.vehicles);
-		//if(data.Links.length >0)$scope.linksList			= mapData(data.Links, sections.links);
-		$scope.linksList					= data.Links;
-		$scope.header				 		= data.Header[0].headerTxt;
+		if(data.child.length >0)$scope.childrenList 		= mapData(data.child, sections.children);
+		if(data.companion.length >0)$scope.csawList 		= mapData(data.companion, sections.companion);
+		if(data.parents.length >0)$scope.guardiansList		= mapData(data.parents, sections.parents);
+		if(data.Summary.length >0)$scope.summaryList		= mapData(data.Summary, sections.summary);
+		if(data.lea.length >0)$scope.leasList				= mapData(data.lea, sections.leas);
+		if(data.vehicle.length >0) $scope.vehiclesList 		= mapData(data.vehicle, sections.vehicles);
+		if(data.links.length >0)$scope.linksList			= mapData(data.links, sections.links);
+		if(data.Narrative.length >0)$scope.narrativeList	= mapData(data.Narrative, sections.narrative);
+		$scope.linksList									= data.Links;
+		$scope.header				 						= data.Header[0].headerTxt;
 
-		$scope.caseLink = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/view/" + data.Cases[0].callid;
+		console.log(data.Narrative)
+
+		$scope.caseLink = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/view/" + data.Header[0].id;
 
 		// KEEP TRACK OF THE VISITED REPORTS
-		if($scope.reportHistory[$scope.reportHistory.length - 1] != data.Cases[0].callid){
-			 $scope.reportHistory.push(data.Cases[0].callid)
+		if($scope.reportHistory[$scope.reportHistory.length - 1] != data.Header[0].id){
+			 $scope.reportHistory.push(data.Header[0].id)
 		};
 		//$scope.reportHistoryIndex = reportHistory.length;
 
@@ -118,7 +126,9 @@ angular.module('MCDSearch.caseDisplay', [])
 					}	
 				}
 			}
-			sectionSet.push(sectionData)
+			sectionSet.push(sectionData);
+			/*console.log("SECTION DATA:");
+			console.log(sectionData);*/
 		}
 		return sectionSet
 	}
@@ -131,11 +141,13 @@ angular.module('MCDSearch.caseDisplay', [])
 		$(".caseMenuItem").removeClass("caseMenu-sel");
 		$(evt.currentTarget).addClass('caseMenu-sel');
 
-		$scope.children = $scope.guardians = $scope.csaws = $scope.leas = $scope.cases = $scope.vehicles = $scope.clinks = false;
+		$scope.children = $scope.guardians = $scope.csaws = $scope.leas = $scope.cases = $scope.vehicles = $scope.narratives =false;
 
 		//$state.go('searchResult.case.children');
 
 		var target = evt.currentTarget.parentElement.parentElement.id;
+
+		console.log(target)
 
 		switch(target) {
 			case "2":
@@ -158,6 +170,9 @@ angular.module('MCDSearch.caseDisplay', [])
 				break;
 			case "3":
 				$scope.clinks = true;
+				break;
+			case "8":
+				$scope.narrative = true;
 				break;
 			default:
 				$scope.cases = true;
@@ -265,6 +280,18 @@ angular.module('MCDSearch.caseDisplay', [])
 		}
 	};
 })
+// NARRATIVE DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('narrativeDir',function ($rootScope, DataFtry, searchResult) {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/narrative-mapped.html',
+		link: function (scope, element, attrs){
+		
+		}
+	};
+})
+
 
 
 

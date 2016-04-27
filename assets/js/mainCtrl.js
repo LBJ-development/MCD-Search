@@ -57,9 +57,9 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 	// SEARCH DATABASE //////////////////////////////////////
 	function searchNCMEC(){
 		searchString = $scope.search.searchString;
-		collection = $scope.search.collection != "" ? collection =  $scope.search.collection : collection = "default_collection" ;
-		//url = MCDSearchPath.contextPath + searchString + "/0/10/" + collection;
-		url = MCDSearchPath.contextPath + searchString + "/" + setPage + "/10/" + "MCDTest";
+		collection = $scope.search.collection != "" ? collection =  $scope.search.collection : collection = "MCDTest" ;
+		url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collection;
+		//url = MCDSearchPath.contextPath + searchString + "/" + setPage + "/10/" + "MCDTest";
 
 		DataFtry.getData(url).then(function(data){
 
