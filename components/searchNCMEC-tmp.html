@@ -1,16 +1,16 @@
 <form class="searchForm">
 	<div class="row ">
 		<div class="col-sm-10 form-group center">
-			<div class="col-sm-1 form-group"></div>
+			<!-- <div class="col-sm-1 form-group"></div> -->
 			<div class="col-sm-5 form-group" >
 				<input type="text" class="form-control" ng-model="search.searchString"  />
 			</div>	
 			<div class="col-sm-3 form-group">
-				<select class="form-control" ng-model="search.collection">
-					<option value="">Select a Collection</option>
-					<option value="socm">SOCM</option>
-					<option value="MCDTest">MCD Test</option>
-				</select>
+				 <select kendo-multi-select k-options="selectOptions" class="form-control field-k-dropDown" ng-model="search.collection">
+				 </select>
+			</div>	
+			<div class="col-sm-1 form-group">
+				<select kendo-drop-down-list k-options='andOrOptions' class='form-control field-k-dropDown' ng-model='search.andor' ng-if="displayAndOr"></select>
 			</div>	
 			<div class="col-sm-3 form-group " style="text-align:left; padding: 0 5px 0 15px" >
 				<button  ng-click="initSearch()" ng-disabled="search.searchString.length == 0" ng-class="search.searchString.length > 0 ? 'btn-primary' : 'btn-disabled' " >SEARCH</button>

@@ -12,6 +12,7 @@ angular.module('RFIapp.config', [])
 	.constant('searchResult', {
 		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/mcd/gson/287'
 		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/616541'
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/'
+		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/'
+		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/json/MCDDB/'
 	});
 

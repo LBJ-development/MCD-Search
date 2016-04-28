@@ -6,6 +6,7 @@ var app = angular.module('RFIapp', [
 	'ngRoute',
 	'ui.router',
 	'ui.bootstrap',
+	'kendo.directives',
 	'RFIapp.login',
 	'RFIapp.services',
 	'MCDSearch.utilities',

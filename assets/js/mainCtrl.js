@@ -1,9 +1,11 @@
 'use strict';
 
-app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry",  function(  $rootScope, $scope, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry){
+app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry",  function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry){
 
 	var win = angular.element($window);
 	var searchString, collection, url, setPage;
+	
+	$scope.displayAndOr = false;
 
 	$scope.currentPage = 1;
 	$scope.maxSize = 9;
@@ -15,8 +17,10 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 	$scope.caseLink;
 
 	$scope.stateName;
-	$scope.search = { searchString: "", collection: "" };
+	$scope.search = { searchString: "", collection: "", andor:"" };
 	$scope.results = [];
+
+
 
 /*	var dataScheme;
 
@@ -41,6 +45,49 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 		$scope.$apply();
 	});
 
+	var colectionOptions = [
+		{label : "MCD Test", value : "MCDTest"},
+		{label : "SOCM", value: "SOCM"}
+	];
+	var andOptions = [
+		{label : "And", value : "AND"},
+		{label : "Or", value: "OR"}
+	];
+
+	$scope.selectOptions = {
+		dataTextField: "label",
+		dataValueField: "value",
+		optionLabel: {
+			disLabel : "Select a Section",
+			dbLabel: ""
+		},
+		//dataSource: DataFtry.fakeTable().data,
+		dataSource: colectionOptions,
+		change: function(e){
+			$timeout(function() {
+				
+				$scope.search.collection.length > 1  ?  $scope.displayAndOr = true : $scope.displayAndOr = false;
+				
+			}, 300);
+		}
+	}
+
+	$scope.andOrOptions = {
+		dataTextField: "label",
+		dataValueField: "value",
+		
+		//dataSource: DataFtry.fakeTable().data,
+		dataSource: andOptions,
+		change: function(e){
+			$timeout(function() {
+
+				console.log($scope.search.andor)
+			}, 300);
+		}
+	}
+
+	console.log($scope.selectOptions.dataSource)
+
 	// WHEN CLICKING THE SEARCH BUTTON //////////////////////////////////////
 	$scope.initSearch = function() {
 		$rootScope.$broadcast('RESET-PAGINATION');
@@ -58,6 +105,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 	function searchNCMEC(){
 		searchString = $scope.search.searchString;
 		collection = $scope.search.collection != "" ? collection =  $scope.search.collection : collection = "MCDTest" ;
+		console.log(collection)
 		url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collection;
 		//url = MCDSearchPath.contextPath + searchString + "/" + setPage + "/10/" + "MCDTest";
 
