@@ -4,7 +4,7 @@ angular.module('RFIapp.config', [])
 	.constant('RFIConfig', {
 		contextPath:'http://pnguyen-l.ncmecad.net:8080/rfi'
 	})
-	.constant('MCDSearch', {
+	.constant('MCDSearchPath', {
 		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/gsa/'
 		//contextPath:'http://172.25.6.137:8080/ws-gsa/gsa/'
 		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'

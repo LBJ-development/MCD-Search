@@ -3,17 +3,29 @@
 angular.module('MCDSearch.utilities', [])
 
 // GOOGLE SEARCH DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('searchNcmec',function ( $rootScope) {
+.directive ('searchNcmec', function () {
 	return {
-	restrict: 'E',
-	transclude: true,
-	//scope: { },
-	templateUrl: 'components/searchNCMEC-tmp.html',
-	link: function (scope, element, attrs){
-
+		restrict: 'E',
+		transclude: true,
+		//scope: true,
+		templateUrl: 'components/searchNCMEC-tmp.html',
+		link: function (scope, element, attrs){
 		}
 	};
 })
+// PAGINATION CONTROLER ///////////////////////////////////////////////////////
+.controller('PaginationCtrl', function ($rootScope, $scope, $log) {
+	//RESET THE PAGINATION TO THE FIRST PAGE WHEN USER MAKE A NEW SEARCH
+	$scope.$on('RESET-PAGINATION', function(event) {
+		$scope.currentPage = 1;
+	});
+
+	$scope.pageChanged = function() {
+		$log.log('Page changed to: ' + $scope.currentPage);
+		$rootScope.$broadcast('PAGE-CHANGED', $scope.currentPage);
+	};
+});
+
 
 /*
 // SUMMARY CONTROLLER /////////////////////////////////////////////////////////

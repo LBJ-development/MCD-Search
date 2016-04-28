@@ -1,0 +1,12 @@
+<div class="sub-title" ng-show="csawList.length == 0">No CSAW found in this report</div> 
+<section class="vehicles" ng-repeat="csaws in csawList track by $index"> 
+	<div class="pers-sep"  ng-show="$index >0"></div>
+	<div class="sub-title">CSAW {{$index + 1}}</div>
+	<div class="row ">
+		<div  ng-repeat="csaw in csawList[$index] track by $index">
+			<div class="{{csaw.fieldsize}} form-group">
+				<label>{{csaw.label}}: </label> <span>{{csaw.value}}</span>
+			</div>
+		</div>
+	</div>
+</section> 

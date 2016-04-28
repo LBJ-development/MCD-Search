@@ -2,11 +2,13 @@
 
 <!-- SEARCH RESULT  //////////////////////////////////////////////////////// -->
 	<div class="tabHead">
-		<span class="tab-title">MCD Search Result</span>
-		<span style="float:right; color:white; font-family:arial; font-size: 0.9em; padding: 3px 10px 0 0; " ng-show="totReports != 0">Number of Reports: {{totReports}}</span>
+		<span class="tab-title">MCD Google Search Result</span>
+		<span style="float:right; color:white; font-family:arial; font-size: 0.9em; padding: 3px 10px 0 0;" ng-show="totalReports !== 0">Number of Reports: {{totalReports}}</span>
 	</div>
 	<div class="tabWrapper" style="opacity: 1; display:inline-block; background-color:white">
 		<div  class="clearfix">
+
+			<div style="font-size:1.3em; text-align:center; color:#1d57a0; padding:10px" ng-show="totalReports == 0">Your search didn't return any result!</div>
 
 			<!-- SEARCH RESULT LIST ///////////////////////////////////////////////////-->
 			<ul style="list-style-type: none" class="searchResultList" id="resultList">
@@ -16,7 +18,7 @@
 						<a ng-href="{{result.u}}"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a> -->
 
 						<!-- FOR DEVELOPMENT -->
-						<a href="" ng-click="getCase(result.u, result.mt[0].v, result.t)"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a>
+						<a href="" ng-click="getCase(result.mt[0].v, result.u,  result.t)"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a>
 
 						<!--  <a ui-sref=".children"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a> -->
 					</div>
@@ -32,7 +34,7 @@
 	
 		<div align="center" ng-controller="PaginationCtrl">
 			<div ng-show="showPagination" class="show-hide"> 
-				<uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="false" ng-change="pageChanged($event)">
+				<uib-pagination total-items="totalReports" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="false" ng-change="pageChanged($event)">
 				</uib-pagination>
 			</div>
 			<div class="col-sm-12 form-group">

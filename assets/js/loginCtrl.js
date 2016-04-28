@@ -4,14 +4,14 @@
 
 angular.module('RFIapp.login', [])
 
-    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http', 'ServicesFtry' , 'MCDSearch', function($rootScope, $scope,  $state, $http, ServicesFtry, MCDSearch) {
+    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http',  'MCDSearchPath', function($rootScope, $scope,  $state, $http, MCDSearchPath) {
 
         $scope.login = function() {
           /*  console.log("FROM LOGIN");
             console.log($scope.username);*/
             var req = {
                 method: 'POST',
-                url: MCDSearch.contextPath  + "getLogin" ,
+                url: MCDSearchPath.contextPath  + "getLogin" ,
                 headers: {
                     'Content-Type': 'application/json'
                 } ,
@@ -34,11 +34,7 @@ angular.module('RFIapp.login', [])
                     $scope.username = "";
                     $scope.password = "";
                     if(data.status.status == 'SUCCESS') {
-
-                        // console.log("FROM SUCCESS");
-                        // console.log(data.user);
                         //ServicesFtry.setRequestor(data.user);
-                        $rootScope.loggedIn =  true;
 
                         //location.path('/mainSearch');
                         $state.go('mainSearch');

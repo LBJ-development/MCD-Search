@@ -1,0 +1,12 @@
+<div class="sub-title" ng-show="summaryList.length == 0">No Summary found in this report</div> 
+<section class="children" ng-repeat="summary in summaryList track by $index"> 
+	<div class="pers-sep"  ng-show="$index >0"></div>
+	<div class="sub-title">Call Summary</div>
+	<div class="row ">
+		<div  ng-repeat="summaryData in summaryList[$index] track by $index">
+			<div class="{{summaryData.fieldsize}} form-group">
+				<label>{{summaryData.label}}: </label> <span>{{summaryData.value}}</span>
+			</div>
+		</div>
+	</div>
+</section> 

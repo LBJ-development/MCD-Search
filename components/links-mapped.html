@@ -1,0 +1,26 @@
+<div class="sub-title" ng-show="linksList.length == 0">No related data found in this report</div> 
+<section class="links" ng-repeat="link in linksList track by $index">
+
+	<div ng-show="$index ==0">
+		<div class="pers-sep"  ng-show="$index >0"></div>
+		<div class="sub-title">Related Data</div>
+	</div>
+	<div class="row ">
+		
+		<div class="col-sm-2 form-group">
+			<label>ID: </label> <span>{{link.id}}</span>
+		</div>
+		<div class="col-sm-3 form-group">
+			<label>Case Type: </label> <span>{{link.casetype}}</span>
+		</div>
+		<div class="col-sm-3 form-group">
+			<label>Request Type: </label> <span>{{link.request_type}}</span>
+		</div>
+		
+		<div class="col-sm-3 form-group">
+			<a href="" ng-click="getCase(link.id)">Click here to open report</p></a>
+		</div>
+		
+		
+	</div>
+</section> 
