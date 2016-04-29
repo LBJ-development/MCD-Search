@@ -6,11 +6,11 @@
 				<input type="text" class="form-control" ng-model="search.searchString"  />
 			</div>	
 			<div class="col-sm-3 form-group">
-				 <select kendo-multi-select k-options="selectOptions" class="form-control field-k-dropDown" ng-model="search.collection">
+				 <select kendo-multi-select k-options="collectionOptions" class="form-control field-k-dropDown" ng-model="search.collections">
 				 </select>
 			</div>	
-			<div class="col-sm-1 form-group">
-				<select kendo-drop-down-list k-options='andOrOptions' class='form-control field-k-dropDown' ng-model='search.andor' ng-if="displayAndOr"></select>
+			<div class="col-sm-1 form-group" ng-if="displayAndOr">
+				<select kendo-drop-down-list k-options='operandOptions' class='form-control field-k-dropDown' ng-model='search.operand' ></select>
 			</div>	
 			<div class="col-sm-3 form-group " style="text-align:left; padding: 0 5px 0 15px" >
 				<button  ng-click="initSearch()" ng-disabled="search.searchString.length == 0" ng-class="search.searchString.length > 0 ? 'btn-primary' : 'btn-disabled' " >SEARCH</button>
