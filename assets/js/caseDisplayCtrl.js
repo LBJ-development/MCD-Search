@@ -63,16 +63,16 @@ angular.module('MCDSearch.caseDisplay', [])
 		// FIRST EMPTY THE EXISTING DATA
 		$scope.childrenList = $scope.csawList = $scope.guardiansList = $scope.summaryList = $scope.leasList = $scope.vehiclesList =   $scope.narrativeList =[];
 
-		if(data.child.length >0)$scope.childrenList 		= mapData(data.child, sections.children);
-		if(data.companion.length >0)$scope.csawList 		= mapData(data.companion, sections.companion);
-		if(data.parents.length >0)$scope.guardiansList		= mapData(data.parents, sections.parents);
-		if(data.Summary.length >0)$scope.summaryList		= mapData(data.Summary, sections.summary);
-		if(data.lea.length >0)$scope.leasList				= mapData(data.lea, sections.leas);
-		if(data.vehicle.length >0) $scope.vehiclesList 		= mapData(data.vehicle, sections.vehicles);
-		if(data.links.length >0)$scope.linksList			= mapData(data.links, sections.links);
-		if(data.Narrative.length >0)$scope.narrativeList	= mapData(data.Narrative, sections.narrative);
-		$scope.linksList									= data.Links;
-		$scope.header				 						= data.Header[0].headerTxt;
+		if(data.Child.length >0)$scope.childrenList 			= mapData(data.Child, sections.children);
+		if(data.CSAW.length >0)$scope.csawList 					= mapData(data.CSAW, sections.companion);
+		if(data.Parent_Guardian.length >0)$scope.guardiansList	= mapData(data.Parent_Guardian, sections.parents);
+		if(data.Primary_Case_Info.length >0)$scope.summaryList	= mapData(data.Primary_Case_Info, sections.summary);
+		if(data.Law_Enforcement_Agent.length >0)$scope.leasList	= mapData(data.Law_Enforcement_Agent, sections.leas);
+		if(data.Vehicle.length >0) $scope.vehiclesList 			= mapData(data.Vehicle, sections.vehicles);
+		//if(data.links.length >0)$scope.linksList				= mapData(data.links, sections.links);
+		if(data.Narrative.length >0)$scope.narrativeList		= mapData(data.Narrative, sections.narrative);
+		$scope.linksList										= data.Links;
+		$scope.header				 							= data.Header[0].headerTxt;
 
 		console.log(data.Narrative)
 

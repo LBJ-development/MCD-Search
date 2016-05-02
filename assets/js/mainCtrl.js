@@ -1,21 +1,20 @@
 'use strict';
 
-app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry",  function(  $rootScope, $scope, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry){
+app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry",  function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry){
 
 	var win = angular.element($window);
-	var searchString, collection, url, setPage;
-
+	var searchString,  setPage;
+	
+	$scope.displayAndOr = false;
 	$scope.currentPage = 1;
 	$scope.maxSize = 9;
 	$scope.bigCurrentPage = 1;
 	$scope.showPagination = false;
 	$scope.totReports = 0;
-
 	$scope.caseTitle;
 	$scope.caseLink;
-
 	$scope.stateName;
-	$scope.search = { searchString: "", collection: "" };
+	$scope.search = { searchString: "", collections: "", operand:"" };
 	$scope.results = [];
 
 /*	var dataScheme;
@@ -41,6 +40,49 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 		$scope.$apply();
 	});
 
+	var collectionData = [
+		{label : "MCD Test", value : "MCDTest"},
+		{label : "SOCM", value: "SOCM"}
+	];
+	var operandData = [
+		{label : "And", value : "AND"},
+		{label : "Or", value: "OR"}
+	];
+
+	$scope.collectionOptions = {
+		dataTextField: "label",
+		dataValueField: "value",
+		placeholder: "Select a collection...",
+		
+		//dataSource: DataFtry.fakeTable().data,
+		dataSource: collectionData,
+		change: function(e){
+			$timeout(function() {
+				//console.log($scope.search.collections)
+				//console.log($scope.search.collections[0].value)
+				if($scope.search.collections) {
+					$scope.search.collections.length > 1  ?  $scope.displayAndOr = true : $scope.displayAndOr = false;
+				}
+			}, 300);
+		}
+	}
+
+	$scope.operandOptions = {
+		dataTextField: "label",
+		dataValueField: "value",
+		
+		//dataSource: DataFtry.fakeTable().data,
+		dataSource: operandData,
+		change: function(e){
+			$timeout(function() {
+
+				console.log($scope.search.andor)
+			}, 300);
+		}
+	}
+
+	//console.log($scope.selectOptions.dataSource)
+
 	// WHEN CLICKING THE SEARCH BUTTON //////////////////////////////////////
 	$scope.initSearch = function() {
 		$rootScope.$broadcast('RESET-PAGINATION');
@@ -55,14 +97,21 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$window", "$state", "$http
 	});
 
 	// SEARCH DATABASE //////////////////////////////////////
-	function searchNCMEC(){
+	function searchNCMEC(){ 
 		searchString = $scope.search.searchString;
-		collection = $scope.search.collection != "" ? collection =  $scope.search.collection : collection = "MCDTest" ;
-		url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collection;
-		//url = MCDSearchPath.contextPath + searchString + "/" + setPage + "/10/" + "MCDTest";
+
+		var url;
+		var collections = "MCDTest"; // DEFAULT
+		var operand = $scope.search.operand;
+
+		if($scope.search.collections) {
+			collections = $scope.search.collections != "" ? collections =  $scope.search.collections : collections = "MCDTest" ;
+			//console.log(collections)
+		}
+
+		url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collections + "/" + operand;
 
 		DataFtry.getData(url).then(function(data){
-
 			if(setPage === 0){
 				$scope.setPage = 1;
 				data.numHits >= 9 ? $scope.showPagination = true : $scope.showPagination = false;
