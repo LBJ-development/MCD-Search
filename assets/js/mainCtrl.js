@@ -3,9 +3,8 @@
 app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry",  function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry){
 
 	var win = angular.element($window);
-	var searchString,  setPage;
-	
-	$scope.displayAndOr = false;
+
+	$scope.displayOperand = false;
 	$scope.currentPage = 1;
 	$scope.maxSize = 9;
 	$scope.bigCurrentPage = 1;
@@ -14,16 +13,10 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$scope.caseTitle;
 	$scope.caseLink;
 	$scope.stateName;
-	$scope.search = { searchString: "", collections: "", operand:"" };
+	//$scope.search = { searchString: "", collections: "", operand:"" };
+	$scope.searchQuery = { qrTerm: "", startIndex: "", nResults: 10 , collections: "", operand: ""};
 	$scope.results = [];
 
-/*	var dataScheme;
-
-	MapArrayFtry.mapArray().then(function(data){
-		dataScheme = data;
-		console.log("FROM MAIN");
-		console.log(data);
-	})*/
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
 		$scope.stateName = toState.name;
@@ -52,16 +45,15 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$scope.collectionOptions = {
 		dataTextField: "label",
 		dataValueField: "value",
-		placeholder: "Select a collection...",
+		placeholder: "Select a collection(s)...",
 		
 		//dataSource: DataFtry.fakeTable().data,
 		dataSource: collectionData,
 		change: function(e){
 			$timeout(function() {
-				//console.log($scope.search.collections)
-				//console.log($scope.search.collections[0].value)
-				if($scope.search.collections) {
-					$scope.search.collections.length > 1  ?  $scope.displayAndOr = true : $scope.displayAndOr = false;
+
+				if($scope.searchQuery.collections) {
+					$scope.searchQuery.collections.length > 1  ?  $scope.displayOperand = true : $scope.displayOperand = false;
 				}
 			}, 300);
 		}
@@ -75,8 +67,6 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 		dataSource: operandData,
 		change: function(e){
 			$timeout(function() {
-
-				console.log($scope.search.andor)
 			}, 300);
 		}
 	}
@@ -86,47 +76,53 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	// WHEN CLICKING THE SEARCH BUTTON //////////////////////////////////////
 	$scope.initSearch = function() {
 		$rootScope.$broadcast('RESET-PAGINATION');
-		setPage =  0;
+		$scope.searchQuery.startIndex = 0; 
+		//setPage =  0;
 		searchNCMEC();
 	};
 
 	// WHEN CLICKING THE PAGINATION //////////////////////////////////////
 	$scope.$on('PAGE-CHANGED', function(event, page) {
-		setPage =  ((page * 10) - 10);
+		//setPage =  ((page * 10) - 10);
+		var nResults = $scope.searchQuery.nResults;
+		$scope.searchQuery.startIndex = ((page * nResults) - nResults);;
 		searchNCMEC();
 	});
 
 	// SEARCH DATABASE //////////////////////////////////////
 	function searchNCMEC(){ 
-		searchString = $scope.search.searchString;
 
+		var qrTerm = $scope.searchQuery.qrTerm;
+		var startIndex = $scope.searchQuery.startIndex;
+		var nResults = $scope.searchQuery.nResults;
+		var operand = $scope.searchQuery.operand;
 		var url;
-		var collections = "MCDTest"; // DEFAULT
-		var operand = $scope.search.operand;
 
-		if($scope.search.collections) {
-			collections = $scope.search.collections != "" ? collections =  $scope.search.collections : collections = "MCDTest" ;
-			//console.log(collections)
+		if($scope.searchQuery.collections == "" || $scope.searchQuery.collections == null ){
+			$scope.searchQuery.collections = ["MCDTest"];
+			console.log($scope.searchQuery.collections)
 		}
+		//url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collections + "/" + operand;
+		//url = MCDSearchPath.contextPath + qrTerm +  "/" + startIndex + "/" + nResults + "/" + collections;
+		url = MCDSearchPath.contextPath;
 
-		url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collections + "/" + operand;
+		DataFtry.sendData(url, $scope.searchQuery).then(function(result){ 
+		//DataFtry.getData(url).then(function(data){
 
-		DataFtry.getData(url).then(function(data){
-			if(setPage === 0){
-				$scope.setPage = 1;
-				data.numHits >= 9 ? $scope.showPagination = true : $scope.showPagination = false;
+			if(startIndex === 0){
+				startIndex = 1;
+				result.data.numHits >= 9 ? $scope.showPagination = true : $scope.showPagination = false;
 				$state.go('searchResult');
 			}
-			$scope.totalReports = data.numHits;
+			$scope.totalReports = result.data.numHits;
 			$scope.results = [];
-			$scope.results = data.results;
+			$scope.results = result.data.results;
 		});
 	}
 
 	// GET THE SELECTED CASE //////////////////////////////////////
 	$scope.getCase = function(caseID){
 
-		//$scope.caseLink 	= link;
 		$rootScope.$broadcast('RESET-CASE');
 
 		if(caseID == undefined){
@@ -157,7 +153,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 		$state.go('login');
 		sessionStorage.clear();
 		$rootScope.loggedIn = false;
-		$scope.search.searchString = "";
+		$scope.searchQuery.qrTerm = "";
 	};
 }])
 

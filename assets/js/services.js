@@ -67,7 +67,7 @@ angular.module('RFIapp.services', [])
 			});
 			return deferred.promise;
 		};
-
+*/
 	var sendData = function(url, data){
 
 		console.log("FROM DATA SEND");
@@ -82,15 +82,15 @@ angular.module('RFIapp.services', [])
 		var deferred = $q.defer();
 		$promise.then(function(result){
 
-			if(result.data.status == 'SUCCESS'){
-				deferred.resolve(result.data.message);
+			if(result.statusText == 'OK'){
+				deferred.resolve(result);
 				} else {
 					alert('Woops something wen wrong with the AJAX call');
 				}
 			});
 			return deferred.promise;
 		};
-*/
+
 	var getData = function(url){
 		var $promise =  $http({
 			method: 'GET',
@@ -106,7 +106,8 @@ angular.module('RFIapp.services', [])
 		return deferred.promise;
 		};
 	return {
-		getData	: getData
+		getData	: getData,
+		sendData : sendData
 	};
 }]);
 

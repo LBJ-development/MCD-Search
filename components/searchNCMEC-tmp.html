@@ -3,17 +3,17 @@
 		<div class="col-sm-10 form-group center">
 			<!-- <div class="col-sm-1 form-group"></div> -->
 			<div class="col-sm-5 form-group" >
-				<input type="text" class="form-control" ng-model="search.searchString"  />
+				<input type="text" class="form-control" ng-model="searchQuery.qrTerm"  />
 			</div>	
 			<div class="col-sm-3 form-group">
-				 <select kendo-multi-select k-options="collectionOptions" class="form-control field-k-dropDown" ng-model="search.collections">
+				 <select kendo-multi-select k-options="collectionOptions" class="form-control field-k-dropDown" ng-model="searchQuery.collections">
 				 </select>
 			</div>	
-			<div class="col-sm-1 form-group" ng-if="displayAndOr">
-				<select kendo-drop-down-list k-options='operandOptions' class='form-control field-k-dropDown' ng-model='search.operand' ></select>
+			<div class="col-sm-1 form-group" ng-if="displayOperand">
+				<select kendo-drop-down-list k-options='operandOptions' class='form-control field-k-dropDown' ng-model='searchQuery.operand' ></select>
 			</div>	
 			<div class="col-sm-3 form-group " style="text-align:left; padding: 0 5px 0 15px" >
-				<button  ng-click="initSearch()" ng-disabled="search.searchString.length == 0" ng-class="search.searchString.length > 0 ? 'btn-primary' : 'btn-disabled' " >SEARCH</button>
+				<button  ng-click="initSearch()" ng-disabled="searchQuery.qrTerm.length == 0" ng-class="searchQuery.qrTerm.length > 0 ? 'btn-primary' : 'btn-disabled' " >SEARCH</button>
 			</div>
 		</div>
 	</div>
