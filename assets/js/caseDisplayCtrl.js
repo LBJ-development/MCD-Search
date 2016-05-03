@@ -40,12 +40,11 @@ angular.module('MCDSearch.caseDisplay', [])
 		$scope.showCase = false;
 	})
 
-	$scope.$on('DISPLAY-CASE', function(event, data) {
+	$scope.$on('DISPLAY-CASE', function(event, data, searchString) {
 
 		$scope.showCase = true;
 
-		console.log("FROM DISPLAY CASE");
-		console.log(data)
+		var data = hightlightSearchString(data, searchString)
 
 		var sections = {
 			"header" 	: 0 ,
@@ -63,18 +62,18 @@ angular.module('MCDSearch.caseDisplay', [])
 		// FIRST EMPTY THE EXISTING DATA
 		$scope.childrenList = $scope.csawList = $scope.guardiansList = $scope.summaryList = $scope.leasList = $scope.vehiclesList =   $scope.narrativeList =[];
 
-		if(data.Child.length >0)$scope.childrenList 			= mapData(data.Child, sections.children);
-		if(data.CSAW.length >0)$scope.csawList 					= mapData(data.CSAW, sections.companion);
-		if(data.Parent_Guardian.length >0)$scope.guardiansList	= mapData(data.Parent_Guardian, sections.parents);
-		if(data.Primary_Case_Info.length >0)$scope.summaryList	= mapData(data.Primary_Case_Info, sections.summary);
-		if(data.Law_Enforcement_Agent.length >0)$scope.leasList	= mapData(data.Law_Enforcement_Agent, sections.leas);
-		if(data.Vehicle.length >0) $scope.vehiclesList 			= mapData(data.Vehicle, sections.vehicles);
+		if(data.Child != undefined && data.Child.length >0) $scope.childrenList 							= mapData(data.Child, sections.children);
+		if(data.CSAW != undefined && data.CSAW.length >0)$scope.csawList 									= mapData(data.CSAW, sections.companion);
+		if(data.Parent_Guardian != undefined && data.Parent_Guardian.length >0)$scope.guardiansList			= mapData(data.Parent_Guardian, sections.parents);
+		if(data.Primary_Case_Info != undefined && data.Primary_Case_Info.length >0)$scope.summaryList		= mapData(data.Primary_Case_Info, sections.summary);
+		if(data.Law_Enforcement_Agent != undefined && data.Law_Enforcement_Agent.length >0)$scope.leasList	= mapData(data.Law_Enforcement_Agent, sections.leas);
+		if(data.Vehicle != undefined && data.Vehicle.length >0) $scope.vehiclesList 						= mapData(data.Vehicle, sections.vehicles);
 		//if(data.links.length >0)$scope.linksList				= mapData(data.links, sections.links);
-		if(data.Narrative.length >0)$scope.narrativeList		= mapData(data.Narrative, sections.narrative);
-		$scope.linksList										= data.Links;
-		$scope.header				 							= data.Header[0].headerTxt;
+		if(data.Narrative != undefined && data.Narrative.length >0)$scope.narrativeList						= mapData(data.Narrative, sections.narrative);
+		if(data.Vehicle != undefined && data.Vehicle.length >0) $scope.linksList							= data.Links;
+		if(data.Header != undefined && data.Header.length >0)$scope.header				 					= data.Header[0].headerTxt;
 
-		console.log(data.Narrative)
+		//console.log(data.Narrative)
 
 		$scope.caseLink = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/view/" + data.Header[0].id;
 
@@ -88,6 +87,30 @@ angular.module('MCDSearch.caseDisplay', [])
 		if($(".caseMenuItem").hasClass( "caseMenu-sel" )){} 
 			else { $(".caseMenuItem").first().addClass('caseMenu-sel');}
 	});
+
+	function hightlightSearchString(data, searchString){
+
+		var dataString = JSON.stringify(data);
+		//console.log(searchString)
+
+
+		var searchString1 = searchString;
+		var searchString2 = searchString.charAt(0).toUpperCase() + searchString.slice(1).toLowerCase();
+		var searchString3 = searchString.toUpperCase();
+		var searchString4 = searchString.toLowerCase();
+
+
+		//console.log(searchString.slice(0,1));
+		var newDataString = dataString.replace(searchString1, "<span class='searchHightlight'>" + searchString1 + "</span>")
+										.replace(searchString2, "<span class='searchHightlight'>" + searchString2 + "</span>")
+										.replace(searchString3, "<span class='searchHightlight'>" + searchString3 + "</span>")
+										.replace(searchString4, "<span class='searchHightlight'>" + searchString4 + "</span>")
+
+		var newData =  JSON.parse(newDataString);
+		//console.log(data)
+
+		return newData
+	}
 
 	function mapData(data, section){
 
@@ -119,8 +142,8 @@ angular.module('MCDSearch.caseDisplay', [])
 
 						if(dataScheme.dbLabels[section][i] == dbLabelArray[n]){
 							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
-							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4"
-
+							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
+							//console.log( dataSet[key][n])
 							sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" : dataSet[key][n], "fieldsize" : fieldsize })
 						}
 					}	
@@ -172,7 +195,7 @@ angular.module('MCDSearch.caseDisplay', [])
 				$scope.clinks = true;
 				break;
 			case "8":
-				$scope.narrative = true;
+				$scope.narratives = true;
 				break;
 			default:
 				$scope.cases = true;

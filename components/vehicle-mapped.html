@@ -3,9 +3,9 @@
 	<div class="pers-sep"  ng-show="$index >0"></div>
 	<div class="sub-title">Vehicle {{$index + 1}}</div>
 	<div class="row ">
-		<div  ng-repeat="vehicle in vehiclesList[$index] track by $index">
-			<div class="{{vehicle.fieldsize}} form-group">
-				<label>{{vehicle.label}}: </label> <span>{{vehicle.value}}</span>
+		<div  ng-repeat="sectionData in vehiclesList[$index] track by $index">
+			<div class="{{sectionData.fieldsize}} form-group">
+				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml"></span>
 			</div>
 		</div>
 	</div>

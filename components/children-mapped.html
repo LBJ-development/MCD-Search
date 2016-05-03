@@ -5,7 +5,7 @@
 	<div class="row ">
 		<div  ng-repeat="sectionData in childrenList[$index] track by $index">
 			<div class="{{sectionData.fieldsize}} form-group">
-				<label>{{sectionData.label}}: </label> <span>{{sectionData.value}}</span>
+				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml"></span> 
 			</div>
 		</div>
 	</div>

@@ -142,7 +142,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 			DataFtry.getData(caseN).then(function(data){
 
-				$rootScope.$broadcast('DISPLAY-CASE',data);
+				$rootScope.$broadcast('DISPLAY-CASE',data, $scope.searchQuery.qrTerm);
 
 			});
 		}

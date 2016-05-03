@@ -70,9 +70,6 @@ angular.module('RFIapp.services', [])
 */
 	var sendData = function(url, data){
 
-		console.log("FROM DATA SEND");
-		console.log(url);
-
 		var $promise =  $http({
 			method: 'POST',
 			url:  url,
