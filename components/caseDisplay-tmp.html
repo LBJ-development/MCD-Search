@@ -13,7 +13,9 @@
 	<!-- <span  style="display: inline-block; float: right" class="tabPos2-btn detachCase-btn"><a ng-href='{{caseLink}}' target="_blank">Detach this Case</a></span> -->
 	<!-- <span style="font-size:1.2em; font-weight: 600; color:#1d57a0; float: left">{{caseTitle  | rawHtml}}</span> -->
 	<!-- <span style="font-size:1.2em; font-weight: 600; color:#1d57a0; float: left" ng-bind-html="caseTitle | rawHtml"></span> -->
-	<span style="font-size:1.1em; font-weight: 600; color:#1d57a0; float: left" >{{header}}</span>
+	<span style="float:left" class="sensitivityLevel-0" ng-if="header.sensitivity == '0'"></span>
+	<span style="float:left" class="sensitivityLevel-1" ng-if="header.sensitivity == '1'"></span>
+	<span style="float:left" class="sensitivityLevel-2" ng-if="header.sensitivity == '2'"></span><span style="font-size:1.1em; font-weight: 600; color:#1d57a0; float: left" ng-bind-html="header.headerTxt | rawHtml" ></span>
 </div>
 <div class="caseMenu clearfix" style="padding:20px 20px 5px 0px; float: left; width:100%">
 	<ul> 

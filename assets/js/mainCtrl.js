@@ -17,6 +17,8 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$scope.searchQuery = { qrTerm: "", startIndex: "", nResults: 10 , collections: "", operand: ""};
 	$scope.results = [];
 
+	var searchTerms = [];
+
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
 		$scope.stateName = toState.name;
@@ -100,7 +102,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 		if($scope.searchQuery.collections == "" || $scope.searchQuery.collections == null ){
 			$scope.searchQuery.collections = ["MCDTest"];
-			console.log($scope.searchQuery.collections)
+			//console.log($scope.searchQuery.collections)
 		}
 		//url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collections + "/" + operand;
 		//url = MCDSearchPath.contextPath + qrTerm +  "/" + startIndex + "/" + nResults + "/" + collections;
@@ -117,6 +119,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 			$scope.totalReports = result.data.numHits;
 			$scope.results = [];
 			$scope.results = result.data.results;
+			searchTerms = result.data.searchObj.qrWords;
 		});
 	}
 
@@ -142,7 +145,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 			DataFtry.getData(caseN).then(function(data){
 
-				$rootScope.$broadcast('DISPLAY-CASE',data, $scope.searchQuery.qrTerm);
+				$rootScope.$broadcast('DISPLAY-CASE',data, searchTerms);
 
 			});
 		}

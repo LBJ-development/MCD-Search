@@ -71,11 +71,11 @@ angular.module('MCDSearch.caseDisplay', [])
 		//if(data.links.length >0)$scope.linksList				= mapData(data.links, sections.links);
 		if(data.Narrative != undefined && data.Narrative.length >0)$scope.narrativeList						= mapData(data.Narrative, sections.narrative);
 		if(data.Vehicle != undefined && data.Vehicle.length >0) $scope.linksList							= data.Links;
-		if(data.Header != undefined && data.Header.length >0)$scope.header				 					= data.Header[0].headerTxt;
+		if(data.Header != undefined && data.Header.length >0)$scope.header				 					= data.Header[0];
 
 		//console.log(data.Narrative)
 
-		$scope.caseLink = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/view/" + data.Header[0].id;
+		//$scope.caseLink = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/view/" + data.Header[0].id;
 
 		// KEEP TRACK OF THE VISITED REPORTS
 		if($scope.reportHistory[$scope.reportHistory.length - 1] != data.Header[0].id){
@@ -88,27 +88,30 @@ angular.module('MCDSearch.caseDisplay', [])
 			else { $(".caseMenuItem").first().addClass('caseMenu-sel');}
 	});
 
-	function hightlightSearchString(data, searchString){
+	function hightlightSearchString(data, searchTerms){
 
 		var dataString = JSON.stringify(data);
-		//console.log(searchString)
 
+		for(var i= 0; i< searchTerms.length; i++){
 
-		var searchString1 = searchString;
-		var searchString2 = searchString.charAt(0).toUpperCase() + searchString.slice(1).toLowerCase();
-		var searchString3 = searchString.toUpperCase();
-		var searchString4 = searchString.toLowerCase();
+			var searchWord = searchTerms[i];
 
+			var searchString1 = new RegExp(searchWord, "g");
+			var searchString2 = new RegExp(searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase(), "g");
+			var searchString3 = new RegExp(searchWord.toUpperCase(), "g" );
+			var searchString4 = new RegExp(searchWord.toLowerCase(), "g");
 
-		//console.log(searchString.slice(0,1));
-		var newDataString = dataString.replace(searchString1, "<span class='searchHightlight'>" + searchString1 + "</span>")
-										.replace(searchString2, "<span class='searchHightlight'>" + searchString2 + "</span>")
-										.replace(searchString3, "<span class='searchHightlight'>" + searchString3 + "</span>")
-										.replace(searchString4, "<span class='searchHightlight'>" + searchString4 + "</span>")
+			var replaceString1 = searchWord;
+			var replaceString2 = searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase();
+			var replaceString3 = searchWord.toUpperCase();
+			var replaceString4 = searchWord.toLowerCase();
 
-		var newData =  JSON.parse(newDataString);
-		//console.log(data)
-
+			dataString = dataString.replace(searchString1, "<span class='searchHightlight'>" + replaceString1 + "</span>")
+										.replace(searchString2, "<span class='searchHightlight'>" + replaceString2 + "</span>")
+										.replace(searchString3, "<span class='searchHightlight'>" + replaceString3 + "</span>")
+										.replace(searchString4, "<span class='searchHightlight'>" + replaceString4 + "</span>");
+		}
+		var newData =  JSON.parse(dataString);
 		return newData
 	}
 
