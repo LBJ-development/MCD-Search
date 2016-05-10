@@ -7,3 +7,4 @@ angular.module('RFIapp.filters', [])
     return $sce.trustAsHtml(val);
   };
 }]);
+

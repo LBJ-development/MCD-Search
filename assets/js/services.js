@@ -45,8 +45,57 @@ angular.module('RFIapp.services', [])
 		getScheme: getScheme,
 	}	
 }])
+/*	
+.factory('MapDataFtry',function(){
+var mapData = function(data, section){
+	
+	//function mapData(data, section){
+
+		// MAP THE LABEL DATA INTO AN ARRAY/////////////////////////////////
+		var dbLabelArray = dbLabelArray = $.map(data[0], function(value, label){
+			return [label]
+		});
+		var dataSet	= []; // TO STORE THE ORIGINAL DATA VALUE SET BEFORE MAPPING
+		var valueArray 	= [];
+
+		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH PERSONS /////////////////////////////////
+		for (var key in data){
+			valueArray = $.map(data[key], function(value, label){
+				return [value]
+			});
+			dataSet.push(valueArray);
+		}
+
+		var sectionSet 	= [];
+		
+		for (var key in dataSet){
+
+			var sectionData = [];
+			for(var i=0;  i< dataScheme.dbLabels[section].length; i++){
+
+				for(var n=0; n < dbLabelArray.length; n++){
+					// DON'T DISPLAY IS THERE IS NO VALUE
+					if(dataSet[key][n].length > 0 && dataSet[key][n] !== "0"){
+
+						if(dataScheme.dbLabels[section][i] == dbLabelArray[n]){
+							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
+							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
+							//console.log( dataSet[key][n])
+							sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" : dataSet[key][n], "fieldsize" : fieldsize })
+						}
+					}	
+				}
+			}
+			sectionSet.push(sectionData);
+		}
+		return sectionSet
+	}
+
+	return {mapData : mapData}
 
 
+})
+*/
 //  DATA FACTORY ///////////////////////////////////////////////////////////
 .factory('DataFtry', [ '$http' , '$q' ,   function($http, $q) {
 

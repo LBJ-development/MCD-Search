@@ -3,7 +3,7 @@
 angular.module('MCDSearch.caseDisplay', [])
 
 // CASE DISPLAY CONTROLLER /////////////////////////////////////////////////////////
-.controller('CaseDisplayCtrl', ["$scope", "$state", "MapArrayFtry", function($scope, $state, MapArrayFtry){
+.controller('CaseDisplayCtrl', ["$scope", "$state", "MapArrayFtry",  function($scope, $state, MapArrayFtry){
 
 	$scope.childrenList = [];
 	$scope.csawList = [];
@@ -115,6 +115,16 @@ angular.module('MCDSearch.caseDisplay', [])
 		return newData
 	}
 
+
+
+/*	function mapData(data, section){
+
+		MapDataFtry.mapData(data, section ,dataScheme).then(function(data){
+
+			return data
+		})
+	}*/
+
 	function mapData(data, section){
 
 		// MAP THE LABEL DATA INTO AN ARRAY/////////////////////////////////
@@ -153,14 +163,18 @@ angular.module('MCDSearch.caseDisplay', [])
 				}
 			}
 			sectionSet.push(sectionData);
-			/*console.log("SECTION DATA:");
-			console.log(sectionData);*/
 		}
 		return sectionSet
 	}
 
 	$scope.cases = true;
 	$scope.children = $scope.guardians = $scope.csaws = $scope.leas = $scope.vehicles = $scope.clinks = false;
+
+	$scope.detachCase = function(){
+
+		var newWindow = window.open('newWindow.html');
+		localStorage.setItem("caseNumber", $scope.summaryList[0][0].value)
+	}
 	
 	$scope.selectSection = function(evt){
 
