@@ -143,6 +143,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 			// DISPLAY THE CASE WITHIN THE APP. 
 			var caseN = searchResult.contextPath + caseID;
 
+
 			DataFtry.getData(caseN).then(function(data){
 
 				$rootScope.$broadcast('DISPLAY-CASE',data, searchTerms);
