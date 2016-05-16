@@ -11,6 +11,7 @@ var app = angular.module('detachedCaseApp', [
 	'MCDSearch.utilities',
 	'RFIapp.formatting',
 	'RFIapp.config',
+
 	
 	/*'MCDSearch.caseDisplay',*/
 	])
@@ -23,17 +24,32 @@ var app = angular.module('detachedCaseApp', [
 				url: "/newWindow",
 				templateUrl: 'components/detachedCase-tmp.html',
 				
-				}
-			)
+			}
+		)
+	})
+
+/*	.run(function ($rootScope, $state, $window) {
+		$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+				
+			window.onbeforeunload = function () {
+				localStorage.setItem("searchTerms", $rootScope.caseN);
+				alert($rootScope.caseN)
+				console.log($rootScope.caseN)
+			};
 		})
+	})
+*/
+	.controller('DetachedCaseCtrl',[ "$rootScope",  "$scope",  "DataFtry", "searchResult", "MapArrayFtry", "$window", "$timeout",  function(  $rootScope, $scope,  DataFtry, searchResult, MapArrayFtry, $window, $timeout){
 
-	.controller('DetachedCaseCtrl',[ "$rootScope",  "$scope",  "DataFtry", "searchResult", "MapArrayFtry",  function(  $rootScope, $scope,  DataFtry, searchResult, MapArrayFtry){
-
-		$scope.caseNumber = localStorage.getItem("caseNumber");
-
-		//var searchTerms = ["child"];
-		//var searchTerms = JSON.parse(localStorage.getItem("searchTerms"));
-		//console.log(searchTerms)
+		var detachedData = JSON.parse(localStorage.getItem("dataForDetached"));
+		// DISTRIBUTING THE DATA FROM THE SAVED OBJECT 
+		$scope.caseNumber 	= detachedData.data.caseNumber;
+		var dataScheme 		= detachedData.data.dataScheme;
+		$scope.tabsLabels 	= detachedData.data.dataScheme.tabsLabels;
+		var searchTerms 	= detachedData.data.searchString;
+		
+		console.log("FROM NEW WINDOW")
+		console.log(JSON.parse(localStorage.getItem("dataForDetached")));
 
 		$scope.childrenList = [];
 		$scope.csawList = [];
@@ -44,7 +60,7 @@ var app = angular.module('detachedCaseApp', [
 		$scope.linksList = [];
 		$scope.narrativeList = [];
 
-		$scope.tabsLabels = [];
+		//$scope.tabsLabels = [];
 		$scope.header = "";
 
 		var sections = {
@@ -60,22 +76,7 @@ var app = angular.module('detachedCaseApp', [
 			"other"		: 9
 			};
 
-		var dataScheme;
-
-
-		// GET THE DATA SCHEME WHEN APP INIT
-		MapArrayFtry.getScheme().then(function(data){
-			dataScheme = data;
-			$scope.tabsLabels = data.tabsLabels;
-
-			var caseN = searchResult.contextPath + localStorage.getItem("caseNumber");
-
-			DataFtry.getData(caseN).then(function(data){
-
-				assignData(data);
-
-			});
-		});
+		assignData(detachedData.data.caseData);
 
 		// DISPLAY THE CASE WITHIN THE APP. 
 		function assignData(data){
@@ -94,9 +95,10 @@ var app = angular.module('detachedCaseApp', [
 			if(data.Vehicle != undefined && data.Vehicle.length >0) $scope.linksList							= data.Links;
 			if(data.Header != undefined && data.Header.length >0)$scope.header				 					= data.Header[0];
 
-			if($(".caseMenuItem").hasClass( "caseMenu-sel" )){} 
-			else { $(".caseMenuItem").first().addClass('caseMenu-sel');}
-
+			$timeout(function() {
+				if($(".caseMenuItem").hasClass( "caseMenu-sel" )){} 
+				else { $(".caseMenuItem").first().addClass('caseMenu-sel');}		
+			}, 300);
 		};
 
 		function hightlightSearchString(data){
@@ -158,9 +160,9 @@ var app = angular.module('detachedCaseApp', [
 								// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
 								var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
 								//console.log( dataSet[key][n])
-								//var hiValue = hightlightSearchString(dataSet[key][n]);
+								var hiValue = hightlightSearchString(dataSet[key][n]);
 								//console.log(hiValue)
-								sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" :dataSet[key][n], "fieldsize" : fieldsize })
+								sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" :hiValue, "fieldsize" : fieldsize })
 							}
 						}	
 					}

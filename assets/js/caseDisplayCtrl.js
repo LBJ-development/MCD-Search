@@ -19,6 +19,7 @@ angular.module('MCDSearch.caseDisplay', [])
 
 	var dataScheme;
 	var searchTerms = [];
+	var dataForDetached = {};
 
 	$scope.reportHistory = [];
 
@@ -46,6 +47,11 @@ angular.module('MCDSearch.caseDisplay', [])
 		$scope.showCase = true;
 		searchTerms = searchString; // COLLECT THE SEARCH TERMS
 
+		// COLLECTING DATA FOR THE DETACHED PAGE/////////////
+		dataForDetached.searchString = searchString;
+		dataForDetached.dataScheme = dataScheme;
+		dataForDetached.caseData = data;
+		
 		var sections = {
 			"header" 	: 0 ,
 			"summary" 	: 1 , 
@@ -174,10 +180,12 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.detachCase = function(){
 
 		var newWindow = window.open('newWindow.html');
-		localStorage.setItem("caseNumber", $scope.summaryList[0][0].value);
+		//localStorage.setItem("caseNumber", $scope.summaryList[0][0].value);
 
-		//var searchWord = searchTerms.toJSON();
-		localStorage.setItem("searchTerms", searchTerms);
+		dataForDetached.caseNumber = $scope.summaryList[0][0].value;
+
+		var jsonString = JSON.stringify({data: dataForDetached});
+		localStorage.setItem("dataForDetached", jsonString);
 	}
 	
 	$scope.selectSection = function(evt){
