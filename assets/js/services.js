@@ -45,9 +45,45 @@ angular.module('RFIapp.services', [])
 		getScheme: getScheme,
 	}	
 }])
-/*	
-.factory('MapDataFtry',function(){
-var mapData = function(data, section){
+
+.factory('HightlightFtry',[  function() {
+
+	var hightlight = function(data, searchTerms){
+
+		var dataString = data;
+
+		for(var i= 0; i< searchTerms.length; i++){
+
+			var searchWord = searchTerms[i];
+
+			if(searchWord.length >0){ // AVOID AN OUT OF MEMORY IF THE STRING IS EMPTY
+
+				var searchString1 = new RegExp(searchWord, "g");
+				var searchString2 = new RegExp(searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase(), "g");
+				var searchString3 = new RegExp(searchWord.toUpperCase(), "g" );
+				var searchString4 = new RegExp(searchWord.toLowerCase(), "g");
+
+				var replaceString1 = searchWord;
+				var replaceString2 = searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase();
+				var replaceString3 = searchWord.toUpperCase();
+				var replaceString4 = searchWord.toLowerCase();
+
+				dataString = dataString.replace(searchString1, "<span class='searchHightlight'>" + replaceString1 + "</span>")
+													.replace(searchString2, "<span class='searchHightlight'>" + replaceString2 + "</span>")
+													.replace(searchString3, "<span class='searchHightlight'>" + replaceString3 + "</span>")
+													.replace(searchString4, "<span class='searchHightlight'>" + replaceString4 + "</span>");	
+				}
+			}
+		return   dataString;
+		}
+	return {
+		hightlight: hightlight,
+	}
+}])
+	
+.factory('MapDataFtry',[ "HightlightFtry" , function( HightlightFtry){
+
+	var mapData = function(data, section, dataScheme, searchTerms){
 	
 	//function mapData(data, section){
 
@@ -80,8 +116,9 @@ var mapData = function(data, section){
 						if(dataScheme.dbLabels[section][i] == dbLabelArray[n]){
 							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
 							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
+							var hiValue = HightlightFtry.hightlight(dataSet[key][n], searchTerms );
 							//console.log( dataSet[key][n])
-							sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" : dataSet[key][n], "fieldsize" : fieldsize })
+							sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" : hiValue, "fieldsize" : fieldsize })
 						}
 					}	
 				}
@@ -94,8 +131,8 @@ var mapData = function(data, section){
 	return {mapData : mapData}
 
 
-})
-*/
+}])
+
 //  DATA FACTORY ///////////////////////////////////////////////////////////
 .factory('DataFtry', [ '$http' , '$q' ,   function($http, $q) {
 

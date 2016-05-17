@@ -73,14 +73,40 @@
 		<div id="wrapper" class="clearfix" >
 			<div id="masthead" class="clearfix">
 				<div id="MK-logo" class="clearfix"></div>
-				<div class="logout-btn" class="show-hide" ng-hide="stateName == 'login'">
-					<a href=""  ng-click="logout()" >Logout</a>
-				</div>
+
+				<span class="logout-btn tabPos2-btn show-hide" ng-hide="stateName == 'login'" style="float:right; padding: 10px 10px 0px 0px">
+					<a href=""  ng-click="logout()" class="" >Logout</a>
+				</span>
+				
+				<span class="help-btn tabPos2-btn show-hide" ng-hide="stateName == 'login'" style="float:right; padding: 10px 20px 0px 0px">
+					<a href=""  ng-click="help()" class="" data-toggle="modal" data-target="#myModal" >GSA Search Help</a>
+				</span>
+				
 				<div class="title show-hide" ng-show="stateName == 'mainSearch' || stateName == 'login' ">MCD Google Search</div>
 				<search-ncmec  ng-show="stateName == 'searchResult'" ></search-ncmec>
 				
 			</div>
 			<div ui-view="" class="fader-animation"></div>
+		</div>
+
+		<!-- MODALS //////////////////////////////////////////////////////////////// -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<span class="panel-header"><span class="white-title">Query Term Separators</span></span>
+					<div class="modal-body">
+						<div style="padding-bottom:20px">
+							<label ><strong>Double quote mark (" "):</strong></label> <span>Used as a special query term for phrase searches, i.e  "National Center for Missing and Exploited Children" </span>
+						</div>
+						<div style="padding-bottom:10px">
+							<label><strong>Plus sign (+):</strong> </label>  <span>Treated as a Boolean AND, i.e "National Center for Missing and Exploited Children" AND MCD</span>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" style="margin-right:20px" class="btn-primary" data-dismiss="modal"> CLOSE </button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!-- ALERT BOX-->

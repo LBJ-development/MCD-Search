@@ -39,7 +39,7 @@ var app = angular.module('detachedCaseApp', [
 		})
 	})
 */
-	.controller('DetachedCaseCtrl',[ "$rootScope",  "$scope",  "DataFtry", "searchResult", "MapArrayFtry", "$window", "$timeout",  function(  $rootScope, $scope,  DataFtry, searchResult, MapArrayFtry, $window, $timeout){
+	.controller('DetachedCaseCtrl',[ "$rootScope",  "$scope",  "DataFtry", "searchResult", "MapArrayFtry", "HightlightFtry", "MapDataFtry","$window", "$timeout",  function(  $rootScope, $scope,  DataFtry, searchResult, MapArrayFtry, HightlightFtry, MapDataFtry, $window, $timeout){
 
 		var detachedData = JSON.parse(localStorage.getItem("dataForDetached"));
 		// DISTRIBUTING THE DATA FROM THE SAVED OBJECT 
@@ -101,75 +101,9 @@ var app = angular.module('detachedCaseApp', [
 			}, 300);
 		};
 
-		function hightlightSearchString(data){
-
-			var dataString = data;
-
-			for(var i= 0; i< searchTerms.length; i++){
-
-				var searchWord = searchTerms[i];
-
-				var searchString1 = new RegExp(searchWord, "g");
-				var searchString2 = new RegExp(searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase(), "g");
-				var searchString3 = new RegExp(searchWord.toUpperCase(), "g" );
-				var searchString4 = new RegExp(searchWord.toLowerCase(), "g");
-
-				var replaceString1 = searchWord;
-				var replaceString2 = searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase();
-				var replaceString3 = searchWord.toUpperCase();
-				var replaceString4 = searchWord.toLowerCase();
-
-				dataString = dataString.replace(searchString1, "<span class='searchHightlight'>" + replaceString1 + "</span>")
-										.replace(searchString2, "<span class='searchHightlight'>" + replaceString2 + "</span>")
-										.replace(searchString3, "<span class='searchHightlight'>" + replaceString3 + "</span>")
-										.replace(searchString4, "<span class='searchHightlight'>" + replaceString4 + "</span>");
-			}
-			var newData =  dataString;
-			return newData
-		}
-
 		function mapData(data, section){
 
-			// MAP THE LABEL DATA INTO AN ARRAY/////////////////////////////////
-			var dbLabelArray = dbLabelArray = $.map(data[0], function(value, label){
-				return [label]
-			});
-			var dataSet	= []; // TO STORE THE ORIGINAL DATA VALUE SET BEFORE MAPPING
-			var valueArray 	= [];
-
-			// MAP THE VALUE DATA INTO AN ARRAY FOR EACH PERSONS /////////////////////////////////
-			for (var key in data){
-				valueArray = $.map(data[key], function(value, label){
-					return [value]
-				});
-				dataSet.push(valueArray);
-			}
-
-			var sectionSet 	= [];
-		
-			for (var key in dataSet){
-
-				var sectionData = [];
-				for(var i=0;  i< dataScheme.dbLabels[section].length; i++){
-
-					for(var n=0; n < dbLabelArray.length; n++){
-						// DON'T DISPLAY IS THERE IS NO VALUE
-						if(dataSet[key][n].length > 0 && dataSet[key][n] !== "0"){
-
-							if(dataScheme.dbLabels[section][i] == dbLabelArray[n]){
-								// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
-								var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
-								//console.log( dataSet[key][n])
-								var hiValue = hightlightSearchString(dataSet[key][n]);
-								//console.log(hiValue)
-								sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" :hiValue, "fieldsize" : fieldsize })
-							}
-						}	
-					}
-				}
-				sectionSet.push(sectionData);
-			}
-			return sectionSet
+			return MapDataFtry.mapData(data, section ,dataScheme, searchTerms) ;
 		}
 
 	$scope.cases = true;
@@ -215,103 +149,5 @@ var app = angular.module('detachedCaseApp', [
 				$scope.cases = true;
 		}
 	};
-}]) 
+}]) ;
 
-// CASE DISPLAY DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('caseDisplay',function ( ) {
-	return {
-		restrict: 'E',
-		transclude: true,
-		controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/caseDisplay-tmp.html',
-		link: function (scope, element, attrs){
-
-		}
-	};
-})
-// CHILDREN DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('childrenDir',function ( ) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/children-mapped.html',
-		link: function (scope, element, attrs){
-
-			// console.log("FROM CHILDREN DIRECTIVE!")
-		}
-	};
-})
-// GUARDIAN DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('guardianDir',function ( ) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/guardian-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// CSAW DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('csawDir',function ( ) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/csaw-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// LEA DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('leaDir',function () {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/lea-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// CASE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('caseDir',function () {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/summary-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('vehicleDir',function ( ) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/vehicle-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('linksDir',function ($rootScope, DataFtry, searchResult) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/links-mapped.html',
-		link: function (scope, element, attrs){
-		
-		}
-	};
-})
-// NARRATIVE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('narrativeDir',function ($rootScope, DataFtry, searchResult) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/narrative-mapped.html',
-		link: function (scope, element, attrs){
-		
-		}
-	};
-})
-
- 

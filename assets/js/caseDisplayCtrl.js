@@ -3,7 +3,7 @@
 angular.module('MCDSearch.caseDisplay', [])
 
 // CASE DISPLAY CONTROLLER /////////////////////////////////////////////////////////
-.controller('CaseDisplayCtrl', ["$scope", "$state", "MapArrayFtry",  function($scope, $state, MapArrayFtry){
+.controller('CaseDisplayCtrl', ["$scope", "$state","MapArrayFtry", "HightlightFtry", "MapDataFtry",  function($scope, $state, MapArrayFtry, HightlightFtry, MapDataFtry ){
 
 	$scope.childrenList = [];
 	$scope.csawList = [];
@@ -93,7 +93,7 @@ angular.module('MCDSearch.caseDisplay', [])
 			else { $(".caseMenuItem").first().addClass('caseMenu-sel');}
 	});
 
-	function hightlightSearchString(data){
+	/*function hightlightSearchString(data){
 
 		var dataString = data;
 
@@ -101,36 +101,35 @@ angular.module('MCDSearch.caseDisplay', [])
 
 			var searchWord = searchTerms[i];
 
-			var searchString1 = new RegExp(searchWord, "g");
-			var searchString2 = new RegExp(searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase(), "g");
-			var searchString3 = new RegExp(searchWord.toUpperCase(), "g" );
-			var searchString4 = new RegExp(searchWord.toLowerCase(), "g");
+			if(searchWord.length >0){ // AVOID AN OUT OF MEMORY IF THE STRING IS EMPTY
 
-			var replaceString1 = searchWord;
-			var replaceString2 = searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase();
-			var replaceString3 = searchWord.toUpperCase();
-			var replaceString4 = searchWord.toLowerCase();
+				var searchString1 = new RegExp(searchWord, "g");
+				var searchString2 = new RegExp(searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase(), "g");
+				var searchString3 = new RegExp(searchWord.toUpperCase(), "g" );
+				var searchString4 = new RegExp(searchWord.toLowerCase(), "g");
 
-			dataString = dataString.replace(searchString1, "<span class='searchHightlight'>" + replaceString1 + "</span>")
-										.replace(searchString2, "<span class='searchHightlight'>" + replaceString2 + "</span>")
-										.replace(searchString3, "<span class='searchHightlight'>" + replaceString3 + "</span>")
-										.replace(searchString4, "<span class='searchHightlight'>" + replaceString4 + "</span>");
+				var replaceString1 = searchWord;
+				var replaceString2 = searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase();
+				var replaceString3 = searchWord.toUpperCase();
+				var replaceString4 = searchWord.toLowerCase();
+
+				dataString = dataString.replace(searchString1, "<span class='searchHightlight'>" + replaceString1 + "</span>")
+											.replace(searchString2, "<span class='searchHightlight'>" + replaceString2 + "</span>")
+											.replace(searchString3, "<span class='searchHightlight'>" + replaceString3 + "</span>")
+											.replace(searchString4, "<span class='searchHightlight'>" + replaceString4 + "</span>");
+			}
 		}
 		var newData =  dataString;
 		return newData
-	}
-
-
-
-/*	function mapData(data, section){
-
-		MapDataFtry.mapData(data, section ,dataScheme).then(function(data){
-
-			return data
-		})
 	}*/
 
 	function mapData(data, section){
+
+			return MapDataFtry.mapData(data, section ,dataScheme, searchTerms) ;
+	
+	}
+
+	/*function mapData(data, section){
 
 		// MAP THE LABEL DATA INTO AN ARRAY/////////////////////////////////
 		var dbLabelArray = dbLabelArray = $.map(data[0], function(value, label){
@@ -162,7 +161,8 @@ angular.module('MCDSearch.caseDisplay', [])
 							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
 							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
 							//console.log( dataSet[key][n])
-							var hiValue = hightlightSearchString(dataSet[key][n]);
+							//var hiValue = hightlightSearchString(dataSet[key][n]);
+							var hiValue = HightlightFtry.hightlight(dataSet[key][n], searchTerms );
 							//console.log(hiValue)
 							sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" : hiValue, "fieldsize" : fieldsize })
 						}
@@ -172,7 +172,7 @@ angular.module('MCDSearch.caseDisplay', [])
 			sectionSet.push(sectionData);
 		}
 		return sectionSet
-	}
+	}*/
 
 	$scope.cases = true;
 	$scope.children = $scope.guardians = $scope.csaws = $scope.leas = $scope.vehicles = $scope.clinks = false;
@@ -243,106 +243,5 @@ angular.module('MCDSearch.caseDisplay', [])
 		$scope.getCase(reportHistory[$scope.reportHistoryIndex]);
 		console.log(reportHistory);
 	}*/
-}])
-
-// CASE DISPLAY DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('caseDisplay',function ( ) {
-	return {
-		restrict: 'E',
-		transclude: true,
-		controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/caseDisplay-tmp.html',
-		link: function (scope, element, attrs){
-
-		}
-	};
-})
-// CHILDREN DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('childrenDir',function ( ) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/children-mapped.html',
-		link: function (scope, element, attrs){
-
-			// console.log("FROM CHILDREN DIRECTIVE!")
-		}
-	};
-})
-// GUARDIAN DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('guardianDir',function ( ) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/guardian-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// CSAW DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('csawDir',function ( ) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/csaw-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// LEA DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('leaDir',function () {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/lea-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// CASE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('caseDir',function () {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/summary-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('vehicleDir',function ( ) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/vehicle-mapped.html',
-		link: function (scope, element, attrs){
-		}
-	};
-})
-// VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('linksDir',function ($rootScope, DataFtry, searchResult) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/links-mapped.html',
-		link: function (scope, element, attrs){
-		
-		}
-	};
-})
-// NARRATIVE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('narrativeDir',function ($rootScope, DataFtry, searchResult) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/narrative-mapped.html',
-		link: function (scope, element, attrs){
-		
-		}
-	};
-})
-
-
-
-
+}]);
 

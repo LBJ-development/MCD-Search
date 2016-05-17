@@ -24,7 +24,106 @@ angular.module('MCDSearch.utilities', [])
 		$log.log('Page changed to: ' + $scope.currentPage);
 		$rootScope.$broadcast('PAGE-CHANGED', $scope.currentPage);
 	};
-});
+})
+
+
+// CASE DISPLAY DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('caseDisplay',function ( ) {
+	return {
+		restrict: 'E',
+		transclude: true,
+		controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/caseDisplay-tmp.html',
+		link: function (scope, element, attrs){
+
+		}
+	};
+})
+// CHILDREN DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('childrenDir',function ( ) {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/children-mapped.html',
+		link: function (scope, element, attrs){
+
+			// console.log("FROM CHILDREN DIRECTIVE!")
+		}
+	};
+})
+// GUARDIAN DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('guardianDir',function ( ) {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/guardian-mapped.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// CSAW DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('csawDir',function ( ) {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/csaw-mapped.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// LEA DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('leaDir',function () {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/lea-mapped.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// CASE DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('caseDir',function () {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/summary-mapped.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('vehicleDir',function ( ) {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/vehicle-mapped.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('linksDir',function ($rootScope, DataFtry, searchResult) {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/links-mapped.html',
+		link: function (scope, element, attrs){
+		
+		}
+	};
+})
+// NARRATIVE DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('narrativeDir',function ($rootScope, DataFtry, searchResult) {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/narrative-mapped.html',
+		link: function (scope, element, attrs){
+		
+		}
+	};
+})
+
 
 
 /*
