@@ -4,7 +4,7 @@
 angular.module('RFIapp.services', [])
 
 
-.factory('MapArrayFtry', [ 'DataFtry' , '$q' ,   function(DataFtry, $q) {
+.factory('MapArrayFtry', [ 'DataFtry' , '$q' , 'serverPath' ,  function(DataFtry, $q, serverPath) {
 
 	var getScheme = function(){
 
@@ -14,9 +14,8 @@ angular.module('RFIapp.services', [])
 			dbLabels : []
 		})
 
-		var url = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
-
-		//var urlServer = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/";
+		//var url = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
+		var url = serverPath.contextPath + "report/columnMap/MCDDB"
 
 		var $promise =  DataFtry.getData(url).then(function(data){
 
@@ -35,6 +34,8 @@ angular.module('RFIapp.services', [])
 				}
 			})
 		var deferred = $q.defer();
+
+		console.log(scheme)
 
 		$promise.then(function(){
 			deferred.resolve(scheme);

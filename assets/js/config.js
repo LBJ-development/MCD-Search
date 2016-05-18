@@ -12,7 +12,8 @@ angular.module('RFIapp.config', [])
 	})
 
 	.constant('loginPath', {
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'	
+		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'
+		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/gsa/'	
 	})
 
 	.constant('searchResult', {
@@ -22,5 +23,9 @@ angular.module('RFIapp.config', [])
 		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/json/MCDDB/'
 
 		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/json/MCDDB/'
+	})
+
+	.constant('serverPath', {
+		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/'
 	});
 
