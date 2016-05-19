@@ -1,5 +1,5 @@
-<div class="sub-title" ng-show="vehiclesList.length == 0">No vehicle found in this report</div> 
-<section class="vehicles" ng-repeat="vehicles in vehiclesList track by $index"> 
+<div class="sub-title" ng-show="vehiclesList.length == 0">No Vehicle found in this report</div> 
+<section class="vehicles" ng-repeat="item in vehiclesList track by $index"> 
 	<div class="pers-sep"  ng-show="$index >0"></div>
 	<div class="sub-title">Vehicle {{$index + 1}}</div>
 	<div class="row ">

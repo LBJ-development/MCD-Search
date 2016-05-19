@@ -35,6 +35,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 		$scope.$apply();
 	});
 
+	//  SPECIFICS FOR COLLECTIONS //////////////////////////////
 	var collectionData = [
 		{label : "MCD Test", value : "MCDTest"},
 		{label : "SOCM", value: "SOCM"}
@@ -72,7 +73,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 			}, 300);
 		}
 	}
-
+	// ////////////////////////////////////////////////////
 	//console.log($scope.selectOptions.dataSource)
 
 	// WHEN CLICKING THE SEARCH BUTTON //////////////////////////////////////
@@ -147,6 +148,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 				if(jQuery.isEmptyObject(data)){
 					alert("No data for this case...")
 				}else {
+
 					$rootScope.$broadcast('DISPLAY-CASE',data, searchTerms);
 				}
 			});

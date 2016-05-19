@@ -26,7 +26,6 @@ angular.module('MCDSearch.utilities', [])
 	};
 })
 
-
 // CASE DISPLAY DIRECTIVE ///////////////////////////////////////////////////////
 .directive ('caseDisplay',function ( ) {
 	return {
@@ -39,6 +38,46 @@ angular.module('MCDSearch.utilities', [])
 		}
 	};
 })
+
+// GENERIC DIRECTIVE ///////////////////////////////////////////////////////
+/*.directive ('genericDir',function ( ) {
+	return {
+		restrict: 'E',
+		transclude: true,
+		controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/generic-tmp.html',
+		link: function (scope, element, attrs){
+
+		}
+	};
+})*/
+
+// PRIMARY CASE INFO DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('primarycaseinfoDir',function ( ) {
+	return {
+		restrict: 'E',
+		transclude: true,
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/primaryCaseInfo-mapped.html',
+		link: function (scope, element, attrs){
+
+		}
+	};
+})
+
+// CALLER/REPORTER DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('callerreporterDir',function ( ) {
+	return {
+		restrict: 'E',
+		transclude: true,
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/callerReporter-mapped.html',
+		link: function (scope, element, attrs){
+
+		}
+	};
+})
+
 // CHILDREN DIRECTIVE ///////////////////////////////////////////////////////
 .directive ('childrenDir',function ( ) {
 	return {
@@ -81,12 +120,42 @@ angular.module('MCDSearch.utilities', [])
 		}
 	};
 })
-// CASE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('caseDir',function () {
+// ATTEMPTED ABDUCTION DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('attemptedabductionDir',function () {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/summary-mapped.html',
+		templateUrl: 'components/attemptedAbduction-mapped.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// PROTECTIVE CUSTODY DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('protectivecustodyDir',function () {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/protectiveCustody-mapped.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// UNACCOMPANIED MINOR DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('unaccompaniedminorDir',function () {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/unaccompaniedMinor-mapped.html',
+		link: function (scope, element, attrs){
+		}
+	};
+})
+// UNIDENTIFIED DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('unidentifiedDir',function () {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/unidentified-mapped.html',
 		link: function (scope, element, attrs){
 		}
 	};
@@ -101,23 +170,24 @@ angular.module('MCDSearch.utilities', [])
 		}
 	};
 })
-// VEHICLE DIRECTIVE ///////////////////////////////////////////////////////
-.directive ('linksDir',function ($rootScope, DataFtry, searchResult) {
-	return {
-		restrict: 'E',
-		//controller: 'CaseDisplayCtrl',
-		templateUrl: 'components/links-mapped.html',
-		link: function (scope, element, attrs){
-		
-		}
-	};
-})
+
 // NARRATIVE DIRECTIVE ///////////////////////////////////////////////////////
 .directive ('narrativeDir',function ($rootScope, DataFtry, searchResult) {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',
 		templateUrl: 'components/narrative-mapped.html',
+		link: function (scope, element, attrs){
+		
+		}
+	};
+})
+// RELATED DATA DIRECTIVE ///////////////////////////////////////////////////////
+.directive ('relateddataDir',function ($rootScope, DataFtry, searchResult) {
+	return {
+		restrict: 'E',
+		//controller: 'CaseDisplayCtrl',
+		templateUrl: 'components/relatedData-mapped.html',
 		link: function (scope, element, attrs){
 		
 		}

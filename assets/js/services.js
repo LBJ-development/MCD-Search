@@ -19,12 +19,12 @@ angular.module('RFIapp.services', [])
 
 		var $promise =  DataFtry.getData(url).then(function(data){
 
-			for(var i = 0; i < (data.length -1); i++){
-				
+			for(var i = 0; i < (data.length -1); i++){	
 				scheme.tabsLabels.push(data[i].Tab_Label);
 				scheme.fieldsLabels.push(data[i].display_columns
 					.toString()
-					.replace(/\t/g, '').replace(/\n/g, '')
+					.replace(/\t/g, '')
+					.replace(/\n/g, '')
 					.split(","));
 				scheme.dbLabels.push(data[i].dbcolumns
 					.toString()
@@ -34,8 +34,6 @@ angular.module('RFIapp.services', [])
 				}
 			})
 		var deferred = $q.defer();
-
-		console.log(scheme)
 
 		$promise.then(function(){
 			deferred.resolve(scheme);
@@ -85,6 +83,9 @@ angular.module('RFIapp.services', [])
 .factory('MapDataFtry',[ "HightlightFtry" , function( HightlightFtry){
 
 	var mapData = function(data, section, dataScheme, searchTerms){
+
+		console.log(data)
+		console.log(dataScheme)
 	
 	//function mapData(data, section){
 

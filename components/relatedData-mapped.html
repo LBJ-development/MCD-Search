@@ -1,0 +1,13 @@
+<div class="sub-title" ng-show="relatedDataList.length == 0">No Related Data found in this report</div> 
+<section class="narrative" ng-repeat="item in relatedDataList track by $index"> 
+	<div class="pers-sep"  ng-show="$index >0"></div>
+	<div class="sub-title">Related Data</div>
+	<div class="row ">
+		<div  ng-repeat="sectionData in relatedDataList[$index] track by $index">
+			<div class="{{sectionData.fieldsize}} form-group">
+				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml" class="angular-with-newlines"></span>
+				
+			</div>
+		</div>
+	</div>
+</section> 

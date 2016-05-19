@@ -1,5 +1,5 @@
 <div class="sub-title" ng-show="narrativeList.length == 0">No Narrative found in this report</div> 
-<section class="narrative" ng-repeat="narrative in narrativeList track by $index"> 
+<section class="narrative" ng-repeat="item in narrativeList track by $index"> 
 	<div class="pers-sep"  ng-show="$index >0"></div>
 	<div class="sub-title">Narrative {{$index + 1}}</div>
 	<div class="row ">
