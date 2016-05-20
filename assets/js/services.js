@@ -84,8 +84,8 @@ angular.module('RFIapp.services', [])
 
 	var mapData = function(data, section, dataScheme, searchTerms){
 
-		console.log(data)
-		console.log(dataScheme)
+		// console.log(data)
+		// console.log(dataScheme)
 	
 	//function mapData(data, section){
 

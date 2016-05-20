@@ -26,6 +26,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	var dataScheme = {};
 	var searchTerms = [];
 	var dataForDetached = {};
+	//	TO DEFINE WHAT LABELS NEED TO BE DISPLAYED
 	var tabLabelsMap = {
 		"Primary_Case_Info"		: "Primary Case Info",
 		"Caller_Reporter"		: "Caller/Reporter",
@@ -41,7 +42,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		"Narrative" 			: "Narrative",
 		"Related_Data" 			: "Related Data",
 	}
-
+	
 	// GET THE DATA SCHEME WHEN APP INIT
 	MapArrayFtry.getScheme().then(function(data){
 		dataScheme = data;
@@ -74,7 +75,10 @@ angular.module('MCDSearch.caseDisplay', [])
 	// DISPLAYS THE FIRST TAB TO BE SELECTED ONLY IF NO OTHER IS SELECTED
 		$timeout(function() {
 			if($(".caseMenuItem").hasClass( "caseMenu-sel" )){} 
-			else { $(".caseMenuItem").first().addClass('caseMenu-sel');}		
+			else { 
+				$(".caseMenuItem").first().addClass('caseMenu-sel');
+				$scope.primarycaseinfo = true;
+			}		
 		}, 300);
 
 		$scope.showCase = true;
@@ -84,6 +88,10 @@ angular.module('MCDSearch.caseDisplay', [])
 		dataForDetached.searchString = searchString;
 		dataForDetached.dataScheme = dataScheme;
 		dataForDetached.caseData = data;
+		dataForDetached.caseNumber = data.Header[0].id;
+		dataForDetached.tabLabels = $scope.tabsLabels;
+
+		//console.log(dataForDetached.tabLabels)
 		
 		var sections = {
 			"header" 				: 0,
@@ -100,7 +108,6 @@ angular.module('MCDSearch.caseDisplay', [])
 			"Unaccompanied_Minor"	: 11,
 			"Unidentified"			: 12,
 			"Vehicle"				: 13,
-		
 			};
 
 		// FIRST EMPTY THE EXISTING DATA
@@ -120,7 +127,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		if(data.Protective_Custody != undefined && data.Protective_Custody.length >0 ) $scope.protectiveCustodyList = mapData(data.Protective_Custody, sections.Protective_Custody);
 		if(data.Unaccompanied_Minor != undefined && data.Unaccompanied_Minor.length >0 ) $scope.unaccompaniedMinorList = mapData(data.Unaccompanied_Minor, sections.Unaccompanied_Minor);
 		if(data.Unidentified != undefined && data.Unidentified.length >0 ) $scope.unidentifiedList = mapData(data.Unidentified, sections.Unidentified);
-		if(data.Vehicle != undefined && data.Vehicle.length >0 ) $scope.vehicleList = mapData(data.Vehicle, sections.Vehicle);
+		//if(data.Vehicle != undefined && data.Vehicle.length >0 ) $scope.vehicleList = mapData(data.Vehicle, sections.Vehicle);
 		if(data.Header != undefined && data.Header.length >0)$scope.header = data.Header[0];
 
 		// KEEP TRACK OF THE VISITED REPORTS
@@ -219,8 +226,6 @@ angular.module('MCDSearch.caseDisplay', [])
 		var newWindow = window.open('newWindow.html');
 		//localStorage.setItem("caseNumber", $scope.summaryList[0][0].value);
 
-		dataForDetached.caseNumber = $scope.summaryList[0][0].value;
-
 		var jsonString = JSON.stringify({data: dataForDetached});
 		localStorage.setItem("dataForDetached", jsonString);
 	}
@@ -249,7 +254,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		"Related_Data" 			: "Related Data",*/
 		var index = evt.currentTarget.parentElement.parentElement.id;
 		var target = $scope.tabsLabels[index];
-		console.log($scope.tabsLabels[index]);
+		//console.log($scope.tabsLabels[index]);
 
 		switch(target) {
 			case "Primary Case Info":
