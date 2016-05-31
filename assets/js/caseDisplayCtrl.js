@@ -19,6 +19,19 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.narrativeList = [];
 	$scope.relatedDataList = [];
 
+	$scope.actionGroupList = [];
+	$scope.additonalRelatedAddressesList = [];
+	$scope.amberAlertList = [];
+	$scope.amberAlertList = [];
+	$scope.caseActivityLogList = [];
+	$scope.DNAInformationList = [];
+	$scope.posterInformationList = [];
+	$scope.requestorList = [];
+	$scope.requestForInfoList = [];
+	$scope.medicalExaminerCoronerList = [];
+	$scope.eventOfAttemptedAbductionList = [];
+
+
 	$scope.tabsLabels = [];
 	$scope.header = "";
 	$scope.reportHistory = [];
@@ -26,26 +39,28 @@ angular.module('MCDSearch.caseDisplay', [])
 	var dataScheme = {};
 	var searchTerms = [];
 	var dataForDetached = {};
-	//	TO DEFINE WHAT LABELS NEED TO BE DISPLAYED
-	var tabLabelsMap = {
-		"Primary_Case_Info"		: "Primary Case Info",
-		"Caller_Reporter"		: "Caller/Reporter",
-		"Child" 				: "Child",
-		"CSAW" 					: "CSAW",
-		"Parent_Guardian" 		: "Parent/Guardian",
-		"Law_Enforcement_Agent" : "Law Enforcement Agent",
-		"Attempted_Abduction" 	: "Attempted Abduction",
-		"Protective_Custody" 	: "Protective Custody",
-		"Unaccompanied_Minor" 	: "Unaccompanied Minor",
-		"Unidentified" 			: "Unidentified",
-		"Vehicle" 				: "Vehicle",
-		"Narrative" 			: "Narrative",
-		"Related_Data" 			: "Related Data",
-	}
-	
+
+	var sections = {
+		"header" 				: 0,
+		"Attempted_Abduction" 	: 1, 
+		"Caller_Reporter" 		: 2,  
+		"Child" 				: 3,
+		"CSAW"					: 4,
+		"Related_Data"			: 5,
+		"Law_Enforcement_Agent"	: 6,
+		"Narrative"				: 7,
+		"Parent_Guardian" 		: 8,
+		"Primary_Case_Info"		: 9,
+		"Protective_Custody"	: 10,
+		"Unaccompanied_Minor"	: 11,
+		"Unidentified"			: 12,
+		"Vehicle"				: 13,
+	};
+
 	// GET THE DATA SCHEME WHEN APP INIT
 	MapArrayFtry.getScheme().then(function(data){
 		dataScheme = data;
+			
 		//$scope.tabsLabels = data.tabsLabels;
 	});
 
@@ -63,12 +78,13 @@ angular.module('MCDSearch.caseDisplay', [])
 	})
 
 	$scope.$on('DISPLAY-CASE', function(event, data, searchString) {
+
 		// DISPLAY THE TAB LABELS THAT ARE RETURN WITH DATA
 		$scope.tabsLabels = [];
-		for(var tabLabel in tabLabelsMap) {
+		for(var i=1; i< dataScheme.tabsLinks.length; i++){
 			for(var section in data) {
-				if(section == tabLabel){
-					$scope.tabsLabels.push(tabLabelsMap[tabLabel]);
+				if(section == dataScheme.tabsLinks[i]){
+					$scope.tabsLabels.push( dataScheme.tabsLabels[i]);
 				} 
 			}
 		}
@@ -91,43 +107,29 @@ angular.module('MCDSearch.caseDisplay', [])
 		dataForDetached.caseNumber = data.Header[0].id;
 		dataForDetached.tabLabels = $scope.tabsLabels;
 
-		//console.log(dataForDetached.tabLabels)
-		
-		var sections = {
-			"header" 				: 0,
-			"Attempted_Abduction" 	: 1, 
-			"Caller_Reporter" 		: 2,  
-			"Child" 				: 3,
-			"CSAW"					: 4,
-			"Related_Data"			: 5,
-			"Law_Enforcement_Agent"	: 6,
-			"Narrative"				: 7,
-			"Parent_Guardian" 		: 8,
-			"Primary_Case_Info"		: 9,
-			"Protective_Custody"	: 10,
-			"Unaccompanied_Minor"	: 11,
-			"Unidentified"			: 12,
-			"Vehicle"				: 13,
-			};
-
 		// FIRST EMPTY THE EXISTING DATA
-		$scope.primaryCaseInfoList = $scope.callerReporterList =  $scope.childrenList =  $scope.CSAWList =  $scope.parentGuardiansList =  $scope.LEAList =  $scope.attemptedAbductionList =  $scope.protectiveCustodyList =  $scope.unaccompaniedMinorList =  $scope.unidentifiedList =  $scope.vehiclesList =  $scope.narrativeList =  $scope.relatedDataList = [];
+		$scope.primaryCaseInfoList = $scope.callerReporterList =  $scope.childrenList =  $scope.CSAWList =  $scope.parentGuardiansList =  $scope.LEAList =  $scope.attemptedAbductionList =  $scope.protectiveCustodyList =  $scope.unaccompaniedMinorList =  $scope.unidentifiedList =  $scope.vehiclesList =  $scope.narrativeList =  $scope.relatedDataList =  $scope.actionGroupList =  $scope.additonalRelatedAddressesList =  $scope.amberAlertList =  $scope.amberAlertList =  $scope.caseActivityLogList =  $scope.DNAInformationList =  $scope.posterInformationList =  $scope.requestorList =  $scope.requestForInfoList =  $scope.medicalExaminerCoronerList =  $scope.eventOfAttemptedAbductionList = [];
+
+		$scope.primaryCaseInfoList = mapData(data.MC_Primay_Case_Info, sections.Primary_Case_Info)
+
+		//console.log("FROM MAP DATA")
+		//console.log(data.MC_Primay_Case_Info)
 
 		//console.log(data.Primary_Case_Info);
 		//console.log(sections.children)
-		if(data.Attempted_Abduction != undefined && data.Attempted_Abduction.length >0 ) $scope.attemptedAbductionList = mapData(data.Attempted_Abduction, sections.Attempted_Abduction);
-		if(data.Caller_Reporter != undefined && data.Caller_Reporter.length >0 ) $scope.callerReporterList = mapData(data.Caller_Reporter, sections.Caller_Reporter);
-		if(data.Child != undefined && data.Child.length >0 ) $scope.childrenList = mapData(data.Child, sections.Child);
-		if(data.CSAW != undefined && data.CSAW.length >0 ) $scope.CSAWList = mapData(data.CSAW, sections.CSAW);
-		if(data.Related_Data != undefined && data.Related_Data.length >0 ) $scope.relatedDataList = mapData(data.Related_Data, sections.Related_Data);
-		if(data.Law_Enforcement_Agent != undefined && data.Law_Enforcement_Agent.length >0 ) $scope.LEAList = mapData(data.Law_Enforcement_Agent, sections.Law_Enforcement_Agent);
-		if(data.Narrative != undefined && data.Narrative.length >0 ) $scope.narrativeList = mapData(data.Narrative, sections.Narrative);
-		if(data.Parent_Guardian != undefined && data.Parent_Guardian.length >0 ) $scope.parentGuardiansList = mapData(data.Parent_Guardian, sections.Parent_Guardian);
-		if(data.Primary_Case_Info != undefined && data.Primary_Case_Info.length >0 ) $scope.primaryCaseInfoList = mapData(data.Primary_Case_Info, sections.Primary_Case_Info);	
-		if(data.Protective_Custody != undefined && data.Protective_Custody.length >0 ) $scope.protectiveCustodyList = mapData(data.Protective_Custody, sections.Protective_Custody);
-		if(data.Unaccompanied_Minor != undefined && data.Unaccompanied_Minor.length >0 ) $scope.unaccompaniedMinorList = mapData(data.Unaccompanied_Minor, sections.Unaccompanied_Minor);
-		if(data.Unidentified != undefined && data.Unidentified.length >0 ) $scope.unidentifiedList = mapData(data.Unidentified, sections.Unidentified);
-		//if(data.Vehicle != undefined && data.Vehicle.length >0 ) $scope.vehicleList = mapData(data.Vehicle, sections.Vehicle);
+		// if(data.Attempted_Abduction != undefined && data.Attempted_Abduction.length >0 ) $scope.attemptedAbductionList = mapData(data.Attempted_Abduction, sections.Attempted_Abduction);
+		// if(data.Caller_Reporter != undefined && data.Caller_Reporter.length >0 ) $scope.callerReporterList = mapData(data.Caller_Reporter, sections.Caller_Reporter);
+		// if(data.Child != undefined && data.Child.length >0 ) $scope.childrenList = mapData(data.Child, sections.Child);
+		// if(data.CSAW != undefined && data.CSAW.length >0 ) $scope.CSAWList = mapData(data.CSAW, sections.CSAW);
+		// if(data.Related_Data != undefined && data.Related_Data.length >0 ) $scope.relatedDataList = mapData(data.Related_Data, sections.Related_Data);
+		// if(data.Law_Enforcement_Agent != undefined && data.Law_Enforcement_Agent.length >0 ) $scope.LEAList = mapData(data.Law_Enforcement_Agent, sections.Law_Enforcement_Agent);
+		// if(data.Narrative != undefined && data.Narrative.length >0 ) $scope.narrativeList = mapData(data.Narrative, sections.Narrative);
+		// if(data.Parent_Guardian != undefined && data.Parent_Guardian.length >0 ) $scope.parentGuardiansList = mapData(data.Parent_Guardian, sections.Parent_Guardian);
+		 //if(data.Primary_Case_Info != undefined && data.Primary_Case_Info.length >0 ) $scope.primaryCaseInfoList = mapData(data.Primary_Case_Info, sections.Primary_Case_Info);	
+		// if(data.Protective_Custody != undefined && data.Protective_Custody.length >0 ) $scope.protectiveCustodyList = mapData(data.Protective_Custody, sections.Protective_Custody);
+		// if(data.Unaccompanied_Minor != undefined && data.Unaccompanied_Minor.length >0 ) $scope.unaccompaniedMinorList = mapData(data.Unaccompanied_Minor, sections.Unaccompanied_Minor);
+		// if(data.Unidentified != undefined && data.Unidentified.length >0 ) $scope.unidentifiedList = mapData(data.Unidentified, sections.Unidentified);
+		// //if(data.Vehicle != undefined && data.Vehicle.length >0 ) $scope.vehicleList = mapData(data.Vehicle, sections.Vehicle);
 		if(data.Header != undefined && data.Header.length >0)$scope.header = data.Header[0];
 
 		// KEEP TRACK OF THE VISITED REPORTS
@@ -168,6 +170,8 @@ angular.module('MCDSearch.caseDisplay', [])
 	}*/
 
 	function mapData(data, section){
+
+	
 
 			return MapDataFtry.mapData(data, section ,dataScheme, searchTerms) ;
 	

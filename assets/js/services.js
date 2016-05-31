@@ -9,9 +9,10 @@ angular.module('RFIapp.services', [])
 	var getScheme = function(){
 
 		var scheme = new Object({
-			tabsLabels : [],
-			fieldsLabels : [],
-			dbLabels : []
+			tabsLabels 	: [],
+			tabsLinks 	: [],
+			fieldsLabels: [],
+			dbLabels 	: []
 		})
 
 		//var url = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
@@ -21,6 +22,7 @@ angular.module('RFIapp.services', [])
 
 			for(var i = 0; i < (data.length -1); i++){	
 				scheme.tabsLabels.push(data[i].Tab_Label);
+				scheme.tabsLinks.push(data[i].rs_linker);
 				scheme.fieldsLabels.push(data[i].display_columns
 					.toString()
 					.replace(/\t/g, '')
@@ -31,9 +33,13 @@ angular.module('RFIapp.services', [])
 					.replace(/\t/g, '')
 					.replace(/\n/g, '')
 					.split(","));
+
 				}
 			})
 		var deferred = $q.defer();
+
+		console.log("SCHEME:"); 
+		console.log(scheme)
 
 		$promise.then(function(){
 			deferred.resolve(scheme);
@@ -84,13 +90,13 @@ angular.module('RFIapp.services', [])
 
 	var mapData = function(data, section, dataScheme, searchTerms){
 
-		// console.log(data)
-		// console.log(dataScheme)
-	
-	//function mapData(data, section){
+		console.log("FROM DATA FACTORY");
+			console.log(dataScheme)
+		
 
-		// MAP THE LABEL DATA INTO AN ARRAY/////////////////////////////////
+		// MAP THE DB LABEL DATA INTO AN ARRAY/////////////////////////////////
 		var dbLabelArray = dbLabelArray = $.map(data[0], function(value, label){
+			console.log(label)
 			return [label]
 		});
 		var dataSet	= []; // TO STORE THE ORIGINAL DATA VALUE SET BEFORE MAPPING
@@ -129,10 +135,7 @@ angular.module('RFIapp.services', [])
 		}
 		return sectionSet
 	}
-
 	return {mapData : mapData}
-
-
 }])
 
 //  DATA FACTORY ///////////////////////////////////////////////////////////
