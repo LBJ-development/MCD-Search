@@ -1,9 +1,8 @@
-<div class="sub-title" ng-show="primaryCaseInfoList.length == 0">No Primary Case Info found in this report</div> 
-<section   ng-repeat="item in primaryCaseInfoList track by $index"> 
+<section   ng-repeat="item in fieldList track by $index"> 
 	<div class="pers-sep"  ng-show="$index >0"></div>
-	<div class="sub-title">Primary Case Info {{$index + 1}} </div>
+	<div class="sub-title">{{sectionTitle}} {{$index + 1}} </div>
 	<div class="row ">
-		<div  ng-repeat="sectionData in primaryCaseInfoList[$index] track by $index">
+		<div  ng-repeat="sectionData in fieldList[$index] track by $index">
 			<div class="{{sectionData.fieldsize}} form-group">
 				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml"></span> 
 			</div>

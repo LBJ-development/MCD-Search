@@ -22,7 +22,7 @@ angular.module('RFIapp.config', [])
 		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/'
 		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/json/MCDDB/'
 
-		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/json/MCDDB/'
+		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/json/'
 	})
 
 	.constant('serverPath', {

@@ -125,7 +125,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	}
 
 	// GET THE SELECTED CASE //////////////////////////////////////
-	$scope.getCase = function(caseID){
+	$scope.getCase = function(caseID, collection){
 
 		$rootScope.$broadcast('RESET-CASE');
 
@@ -142,18 +142,18 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 		} else {
 			// DISPLAY THE CASE WITHIN THE APP. 
-			var caseN = searchResult.contextPath + caseID;
+			var caseN = searchResult.contextPath + collection + "/" + caseID;
 
 			DataFtry.getData(caseN).then(function(data){
 				if(jQuery.isEmptyObject(data)){
 					alert("No data for this case...")
 				}else {
-
 					$rootScope.$broadcast('DISPLAY-CASE',data, searchTerms);
 				}
 			});
 		}
 	}
+
 // LOGOUT & CLEANING /////////////////////////////////////////////////////////////////
 	$rootScope.logout = function(data) {
 		$scope.log = '';

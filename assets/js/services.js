@@ -38,8 +38,8 @@ angular.module('RFIapp.services', [])
 			})
 		var deferred = $q.defer();
 
-		console.log("SCHEME:"); 
-		console.log(scheme)
+		// console.log("SCHEME:"); 
+		// console.log(scheme)
 
 		$promise.then(function(){
 			deferred.resolve(scheme);
@@ -90,49 +90,54 @@ angular.module('RFIapp.services', [])
 
 	var mapData = function(data, section, dataScheme, searchTerms){
 
-		console.log("FROM DATA FACTORY");
-			console.log(dataScheme)
-		
+		// TO DEFINE THE INDEX OF THE SECTION ////////////////////
+		var index;
+		for(var i=0 ; i<dataScheme.tabsLinks.length; i++){
+			if(dataScheme.tabsLinks[i] == section ) index = i;
+		}
 
 		// MAP THE DB LABEL DATA INTO AN ARRAY/////////////////////////////////
-		var dbLabelArray = dbLabelArray = $.map(data[0], function(value, label){
-			console.log(label)
+		var dbLabelArray =  $.map(data[0], function(value, label){
+
 			return [label]
 		});
+		//console.log(dbLabelArray)
 		var dataSet	= []; // TO STORE THE ORIGINAL DATA VALUE SET BEFORE MAPPING
 		var valueArray 	= [];
 
-		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH PERSONS /////////////////////////////////
+		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH SECTION /////////////////////////////////
 		for (var key in data){
 			valueArray = $.map(data[key], function(value, label){
 				return [value]
 			});
 			dataSet.push(valueArray);
 		}
-
 		var sectionSet 	= [];
-		
-		for (var key in dataSet){
 
+		for (var key in dataSet){
+				
 			var sectionData = [];
-			for(var i=0;  i< dataScheme.dbLabels[section].length; i++){
+
+			for(var i=0;  i< dataScheme.dbLabels[index].length; i++){
 
 				for(var n=0; n < dbLabelArray.length; n++){
+
 					// DON'T DISPLAY IS THERE IS NO VALUE
 					if(dataSet[key][n].length > 0 && dataSet[key][n] !== "0"){
 
-						if(dataScheme.dbLabels[section][i] == dbLabelArray[n]){
+						if(dataScheme.dbLabels[index][i] == dbLabelArray[n]){
 							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
 							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
 							var hiValue = HightlightFtry.hightlight(dataSet[key][n], searchTerms );
 							//console.log( dataSet[key][n])
-							sectionData.push({"label" : dataScheme.fieldsLabels[section][i], "value" : hiValue, "fieldsize" : fieldsize })
+							sectionData.push({"label" : dataScheme.fieldsLabels[index][i], "value" : hiValue, "fieldsize" : fieldsize })
 						}
 					}	
 				}
 			}
 			sectionSet.push(sectionData);
 		}
+		console.log(sectionSet)
 		return sectionSet
 	}
 	return {mapData : mapData}
@@ -141,24 +146,6 @@ angular.module('RFIapp.services', [])
 //  DATA FACTORY ///////////////////////////////////////////////////////////
 .factory('DataFtry', [ '$http' , '$q' ,   function($http, $q) {
 
-/*	var getData = function(url){
-		var $promise =  $http({
-				method: 'GET',
-				url:  url,
-				headers: {'Content-Type': 'application/json'}
-			});
-			var deferred = $q.defer();
-			$promise.then(function(result){
-
-				if(result.data.status.status == 'SUCCESS'){
-					deferred.resolve(result);
-				} else  if( result.data.status.status == 'FAILED') {
-					alert(result.data.status.message);
-				}
-			});
-			return deferred.promise;
-		};
-*/
 	var sendData = function(url, data){
 
 		var $promise =  $http({
