@@ -18,6 +18,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$scope.results = [];
 
 	var searchTerms = [];
+	var currentCollection;
 
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
@@ -129,6 +130,8 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 		$rootScope.$broadcast('RESET-CASE');
 
+		if(collection != undefined) currentCollection = collection;
+
 		if(caseID == undefined){
 			// CREATE AN ERROR WINDOW WITH A LINK THAT DISPLAYS THE CASE IN A NEW TAB
 			$("#dialog").dialog({
@@ -142,7 +145,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 		} else {
 			// DISPLAY THE CASE WITHIN THE APP. 
-			var caseN = searchResult.contextPath + collection + "/" + caseID;
+			var caseN = searchResult.contextPath + currentCollection + "/" + caseID;
 
 			DataFtry.getData(caseN).then(function(data){
 				if(jQuery.isEmptyObject(data)){

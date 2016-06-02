@@ -86,7 +86,7 @@ angular.module('RFIapp.services', [])
 	}
 }])
 	
-.factory('MapDataFtry',[ "HightlightFtry" , function( HightlightFtry){
+.factory('MapDataFtry',[  "HightlightFtry" , function( HightlightFtry){
 
 	var mapData = function(data, section, dataScheme, searchTerms){
 
@@ -115,6 +115,8 @@ angular.module('RFIapp.services', [])
 		var sectionSet 	= [];
 
 		for (var key in dataSet){
+
+			//console.log($scope.displayIndex);
 				
 			var sectionData = [];
 
@@ -137,7 +139,6 @@ angular.module('RFIapp.services', [])
 			}
 			sectionSet.push(sectionData);
 		}
-		console.log(sectionSet)
 		return sectionSet
 	}
 	return {mapData : mapData}

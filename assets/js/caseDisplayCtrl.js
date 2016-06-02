@@ -13,7 +13,9 @@ angular.module('MCDSearch.caseDisplay', [])
 	var dataScheme = {};
 	var searchTerms = [];
 	var dataForDetached = {};
-	var genData  = {}
+	var genData  = {};
+	var sectionIndex;
+	var sectionTitle;
 
 	// GET THE DATA SCHEME WHEN APP INIT
 	MapArrayFtry.getScheme().then(function(data){
@@ -34,11 +36,11 @@ angular.module('MCDSearch.caseDisplay', [])
 	})
 
 	$scope.$on('DISPLAY-CASE', function(event, data, searchString) {
-
 		genData = data;
 		searchTerms = searchString; // COLLECT THE SEARCH TERMS
 		// DISPLAY THE TAB LABELS THAT ARE RETURN WITH DATA
 		$scope.tabsLabels = [];
+		tabsLinks = [];
 		for(var i=1; i< dataScheme.tabsLinks.length; i++){
 			for(var section in data) {
 				if(section == dataScheme.tabsLinks[i] && data[section].length > 0){
@@ -49,23 +51,30 @@ angular.module('MCDSearch.caseDisplay', [])
 		}
 	// DISPLAYS THE FIRST TAB TO BE SELECTED ONLY IF NO OTHER IS SELECTED
 		$timeout(function() {
-			if($(".caseMenuItem").hasClass( "caseMenu-sel" )){} 
+
+			$(".caseMenuItem").removeClass("caseMenu-sel");
+			$(".caseMenuItem").first().addClass('caseMenu-sel');
+				//$scope.primarycaseinfo = true;
+		/*	if($(".caseMenuItem").hasClass( "caseMenu-sel" )){} 
 			else { 
 				$(".caseMenuItem").first().addClass('caseMenu-sel');
 				//$scope.primarycaseinfo = true;
-			}		
+			}	*/	
 		}, 300);
 
-		$scope.showCase = true;
-	
+		if(data.Header != undefined && data.Header.length >0)$scope.header = data.Header[0];
+
+		sectionIndex = 0;
+		sectionTitle = $scope.tabsLabels[0];
+		setSection();
+
 		// COLLECTING DATA FOR THE DETACHED PAGE/////////////
 		dataForDetached.searchString = searchString;
 		dataForDetached.dataScheme = dataScheme;
 		dataForDetached.caseData = data;
 		dataForDetached.caseNumber = data.Header[0].id;
 		dataForDetached.tabLabels = $scope.tabsLabels;
-
-		if(data.Header != undefined && data.Header.length >0)$scope.header = data.Header[0];
+		dataForDetached.tabLinks = tabsLinks;
 
 		// KEEP TRACK OF THE VISITED REPORTS
 		if($scope.reportHistory[$scope.reportHistory.length - 1] != data.Header[0].id){
@@ -73,21 +82,23 @@ angular.module('MCDSearch.caseDisplay', [])
 		};
 	});
 
-	function mapData(data, section){
-			return MapDataFtry.mapData(data, section ,dataScheme, searchTerms) ;
-	}
-
-	$scope.cases = true;
-
 	$scope.selectSection = function(evt){
 		$(".caseMenuItem").removeClass("caseMenu-sel");
 		$(evt.currentTarget).addClass('caseMenu-sel');
-
-		var index = evt.currentTarget.parentElement.parentElement.id;
-		$scope.sectionTitle = evt.currentTarget.text;
-		$scope.fieldList =  mapData(genData[tabsLinks[index]] , tabsLinks[index])
-		$scope.genericInfo = true;
+		sectionIndex = evt.currentTarget.parentElement.parentElement.id;
+		sectionTitle =  evt.currentTarget.text;
+		setSection();
 	};
+
+	function setSection(){
+		$scope.sectionTitle = sectionTitle;
+		//	 MAP THE DATA ////////////////		
+		$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
+		// CHECK IF THERE ARE MULTIPLE ITEMS IN THE SECTIONS AND DISPLAYS THE INDEX 
+		$scope.fieldList.length > 1 ? $scope.displayIndex = true :  $scope.displayIndex = false;
+		$scope.showCase = true;
+		$scope.genericInfo = true;
+	}
 
 	$scope.detachCase = function(){
 		var newWindow = window.open('newWindow.html');
@@ -96,8 +107,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	}
 	
 	$scope.goToPreviousRep = function(evt){
-		//if( $scope.reportHistoryIndex > 0 ) 
-		//$scope.reportHistory.splice($scope.reportHistory.length - 1, 1);
+
 		$scope.reportHistory.pop();
 
 		$scope.getCase($scope.reportHistory[($scope.reportHistory.length - 1)]);

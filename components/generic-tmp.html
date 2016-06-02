@@ -1,6 +1,6 @@
 <section   ng-repeat="item in fieldList track by $index"> 
 	<div class="pers-sep"  ng-show="$index >0"></div>
-	<div class="sub-title">{{sectionTitle}} {{$index + 1}} </div>
+	<div class="sub-title">{{sectionTitle}}<span ng-show="displayIndex"> {{$index + 1}}</span> </div>
 	<div class="row ">
 		<div  ng-repeat="sectionData in fieldList[$index] track by $index">
 			<div class="{{sectionData.fieldsize}} form-group">

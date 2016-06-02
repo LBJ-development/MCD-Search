@@ -18,25 +18,15 @@
 </div>
 <div class="caseMenu clearfix" style="padding:20px 20px 5px 0px; float: left; width:100%">
 	<ul> 
-		<div ng-if="$index > 0" ng-repeat="label in tabsLabels track by $index" id="{{$index}}">
+		<div  ng-repeat="label in tabsLabels track by $index" id="{{$index}}">
 			<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">{{label}}</a></li>
 			<li>|</li>
 		</div>
 	</ul>
 </div>
 <div class="sectionWrapper" style="float: left; width:100%">
-	<primarycaseinfo-dir class="show-hide" ng-show="primarycaseinfo"></primarycaseinfo-dir>
-	<callerreporter-dir class="show-hide" ng-show="callerreporter"></callerreporter-dir>
-	<children-dir class="show-hide" ng-show="child"></children-dir>
-	<guardian-dir class="show-hide" ng-show="parentguardian"></guardian-dir>
-	<csaw-dir class="show-hide" ng-show="csaw"></csaw-dir>
-	<lea-dir class="show-hide" ng-show="lawenforcementagent"></lea-dir>
-	<attemptedabduction-dir class="show-hide" ng-show="attemptedabduction"></attemptedabduction-dir>
-	<protectivecustody-dir class="show-hide" ng-show="protectivecustody"></protectivecustody-dir>
-	<unaccompaniedminor-dir class="show-hide" ng-show="unaccompaniedminor"></unaccompaniedminor-dir>
-	<unidentified-dir class="show-hide" ng-show="unidentified"></unidentified-dir>
-	<vehicle-dir class="show-hide" ng-show="vehicle"></vehicle-dir>
-	<narrative-dir class="show-hide" ng-show="narrative"></narrative-dir>
-	<relateddata-dir class="show-hide" ng-show="relateddata"></relateddata-dir>
+	<generic-dir class="show-hide">Generic Directive</generic-dir>
 </div>
+
+
 
