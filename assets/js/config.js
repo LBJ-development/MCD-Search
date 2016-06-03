@@ -1,19 +1,24 @@
 'use strict';
 
 angular.module('RFIapp.config', [])
-	.constant('RFIConfig', {
+	/*.constant('RFIConfig', {
 		contextPath:'http://pnguyen-l.ncmecad.net:8080/rfi'
-	})
+	})*/
 	.constant('MCDSearchPath', {
 		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/gsa/'
 		//contextPath:'http://172.25.6.137:8080/ws-gsa/gsa/'
-		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/search/',
-		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/gsa/search/'
+		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/search/',
+		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/gsa/search/'
 	})
 
 	.constant('loginPath', {
-		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'
-		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/gsa/'	
+		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'
+		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'	
+	})
+
+	.constant('logoutPath', {
+		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/gsa/'
+		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'	
 	})
 
 	.constant('searchResult', {
@@ -22,10 +27,10 @@ angular.module('RFIapp.config', [])
 		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/'
 		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/json/MCDDB/'
 
-		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/json/'
+		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/json/'
 	})
 
 	.constant('serverPath', {
-		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/'
+		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/'
 	});
 

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry",  function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry){
+app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry", "logoutPath",  function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry, logoutPath){
 
 	var win = angular.element($window);
 
@@ -164,6 +164,11 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 		sessionStorage.clear();
 		$rootScope.loggedIn = false;
 		$scope.searchQuery.qrTerm = "";
+		//window.location.href = "http://hqdev1.ncmecad.net:8080/ws-gsa/";
+		var url = logoutPath.contextPath  + "logout" ;
+		DataFtry.getData(url).then(function(data){
+			console.log("FROM LOGOUT")
+		});
 	};
 }])
 
