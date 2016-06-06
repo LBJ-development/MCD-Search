@@ -48,7 +48,7 @@ angular.module('MCDSearch.caseDisplay', [])
 					tabsLinks.push( dataScheme.tabsLinks[i]);
 				} 
 			}
-			console.log($scope.tabsLabels);
+			//console.log($scope.tabsLabels);
 		}
 	// DISPLAYS THE FIRST TAB TO BE SELECTED ONLY IF NO OTHER IS SELECTED
 		$timeout(function() {

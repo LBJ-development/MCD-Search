@@ -1,9 +1,9 @@
 'use strict';
 
-app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry", "logoutPath",  function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry, logoutPath){
+app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry", "logoutPath",   function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry, logoutPath){
 
 	var win = angular.element($window);
-
+	$scope.apVersion;
 	$scope.displayOperand = false;
 	$scope.currentPage = 1;
 	$scope.maxSize = 9;
@@ -20,6 +20,11 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	var searchTerms = [];
 	var currentCollection;
 
+	// GET APP VERSION //////////////////////////////////////////////
+	var versionUrl = logoutPath.contextPath + "utils/version" ;
+	DataFtry.getData(versionUrl).then(function(result){ 
+		$scope.apVersion = result.version;
+	});
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
 		$scope.stateName = toState.name;
@@ -165,7 +170,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 		$rootScope.loggedIn = false;
 		$scope.searchQuery.qrTerm = "";
 		//window.location.href = "http://hqdev1.ncmecad.net:8080/ws-gsa/";
-		var url = logoutPath.contextPath  + "logout" ;
+		var url = logoutPath.contextPath  + "gsa/logout" ;
 		DataFtry.getData(url).then(function(data){
 			console.log("FROM LOGOUT")
 		});
