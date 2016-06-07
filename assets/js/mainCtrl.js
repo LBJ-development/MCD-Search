@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry", "logoutPath",   function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry, logoutPath){
+app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry", "logoutPath", "searchCollection",  function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry, logoutPath, searchCollection){
 
 	var win = angular.element($window);
 	$scope.apVersion;
@@ -24,6 +24,13 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	var versionUrl = logoutPath.contextPath + "utils/version" ;
 	DataFtry.getData(versionUrl).then(function(result){ 
 		$scope.apVersion = result.version;
+	});
+
+	// GET COLLECTIONS FOR SEARCHES  //////////////////////////////////////////////
+	var collectionUrl = searchCollection.contextPath + "collections" ;
+	DataFtry.getData(collectionUrl).then(function(result){ 
+		$scope.searchQuery.collections = result;
+		//$scope.apVersion = result.version;
 	});
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
@@ -107,10 +114,11 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 		var operand = $scope.searchQuery.operand;
 		var url;
 
-		if($scope.searchQuery.collections == "" || $scope.searchQuery.collections == null ){
-			$scope.searchQuery.collections = ["MCDTest"];
+		/*if($scope.searchQuery.collections == "" || $scope.searchQuery.collections == null ){
+			$scope.searchQuery.collections = ["mcdstaging"];
 			//console.log($scope.searchQuery.collections)
-		}
+		}*/
+
 		//url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collections + "/" + operand;
 		//url = MCDSearchPath.contextPath + qrTerm +  "/" + startIndex + "/" + nResults + "/" + collections;
 		url = MCDSearchPath.contextPath;

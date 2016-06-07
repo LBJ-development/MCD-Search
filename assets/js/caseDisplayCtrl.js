@@ -3,7 +3,7 @@
 angular.module('MCDSearch.caseDisplay', [])
 
 // CASE DISPLAY CONTROLLER /////////////////////////////////////////////////////////
-.controller('CaseDisplayCtrl', ["$scope", "$state","MapArrayFtry", "HightlightFtry", "MapDataFtry", "$timeout", function($scope, $state, MapArrayFtry, HightlightFtry, MapDataFtry, $timeout ){
+.controller('CaseDisplayCtrl', ["$scope", "$state","MapArrayFtry", "HightlightFtry", "MapDataFtry", "$timeout", "DataFtry", "schemeCollection", function($scope, $state, MapArrayFtry, HightlightFtry, MapDataFtry, $timeout, DataFtry, schemeCollection ){
 
 	$scope.fieldList = [];
 	$scope.tabsLabels = [];
@@ -11,19 +11,42 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.reportHistory = [];
 	var tabsLinks = [];
 	var dataScheme = {};
+	var dataSchemeArr  =[];
 	var searchTerms = [];
 	var dataForDetached = {};
 	var genData  = {};
 	var sectionIndex;
 	var sectionTitle;
+	var collectionSchemes = [];
 
-	// GET THE DATA SCHEME WHEN APP INIT
-	MapArrayFtry.getScheme().then(function(data){
-		dataScheme = data;
+	// GET ALL THE SCHEME
+	var schemeUrl = schemeCollection.contextPath + "procs"
+	DataFtry.getData(schemeUrl).then(function(result){ 
+		collectionSchemes = result;
+
+		for(var i=0; i<result.length; i++){
+
+			// GET THE DATA SCHEME WHEN APP INIT
+			MapArrayFtry.getScheme(result[i]).then(function(data){
+				dataSchemeArr.push(data);
+			
+			});
+		}
+
+		$timeout(function() {
+
+			console.log(dataSchemeArr[0])
+		}, 500);
+
+
 	});
+	// GET THE DATA SCHEME WHEN APP INIT
+/*	MapArrayFtry.getScheme("MCDDB").then(function(data){
+		dataScheme = data;
+	});*/
 
 	// MAPPED DATA
-	$scope.childrenData = [];
+	//$scope.childrenData = [];
 
 	$scope.showCase = false;
 

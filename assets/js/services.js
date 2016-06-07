@@ -6,7 +6,7 @@ angular.module('RFIapp.services', [])
 
 .factory('MapArrayFtry', [ 'DataFtry' , '$q' , 'serverPath' ,  function(DataFtry, $q, serverPath) {
 
-	var getScheme = function(){
+	var getScheme = function(collection){
 
 		var scheme = new Object({
 			tabsLabels 	: [],
@@ -16,11 +16,15 @@ angular.module('RFIapp.services', [])
 		})
 
 		//var url = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
-		var url = serverPath.contextPath + "report/columnMap/MCDDB"
+		var url = serverPath.contextPath + "report/columnMap/" +  collection;
 
 		var $promise =  DataFtry.getData(url).then(function(data){
 
-			for(var i = 0; i < (data.length -1); i++){	
+			//console.log(data)
+		
+			//for(var i = 0; i < (data.length -1); i++){	
+			for(var i = 0; i <5; i++){	
+
 				scheme.tabsLabels.push(data[i].Tab_Label);
 				scheme.tabsLinks.push(data[i].rs_linker);
 				scheme.fieldsLabels.push(data[i].display_columns

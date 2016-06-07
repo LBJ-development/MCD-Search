@@ -5,7 +5,6 @@ var app = angular.module('detachedCaseApp', [
 	'ngRoute',
 	'ui.router',
 	'ui.bootstrap',
-	'kendo.directives',
 	'RFIapp.filters',
 	'RFIapp.services',
 	'MCDSearch.utilities',
