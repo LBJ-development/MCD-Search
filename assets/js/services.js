@@ -21,18 +21,16 @@ angular.module('RFIapp.services', [])
 		var $promise =  DataFtry.getData(url).then(function(data){
 
 			//console.log(data)
-		
-			//for(var i = 0; i < (data.length -1); i++){	
-			for(var i = 0; i <5; i++){	
+			for(var i = 0; i < (data.length -1); i++){		
 
-				scheme.tabsLabels.push(data[i].Tab_Label);
-				scheme.tabsLinks.push(data[i].rs_linker);
-				scheme.fieldsLabels.push(data[i].display_columns
+				if(data[i].Tab_Label != undefined) scheme.tabsLabels.push(data[i].Tab_Label);
+				if(data[i].rs_linker != undefined)scheme.tabsLinks.push(data[i].rs_linker);
+				if(data[i].display_columns != undefined)scheme.fieldsLabels.push(data[i].display_columns
 					.toString()
 					.replace(/\t/g, '')
 					.replace(/\n/g, '')
 					.split(","));
-				scheme.dbLabels.push(data[i].dbcolumns
+				if(data[i].dbcolumns != undefined)scheme.dbLabels.push(data[i].dbcolumns
 					.toString()
 					.replace(/\t/g, '')
 					.replace(/\n/g, '')

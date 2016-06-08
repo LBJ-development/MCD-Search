@@ -17,36 +17,22 @@ angular.module('MCDSearch.caseDisplay', [])
 	var genData  = {};
 	var sectionIndex;
 	var sectionTitle;
-	var collectionSchemes = [];
+	var schemesName = [];
 
-	// GET ALL THE SCHEME
+	// GET ALL THE SCHEMES
 	var schemeUrl = schemeCollection.contextPath + "procs"
 	DataFtry.getData(schemeUrl).then(function(result){ 
-		collectionSchemes = result;
-
+		schemesName = result;
 		for(var i=0; i<result.length; i++){
-
 			// GET THE DATA SCHEME WHEN APP INIT
 			MapArrayFtry.getScheme(result[i]).then(function(data){
 				dataSchemeArr.push(data);
-			
 			});
 		}
-
-		$timeout(function() {
-
-			console.log(dataSchemeArr[0])
-		}, 500);
-
-
+		/*$timeout(function() {
+			console.log(dataSchemeArr)
+		}, 500);*/
 	});
-	// GET THE DATA SCHEME WHEN APP INIT
-/*	MapArrayFtry.getScheme("MCDDB").then(function(data){
-		dataScheme = data;
-	});*/
-
-	// MAPPED DATA
-	//$scope.childrenData = [];
 
 	$scope.showCase = false;
 
@@ -61,9 +47,16 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.$on('DISPLAY-CASE', function(event, data, searchString) {
 		genData = data;
 		searchTerms = searchString; // COLLECT THE SEARCH TERMS
+
+		// DEFINE THE SCHEME COLLECTION TO BE USED ///////
+		for(var i=0; i< schemesName.length; i++){
+			if(schemesName[i] == data.Header[0].collection_name) dataScheme = dataSchemeArr[i];
+		}
+
 		// DISPLAY THE TAB LABELS THAT ARE RETURN WITH DATA
 		$scope.tabsLabels = [];
 		tabsLinks = [];
+
 		for(var i=1; i< dataScheme.tabsLinks.length; i++){
 			for(var section in data) {
 				if(section == dataScheme.tabsLinks[i] && data[section].length > 0){
@@ -71,7 +64,6 @@ angular.module('MCDSearch.caseDisplay', [])
 					tabsLinks.push( dataScheme.tabsLinks[i]);
 				} 
 			}
-			//console.log($scope.tabsLabels);
 		}
 	// DISPLAYS THE FIRST TAB TO BE SELECTED ONLY IF NO OTHER IS SELECTED
 		$timeout(function() {
@@ -100,7 +92,12 @@ angular.module('MCDSearch.caseDisplay', [])
 		dataForDetached.tabLabels = $scope.tabsLabels;
 		dataForDetached.tabLinks = tabsLinks;
 
-		// KEEP TRACK OF THE VISITED REPORTS
+		// EMPTY THE REPORT HISTORY ARRAY WHEN A NEW SEARCH IS PERFORMED
+		$scope.$on('SEARCH-RESULT', function(event) {
+			 $scope.reportHistory = [];
+		})
+
+		// KEEP TRACK OF THE VISITED REPORTS	
 		if($scope.reportHistory[$scope.reportHistory.length - 1] != data.Header[0].id){
 			 $scope.reportHistory.push(data.Header[0].id)
 		};
@@ -131,7 +128,6 @@ angular.module('MCDSearch.caseDisplay', [])
 	}
 	
 	$scope.goToPreviousRep = function(evt){
-
 		$scope.reportHistory.pop();
 
 		$scope.getCase($scope.reportHistory[($scope.reportHistory.length - 1)]);

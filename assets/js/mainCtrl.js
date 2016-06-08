@@ -135,6 +135,9 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 			$scope.results = [];
 			$scope.results = result.data.results;
 			searchTerms = result.data.searchObj.qrWords;
+
+			// TO EMPTY THE REPORT HISTORY ARRAY
+			$rootScope.$broadcast('SEARCH-RESULT');
 		});
 	}
 
