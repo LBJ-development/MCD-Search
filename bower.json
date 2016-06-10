@@ -1,0 +1,26 @@
+{
+  "name": "CVIP",
+  "authors": [
+    "LBJ-development <ludwig@jablonski.info>"
+  ],
+  "description": "NGS Google Search",
+  "main": "MCDSearch.html",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+
+    "grunt": "^0.4.5",
+  },
+  "resolutions": {
+    
+  }
+}
