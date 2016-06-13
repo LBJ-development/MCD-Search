@@ -3,7 +3,7 @@
 angular.module('MCDSearch.caseDisplay', [])
 
 // CASE DISPLAY CONTROLLER /////////////////////////////////////////////////////////
-.controller('CaseDisplayCtrl', ["$scope", "$state","MapArrayFtry", "HightlightFtry", "MapDataFtry", "$timeout", "DataFtry", "schemeCollection", function($scope, $state, MapArrayFtry, HightlightFtry, MapDataFtry, $timeout, DataFtry, schemeCollection ){
+.controller('CaseDisplayCtrl', ["$scope", "$state","MapArrayFtry", "HightlightFtry", "MapDataFtry", "$timeout", "DataFtry", "schemeCollection", "CountOccurencesFtry", function($scope, $state, MapArrayFtry, HightlightFtry, MapDataFtry, $timeout, DataFtry, schemeCollection, CountOccurencesFtry ){
 
 	$scope.fieldList = [];
 	$scope.tabsLabels = [];
@@ -61,7 +61,17 @@ angular.module('MCDSearch.caseDisplay', [])
 			for(var section in data) {
 				if(section == dataScheme.tabsLinks[i] && data[section].length > 0){
 					$scope.tabsLabels.push( dataScheme.tabsLabels[i]);
-					tabsLinks.push( dataScheme.tabsLinks[i]);
+					tabsLinks.push(dataScheme.tabsLinks[i]);
+
+					//var count = CountOccurencesFtry.countOccurences("This a test for the test", "test");
+					//console.log(data[section][1]);
+
+					console.log(data[section]);
+
+				/*	for(var j=0; j<data[section].length; j++){
+
+						console.log(j)
+					}*/
 				} 
 			}
 		}

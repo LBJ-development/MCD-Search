@@ -35,7 +35,6 @@ angular.module('RFIapp.services', [])
 					.replace(/\t/g, '')
 					.replace(/\n/g, '')
 					.split(","));
-
 				}
 			})
 		var deferred = $q.defer();
@@ -52,6 +51,27 @@ angular.module('RFIapp.services', [])
 		getScheme: getScheme,
 	}	
 }])
+
+.factory('CountOccurencesFtry', function() {
+
+	var countOccurences = function(data, searchTerms){
+
+		var occurences = 0;
+
+		for(var i= 0; i< searchTerms.length; i++){
+
+			var searchWord = searchTerms[i];
+
+			occurences  += (data.match(searchWord, "gi") || []).length;
+			//console.log(occurences)
+		
+			}
+		return occurences
+		}
+	return {
+		countOccurences: countOccurences,
+	}	
+})
 
 .factory('HightlightFtry',[  function() {
 
@@ -73,12 +93,12 @@ angular.module('RFIapp.services', [])
 				var replaceString1 = searchWord;
 				var replaceString2 = searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase();
 				var replaceString3 = searchWord.toUpperCase();
-				var replaceString4 = searchWord.toLowerCase();
+				var replaceString4 = searchWord.toLowerCase();				
 
 				dataString = dataString.replace(searchString1, "<span class='searchHightlight'>" + replaceString1 + "</span>")
-													.replace(searchString2, "<span class='searchHightlight'>" + replaceString2 + "</span>")
-													.replace(searchString3, "<span class='searchHightlight'>" + replaceString3 + "</span>")
-													.replace(searchString4, "<span class='searchHightlight'>" + replaceString4 + "</span>");	
+										.replace(searchString2, "<span class='searchHightlight'>" + replaceString2 + "</span>")
+										.replace(searchString3, "<span class='searchHightlight'>" + replaceString3 + "</span>")
+										.replace(searchString4, "<span class='searchHightlight'>" + replaceString4 + "</span>");				
 				}
 			}
 		return   dataString;
@@ -100,7 +120,6 @@ angular.module('RFIapp.services', [])
 
 		// MAP THE DB LABEL DATA INTO AN ARRAY/////////////////////////////////
 		var dbLabelArray =  $.map(data[0], function(value, label){
-
 			return [label]
 		});
 		//console.log(dbLabelArray)
@@ -117,8 +136,6 @@ angular.module('RFIapp.services', [])
 		var sectionSet 	= [];
 
 		for (var key in dataSet){
-
-			//console.log($scope.displayIndex);
 				
 			var sectionData = [];
 
@@ -133,7 +150,7 @@ angular.module('RFIapp.services', [])
 							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
 							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
 							var hiValue = HightlightFtry.hightlight(dataSet[key][n], searchTerms );
-							//console.log( dataSet[key][n])
+							
 							sectionData.push({"label" : dataScheme.fieldsLabels[index][i], "value" : hiValue, "fieldsize" : fieldsize })
 						}
 					}	

@@ -3,23 +3,23 @@
 angular.module('RFIapp.config', [])
 
 	.constant('MCDSearchPath', {
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/search/',
+		contextPath:'http://ngsstaging.ncmecad.net/ws-gsa/gsa/search/',
 	})
 
 	.constant('loginPath', {
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'
+		contextPath:'http://ngsstaging.ncmecad.net/ws-gsa/gsa/'
 	})
 
 	.constant('logoutPath', {
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/'
+		contextPath:'http://ngsstaging.ncmecad.net/ws-gsa/'
 	})
 
 	.constant('searchResult', {
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/json/'
+		contextPath:'http://ngsstaging.ncmecad.net/ws-gsa/report/json/'
 	})
 
 	.constant('searchResult', {
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/json/'
+		contextPath:'http://ngsstaging.ncmecad.net/ws-gsa/report/json/'
 	})
 
 	.constant('searchCollection', {
@@ -27,11 +27,11 @@ angular.module('RFIapp.config', [])
 	})
 
 	.constant('schemeCollection', {
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'
+		contextPath:'http://ngsstaging.ncmecad.net/ws-gsa/gsa/'
 	})
 
 	.constant('serverPath', {
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/'
+		contextPath:'http://ngsstaging.ncmecad.net/ws-gsa/'
 	});
 
 
