@@ -22,7 +22,8 @@
 <div class="caseMenu clearfix" style="padding:20px 20px 5px 0px; float: left; width:100%">
 	<ul> 
 		 <div  ng-repeat="label in tabsLabels track by $index" id="{{$index}}"> 
-		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">{{label}}</a></li>
+		<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">{{label}} </a><span ng-if="tabsCounter[$index] >0" style="padding-right:10px; font-weight:bold; color:#1d57a0;"> {{tabsCounter[$index]}}</span></li>
+
 
 	<!-- 	<div  ng-repeat="item in testData | keys track by $index" ng-init="value = testData[item]" id="{{$index}}">
 			<li><a href="" ng-click="selectSection($event)" class="caseMenuItem">{{value}}</a></li> -->

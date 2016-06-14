@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry", "logoutPath", "searchCollection",  function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry, logoutPath, searchCollection){
+app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "serverPath", "MapArrayFtry", function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, serverPath, MapArrayFtry){
 
 	var win = angular.element($window);
 	$scope.apVersion;
@@ -21,13 +21,13 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	var currentCollection;
 
 	// GET APP VERSION //////////////////////////////////////////////
-	var versionUrl = logoutPath.contextPath + "utils/version" ;
+	var versionUrl = serverPath.contextPath + "utils/version" ;
 	DataFtry.getData(versionUrl).then(function(result){ 
 		$scope.apVersion = result.version;
 	});
 
 	// GET COLLECTIONS FOR SEARCHES  //////////////////////////////////////////////
-	var collectionUrl = searchCollection.contextPath + "collections" ;
+	var collectionUrl = serverPath.contextPath + "gsa/collections" ;
 	DataFtry.getData(collectionUrl).then(function(result){ 
 		$scope.searchQuery.collections = result;
 		//$scope.apVersion = result.version;
@@ -119,9 +119,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 			//console.log($scope.searchQuery.collections)
 		}*/
 
-		//url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collections + "/" + operand;
-		//url = MCDSearchPath.contextPath + qrTerm +  "/" + startIndex + "/" + nResults + "/" + collections;
-		url = MCDSearchPath.contextPath;
+		url = serverPath.contextPath + "gsa/search/";
 
 		DataFtry.sendData(url, $scope.searchQuery).then(function(result){ 
 		//DataFtry.getData(url).then(function(data){
@@ -161,7 +159,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 		} else {
 			// DISPLAY THE CASE WITHIN THE APP. 
-			var caseN = searchResult.contextPath + currentCollection + "/" + caseID;
+			var caseN = serverPath.contextPath + "report/json/" + currentCollection + "/" + caseID;
 
 			DataFtry.getData(caseN).then(function(data){
 				if(jQuery.isEmptyObject(data)){
@@ -181,7 +179,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 		$rootScope.loggedIn = false;
 		$scope.searchQuery.qrTerm = "";
 		//window.location.href = "http://hqdev1.ncmecad.net:8080/ws-gsa/";
-		var url = logoutPath.contextPath  + "gsa/logout" ;
+		var url = serverPath.contextPath  + "gsa/logout" ;
 		DataFtry.getData(url).then(function(data){
 			console.log("FROM LOGOUT")
 		});

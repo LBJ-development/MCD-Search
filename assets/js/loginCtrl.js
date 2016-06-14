@@ -4,14 +4,14 @@
 
 angular.module('RFIapp.login', [])
 
-    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http',  'loginPath', function($rootScope, $scope,  $state, $http, loginPath) {
+    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http',  'serverPath', function($rootScope, $scope,  $state, $http, serverPath) {
 
         $scope.login = function() {
           /*  console.log("FROM LOGIN");
             console.log($scope.username);*/
             var req = {
                 method: 'POST',
-                url: loginPath.contextPath  + "getLogin" ,
+                url: serverPath.contextPath  + "/gsa/getLogin" ,
                 headers: {
                     'Content-Type': 'application/json'
                 } ,

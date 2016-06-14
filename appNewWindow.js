@@ -35,13 +35,14 @@ var app = angular.module('detachedCaseApp', [
 		})
 	})
 */
-	.controller('DetachedCaseCtrl',[ "$rootScope",  "$scope",  "DataFtry", "searchResult", "MapArrayFtry", "HightlightFtry", "MapDataFtry","$window", "$timeout",  function(  $rootScope, $scope,  DataFtry, searchResult, MapArrayFtry, HightlightFtry, MapDataFtry, $window, $timeout){
+	.controller('DetachedCaseCtrl',[ "$rootScope",  "$scope",  "DataFtry",  "MapArrayFtry", "HightlightFtry", "MapDataFtry","$window", "$timeout",  function(  $rootScope, $scope,  DataFtry, MapArrayFtry, HightlightFtry, MapDataFtry, $window, $timeout){
 
 		var detachedData = JSON.parse(localStorage.getItem("dataForDetached"));
 		// DISTRIBUTING THE DATA FROM THE SAVED OBJECT 
 		$scope.caseNumber 	= detachedData.data.caseNumber;
 		var dataScheme 		= detachedData.data.dataScheme;
 		$scope.tabsLabels 	= detachedData.data.tabLabels;
+		$scope.tabsCounter	= detachedData.data.tabsCounter;
 		var searchTerms 	= detachedData.data.searchString;
 		var tabsLinks 		= detachedData.data.tabLinks;
 		$scope.collection 	= detachedData.data.caseData.Header[0].collection_name;

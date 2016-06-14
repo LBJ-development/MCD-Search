@@ -3,10 +3,11 @@
 angular.module('MCDSearch.caseDisplay', [])
 
 // CASE DISPLAY CONTROLLER /////////////////////////////////////////////////////////
-.controller('CaseDisplayCtrl', ["$scope", "$state","MapArrayFtry", "HightlightFtry", "MapDataFtry", "$timeout", "DataFtry", "schemeCollection", "CountOccurencesFtry", function($scope, $state, MapArrayFtry, HightlightFtry, MapDataFtry, $timeout, DataFtry, schemeCollection, CountOccurencesFtry ){
+.controller('CaseDisplayCtrl', ["$scope", "$state","MapArrayFtry", "HightlightFtry", "MapDataFtry", "$timeout", "DataFtry", "serverPath", "CountOccurencesFtry", function($scope, $state, MapArrayFtry, HightlightFtry, MapDataFtry, $timeout, DataFtry, serverPath, CountOccurencesFtry ){
 
 	$scope.fieldList = [];
 	$scope.tabsLabels = [];
+	$scope.tabsCounter = [];
 	$scope.header = "";
 	$scope.reportHistory = [];
 	var tabsLinks = [];
@@ -20,7 +21,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	var schemesName = [];
 
 	// GET ALL THE SCHEMES
-	var schemeUrl = schemeCollection.contextPath + "procs"
+	var schemeUrl = serverPath.contextPath + "gsa/procs"
 	DataFtry.getData(schemeUrl).then(function(result){ 
 		schemesName = result;
 		for(var i=0; i<result.length; i++){
@@ -52,26 +53,25 @@ angular.module('MCDSearch.caseDisplay', [])
 		for(var i=0; i< schemesName.length; i++){
 			if(schemesName[i] == data.Header[0].collection_name) dataScheme = dataSchemeArr[i];
 		}
-
-		// DISPLAY THE TAB LABELS THAT ARE RETURN WITH DATA
+		// DISPLAY THE TAB LABELS THAT ARE RETURNED WITH DATA
 		$scope.tabsLabels = [];
+		$scope.tabsCounter = [];
 		tabsLinks = [];
 
 		for(var i=1; i< dataScheme.tabsLinks.length; i++){
 			for(var section in data) {
 				if(section == dataScheme.tabsLinks[i] && data[section].length > 0){
+
 					$scope.tabsLabels.push( dataScheme.tabsLabels[i]);
 					tabsLinks.push(dataScheme.tabsLinks[i]);
 
-					//var count = CountOccurencesFtry.countOccurences("This a test for the test", "test");
-					//console.log(data[section][1]);
-
-					console.log(data[section]);
-
-				/*	for(var j=0; j<data[section].length; j++){
-
-						console.log(j)
-					}*/
+					// COUNT THE NUMBER OF OCCURRENCES IN EACH SECTION //////////////
+					var count = 0;
+					for(var n= 0; n< searchTerms.length; n++){
+						var searchWord = searchTerms[n];
+						count += CountOccurencesFtry.countOccurences( data[section], searchWord );
+					}
+					$scope.tabsCounter.push( count );
 				} 
 			}
 		}
@@ -101,6 +101,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		dataForDetached.caseNumber = data.Header[0].id;
 		dataForDetached.tabLabels = $scope.tabsLabels;
 		dataForDetached.tabLinks = tabsLinks;
+		dataForDetached.tabsCounter = $scope.tabsCounter;
 
 		// EMPTY THE REPORT HISTORY ARRAY WHEN A NEW SEARCH IS PERFORMED
 		$scope.$on('SEARCH-RESULT', function(event) {

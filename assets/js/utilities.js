@@ -40,7 +40,7 @@ angular.module('MCDSearch.utilities', [])
 })
 
 // GENERIC ///////////////////////////////////////////////////////
-.directive ('genericDir',function ($rootScope, DataFtry, searchResult) {
+.directive ('genericDir',function ($rootScope, DataFtry) {
 	return {
 		restrict: 'E',
 		//controller: 'CaseDisplayCtrl',

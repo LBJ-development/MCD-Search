@@ -57,15 +57,17 @@ angular.module('RFIapp.services', [])
 	var countOccurences = function(data, searchTerms){
 
 		var occurences = 0;
+		var valueArray 	= [];
 
-		for(var i= 0; i< searchTerms.length; i++){
-
-			var searchWord = searchTerms[i];
-
-			occurences  += (data.match(searchWord, "gi") || []).length;
-			//console.log(occurences)
-		
+		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH SECTION /////////////////////////////////
+		for (var key in data){
+			valueArray = $.map(data[key], function(value, label){
+				return [value]
+			});
+			for (var i=0; i<valueArray.length; i++) {	
+				occurences  += (valueArray[i].match(searchTerms, "gi") || []).length
 			}
+		}
 		return occurences
 		}
 	return {
