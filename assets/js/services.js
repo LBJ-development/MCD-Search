@@ -21,7 +21,7 @@ angular.module('RFIapp.services', [])
 		var $promise =  DataFtry.getData(url).then(function(data){
 
 			//console.log(data)
-			for(var i = 0; i < (data.length -1); i++){		
+			for(var i = 0; i < data.length; i++){		
 
 				if(data[i].Tab_Label != undefined) scheme.tabsLabels.push(data[i].Tab_Label);
 				if(data[i].rs_linker != undefined)scheme.tabsLinks.push(data[i].rs_linker);
@@ -117,13 +117,20 @@ angular.module('RFIapp.services', [])
 		// TO DEFINE THE INDEX OF THE SECTION ////////////////////
 		var index;
 		for(var i=0 ; i<dataScheme.tabsLinks.length; i++){
-			if(dataScheme.tabsLinks[i] == section ) index = i;
+			if(dataScheme.tabsLinks[i] == section ){
+			index = i;
+/*			console.log(index)
+			console.log(section)
+			console.log(dataScheme.tabsLinks[i])*/
+			}
 		}
-
+		
+		console.log(dataScheme.dbLabels)
 		// MAP THE DB LABEL DATA INTO AN ARRAY/////////////////////////////////
 		var dbLabelArray =  $.map(data[0], function(value, label){
 			return [label]
 		});
+
 		//console.log(dbLabelArray)
 		var dataSet	= []; // TO STORE THE ORIGINAL DATA VALUE SET BEFORE MAPPING
 		var valueArray 	= [];
@@ -135,6 +142,7 @@ angular.module('RFIapp.services', [])
 			});
 			dataSet.push(valueArray);
 		}
+
 		var sectionSet 	= [];
 
 		for (var key in dataSet){

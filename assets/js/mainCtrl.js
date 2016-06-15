@@ -29,6 +29,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	// GET COLLECTIONS FOR SEARCHES  //////////////////////////////////////////////
 	var collectionUrl = serverPath.contextPath + "gsa/collections" ;
 	DataFtry.getData(collectionUrl).then(function(result){ 
+
 		$scope.searchQuery.collections = result;
 		//$scope.apVersion = result.version;
 	});

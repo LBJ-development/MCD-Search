@@ -23,16 +23,25 @@ angular.module('MCDSearch.caseDisplay', [])
 	// GET ALL THE SCHEMES
 	var schemeUrl = serverPath.contextPath + "gsa/procs"
 	DataFtry.getData(schemeUrl).then(function(result){ 
+		dataSchemeArr = [];
+		schemesName = [];
 		schemesName = result;
-		for(var i=0; i<result.length; i++){
-			// GET THE DATA SCHEME WHEN APP INIT
-			MapArrayFtry.getScheme(result[i]).then(function(data){
-				dataSchemeArr.push(data);
-			});
+		//console.log(schemesName);
+		var schemeIndex = 0;
+		var totalSchemes = result.length;
+		getScheme();
+		function getScheme(){
+			if(schemeIndex < totalSchemes){
+				MapArrayFtry.getScheme(schemesName[schemeIndex]).then(function(data){
+					dataSchemeArr.push(data);
+					schemeIndex ++;
+					getScheme();
+				});
+			} 
 		}
-		/*$timeout(function() {
+		$timeout(function() {
 			console.log(dataSchemeArr)
-		}, 500);*/
+		}, 500);
 	});
 
 	$scope.showCase = false;
@@ -47,24 +56,30 @@ angular.module('MCDSearch.caseDisplay', [])
 
 	$scope.$on('DISPLAY-CASE', function(event, data, searchString) {
 		genData = data;
+		console.log(data)
+
 		searchTerms = searchString; // COLLECT THE SEARCH TERMS
 
 		// DEFINE THE SCHEME COLLECTION TO BE USED ///////
+		dataScheme = {};
+
 		for(var i=0; i< schemesName.length; i++){
 			if(schemesName[i] == data.Header[0].collection_name) dataScheme = dataSchemeArr[i];
 		}
+
 		// DISPLAY THE TAB LABELS THAT ARE RETURNED WITH DATA
 		$scope.tabsLabels = [];
 		$scope.tabsCounter = [];
 		tabsLinks = [];
 
 		for(var i=1; i< dataScheme.tabsLinks.length; i++){
-			for(var section in data) {
+			//if(i==1)console.log(dataScheme.tabsLinks);
+			for(var section in data) {	
 				if(section == dataScheme.tabsLinks[i] && data[section].length > 0){
 
 					$scope.tabsLabels.push( dataScheme.tabsLabels[i]);
 					tabsLinks.push(dataScheme.tabsLinks[i]);
-
+				
 					// COUNT THE NUMBER OF OCCURRENCES IN EACH SECTION //////////////
 					var count = 0;
 					for(var n= 0; n< searchTerms.length; n++){
@@ -124,7 +139,9 @@ angular.module('MCDSearch.caseDisplay', [])
 
 	function setSection(){
 		$scope.sectionTitle = sectionTitle;
-		//	 MAP THE DATA ////////////////		
+		//console.log(tabsLinks)
+		//console.log(tabsLinks)
+		//	 MAP THE DATA ////////////////	
 		$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
 		// CHECK IF THERE ARE MULTIPLE ITEMS IN THE SECTIONS AND DISPLAYS THE INDEX 
 		$scope.fieldList.length > 1 ? $scope.displayIndex = true :  $scope.displayIndex = false;

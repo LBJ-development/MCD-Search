@@ -50,6 +50,8 @@ var app = angular.module('detachedCaseApp', [
 		var sectionIndex;
 		var sectionTitle;
 
+		console.log($scope.tabsCounter)
+
 		$scope.fieldList = [];
 
 		assignData(detachedData.data.caseData);
