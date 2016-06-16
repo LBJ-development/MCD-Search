@@ -39,9 +39,9 @@ angular.module('MCDSearch.caseDisplay', [])
 				});
 			} 
 		}
-		$timeout(function() {
+		/*$timeout(function() {
 			console.log(dataSchemeArr)
-		}, 500);
+		}, 500);*/
 	});
 
 	$scope.showCase = false;
