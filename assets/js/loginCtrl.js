@@ -11,7 +11,7 @@ angular.module('RFIapp.login', [])
             console.log($scope.username);*/
             var req = {
                 method: 'POST',
-                url: serverPath.contextPath  + "/gsa/getLogin" ,
+                url: serverPath.contextPath  + "gsa/getLogin" ,
                 headers: {
                     'Content-Type': 'application/json'
                 } ,

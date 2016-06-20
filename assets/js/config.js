@@ -9,5 +9,8 @@ angular.module('RFIapp.config', [])
 		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/'
 	});
 
+	
+
+
 
 
