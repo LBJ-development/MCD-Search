@@ -176,7 +176,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$rootScope.logout = function(data) {
 		$scope.log = '';
 		$state.go('login');
-		sessionStorage.clear();
+		localStorage.clear();
 		$rootScope.loggedIn = false;
 		$scope.searchQuery.qrTerm = "";
 		//window.location.href = "http://hqdev1.ncmecad.net:8080/ws-gsa/";

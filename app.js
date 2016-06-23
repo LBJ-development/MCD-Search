@@ -66,18 +66,45 @@ var app = angular.module('RFIapp', [
 				}
 			)*/
 
-
 		})
 
-	.run(function ($rootScope, $state) {
+	.run(function ($rootScope, $state, DataFtry, serverPath) {
+
+		// CHECK IF THE USER IS ALREADY LOGGED IN ///////////////
+	/*	$(window).focus(function(){
+
+			var url = serverPath.contextPath + "gsa/isLogin" ;
+			DataFtry.getData(url).then(function(result){ 
+
+				console.log(result.status)
+
+				if(result.status == "FAILED") {
+					
+					$state.go('login');
+
+				} else if($state.is('login') || $state.$current.name == "" ) {
+					
+					$state.go('mainSearch');
+				}
+				
+			});
+
+		
+			// if(localStorage.userName == undefined) {
+			// 		console.log('A username:' + localStorage.userName)
+			// 		$state.go('login');
+			// 	} else if($state.is('login') || $state.$current.name == "" ) {
+			// 		console.log('B username:' + localStorage.userName)
+			// 		$state.go('mainSearch');
+			//	}
+		})*/
+
 		$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 			var requireLogin = toState.data.requireLogin;
-
-			if(requireLogin && typeof sessionStorage.userName === 'undefined') {
-
+			if(requireLogin && typeof localStorage.userName == undefined) {
 				event.preventDefault();
 				$state.go('login');
-		}
+			} 
 	});
 });
 

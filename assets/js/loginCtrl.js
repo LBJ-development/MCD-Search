@@ -29,7 +29,7 @@ angular.module('RFIapp.login', [])
                     //$rootScope.currentUser =  $scope.username;
                     
                     // STORES THE USERNAME FOR THE SESSION
-                    sessionStorage.setItem('userName', JSON.stringify($scope.username));
+                    localStorage.setItem('userName', JSON.stringify($scope.username));
                   
                     $scope.username = "";
                     $scope.password = "";
