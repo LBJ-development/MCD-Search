@@ -4,6 +4,7 @@ var app = angular.module('RFIapp', [
 	'ngFileUpload',
 	'ngAnimate',
 	'ngRoute',
+	'ngCookies',
 	'ui.router',
 	'ui.bootstrap',
 	/*'kendo.directives',*/
@@ -68,11 +69,15 @@ var app = angular.module('RFIapp', [
 
 		})
 
-	.run(function ($rootScope, $state, DataFtry, serverPath) {
+	.run(function ($rootScope, $state, DataFtry, serverPath, $http, $cookies) {
+
+		//var csrftoken = $.cookie('csrftoken');
+		//var csrftoken = $cookies.get('csrftoken');
+		//console.log(csrftoken)
 
 		// CHECK IF THE USER IS ALREADY LOGGED IN ///////////////
-	/*	$(window).focus(function(){
-
+		/*	$(window).focus(function(){
+	
 			var url = serverPath.contextPath + "gsa/isLogin" ;
 			DataFtry.getData(url).then(function(result){ 
 
@@ -96,9 +101,9 @@ var app = angular.module('RFIapp', [
 			// 	} else if($state.is('login') || $state.$current.name == "" ) {
 			// 		console.log('B username:' + localStorage.userName)
 			// 		$state.go('mainSearch');
-			//	}
-		})*/
-
+			// 	}
+		})
+*/
 		$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 			var requireLogin = toState.data.requireLogin;
 			if(requireLogin && typeof localStorage.userName == undefined) {
