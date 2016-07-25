@@ -10,6 +10,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.tabsCounter = [];
 	$scope.header = "";
 	$scope.reportHistory = [];
+	$scope.photoDisplay = false;
 	var tabsLinks = [];
 	var dataScheme = {};
 	var dataSchemeArr  =[];
@@ -39,6 +40,7 @@ angular.module('MCDSearch.caseDisplay', [])
 				});
 			} 
 		}
+
 		/*$timeout(function() {
 			console.log(dataSchemeArr)
 		}, 500);*/
@@ -130,10 +132,13 @@ angular.module('MCDSearch.caseDisplay', [])
 	});
 
 	$scope.selectSection = function(evt){
+
 		$(".caseMenuItem").removeClass("caseMenu-sel");
 		$(evt.currentTarget).addClass('caseMenu-sel');
 		sectionIndex = evt.currentTarget.parentElement.parentElement.id;
 		sectionTitle =  evt.currentTarget.text;
+		sectionTitle == "Photos " ? $scope.photoDisplay = true : $scope.photoDisplay = false;
+		console.log($scope.photoDisplay)
 		setSection();
 	};
 
@@ -143,6 +148,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		//console.log(tabsLinks)
 		//	 MAP THE DATA ////////////////	
 		$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
+		console.log($scope.fieldList)
 		// CHECK IF THERE ARE MULTIPLE ITEMS IN THE SECTIONS AND DISPLAYS THE INDEX 
 		$scope.fieldList.length > 1 ? $scope.displayIndex = true :  $scope.displayIndex = false;
 		$scope.showCase = true;

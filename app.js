@@ -4,7 +4,7 @@ var app = angular.module('RFIapp', [
 	'ngFileUpload',
 	'ngAnimate',
 	'ngRoute',
-	'ngCookies',
+	/*'ngCookies',*/
 	'ui.router',
 	'ui.bootstrap',
 	/*'kendo.directives',*/
@@ -69,7 +69,7 @@ var app = angular.module('RFIapp', [
 
 		})
 
-	.run(function ($rootScope, $state, DataFtry, serverPath, $http, $cookies) {
+	.run(function ($rootScope, $state, DataFtry, serverPath, $http) {
 
 		//var csrftoken = $.cookie('csrftoken');
 		//var csrftoken = $cookies.get('csrftoken');

@@ -18,11 +18,11 @@
 						<a ng-href="{{result.u}}"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a> -->
 
 						<!-- FOR DEVELOPMENT -->
-						<a href="" ng-click="getCase(result.mt[0].v, result.mt[1].v)"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a>
+						<a ng-click="getCase(result.attributes.id, result.attributes.collection)" href=""><p ng-bind-html="result.title | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a>
 
 						<!--  <a ui-sref=".children"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a> -->
 					</div>
-					<div ng-bind-html="result.s | rawHtml" style="font-size:0.9em; color:#5e6778"> </div>
+					<div ng-bind-html="result.synopsis | rawHtml" style="font-size:0.9em; color:#5e6778"> </div>
 					<div ng-bind-html="result.crawldate | rawHtml" style="font-size:0.9em; color:#5e6778"> </div>
 				</li>
 			</ul>

@@ -4,7 +4,7 @@
 
 angular.module('RFIapp.login', [])
 
-    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http',  'serverPath', function($rootScope, $scope,  $state, $http, serverPath) {
+    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http',  'serverPath',   function($rootScope, $scope,  $state, $http, serverPath) {
 
         $scope.login = function() {
           /*  console.log("FROM LOGIN");
@@ -21,10 +21,13 @@ angular.module('RFIapp.login', [])
                 }
             };
 
+
             $http(req).
                 success(function(data, status, headers, config){
                    /* console.log("FROM HTTP");
                     console.log(data);*/
+
+                    //console.log(data)
 
                     //$rootScope.currentUser =  $scope.username;
                     
@@ -35,6 +38,9 @@ angular.module('RFIapp.login', [])
                     $scope.password = "";
                     if(data.status.status == 'SUCCESS') {
                         //ServicesFtry.setRequestor(data.user);
+
+                 
+                    //console.log(config);
 
                         //location.path('/mainSearch');
                         $state.go('mainSearch');

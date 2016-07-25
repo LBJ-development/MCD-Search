@@ -1,8 +1,24 @@
-<section   ng-repeat="item in fieldList track by $index"> 
+
+<!-- REGULAR FIELD TEMPLATE ################################## -->
+<section   ng-if="!photoDisplay" ng-repeat="item in fieldList track by $index"> 
 	<div class="pers-sep"  ng-show="$index >0"></div>
 	<div class="sub-title">{{sectionTitle}}<span ng-show="displayIndex"> {{$index + 1}}</span> </div>
-	<div class="row ">
-		<div  ng-repeat="sectionData in fieldList[$index] track by $index">
+	<div class="row"  >
+		<div ng-repeat="sectionData in fieldList[$index] track by $index">
+			<div class="{{sectionData.fieldsize}} form-group">
+				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml"></span> 
+			</div>
+		</div>
+	</div>
+</section> 
+<!-- PHOTO TEMPLATE  ################################## -->
+<section ng-if="photoDisplay" ng-repeat="item in fieldList track by $index"> 
+	<div class="pers-sep"  ng-show="$index >0"></div>
+	<div class="sub-title">{{sectionTitle}}<span ng-show="displayIndex"> {{$index + 1}}</span> </div>
+	<div class="row">
+		
+		<div ng-repeat="sectionData in fieldList[$index] track by $index">
+			<img ng-src="http://hqdev1.ncmecad.net:8080/{{sectionData.value}}" alt="Photo" />
 			<div class="{{sectionData.fieldsize}} form-group">
 				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml"></span> 
 			</div>

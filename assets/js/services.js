@@ -140,16 +140,16 @@ angular.module('RFIapp.services', [])
 		var sectionSet 	= [];
 
 		for (var key in dataSet){
-				
+			
 			var sectionData = [];
 
+			// DON'T DISPLAY IS THERE IS NO VALUE
 			for(var i=0;  i< dataScheme.dbLabels[index].length; i++){
 
 				for(var n=0; n < dbLabelArray.length; n++){
 
-					// DON'T DISPLAY IS THERE IS NO VALUE
-					if(dataSet[key][n].length > 0 && dataSet[key][n] !== "0"){
-
+					if( dataSet[key][n] !== undefined && dataSet[key][n].length > 0 && dataSet[key][n] !== "0"){
+						
 						if(dataScheme.dbLabels[index][i] == dbLabelArray[n]){
 							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
 							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
