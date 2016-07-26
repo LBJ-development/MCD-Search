@@ -58,7 +58,7 @@ angular.module('MCDSearch.caseDisplay', [])
 
 	$scope.$on('DISPLAY-CASE', function(event, data, searchString) {
 		genData = data;
-		console.log(data)
+		//console.log(data)
 
 		searchTerms = searchString; // COLLECT THE SEARCH TERMS
 
@@ -138,7 +138,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		sectionIndex = evt.currentTarget.parentElement.parentElement.id;
 		sectionTitle =  evt.currentTarget.text;
 		sectionTitle == "Photos " ? $scope.photoDisplay = true : $scope.photoDisplay = false;
-		console.log($scope.photoDisplay)
+		//console.log($scope.photoDisplay)
 		setSection();
 	};
 
@@ -148,7 +148,10 @@ angular.module('MCDSearch.caseDisplay', [])
 		//console.log(tabsLinks)
 		//	 MAP THE DATA ////////////////	
 		$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
-		console.log($scope.fieldList)
+		// SET THE IMAGE ////////////////////////////////////
+		console.log($scope.fieldList);
+		$scope.imagePath = $scope.fieldList[0][1].value;
+
 		// CHECK IF THERE ARE MULTIPLE ITEMS IN THE SECTIONS AND DISPLAYS THE INDEX 
 		$scope.fieldList.length > 1 ? $scope.displayIndex = true :  $scope.displayIndex = false;
 		$scope.showCase = true;
