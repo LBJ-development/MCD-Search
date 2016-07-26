@@ -17,7 +17,7 @@
 	<div class="sub-title">{{sectionTitle}}<span ng-show="displayIndex"> {{$index + 1}}</span> </div>
 	<div class="row">
 		<div style="padding-left: 15px; float: left">
-			<img ng-src="http://hqdev1.ncmecad.net:8080/{{imagePath}}" alt="Photo" />
+			<img ng-src="{{basePath}}{{imagePath}}" alt="Photo" />
 		</div>
 		
 		<div ng-repeat="sectionData in fieldList[$index] track by $index" ng-if="$index !== 1">

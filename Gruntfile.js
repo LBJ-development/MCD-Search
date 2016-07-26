@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 			all: {
 				options: {
 					//bases: ['C:\\Users\\ljablonski\\Documents\\workingProgress\\CVIP\\CVIP-Series'],
-					bases: ['D:\\workingProgress-D\\MCD-googleSearch\\MCD-Search'],
+					bases: ['C:\\Users\\ljablonski\\Documents\\workingProgress\\MCD-googleSearch\\MCD-Search'],
 					port: 8090,
 					hostname: "0.0.0.0",
 					livereload: true

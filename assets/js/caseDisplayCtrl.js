@@ -149,7 +149,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		//	 MAP THE DATA ////////////////	
 		$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
 		// SET THE IMAGE ////////////////////////////////////
-		console.log($scope.fieldList);
+		$scope.basePath = serverPath.contextPath.replace("/ws-gsa", "/");
 		$scope.imagePath = $scope.fieldList[0][1].value;
 
 		// CHECK IF THERE ARE MULTIPLE ITEMS IN THE SECTIONS AND DISPLAYS THE INDEX 
