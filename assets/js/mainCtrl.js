@@ -109,6 +109,8 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	// SEARCH DATABASE //////////////////////////////////////
 	function searchNCMEC(){ 
 
+		console.log("FROM SEARCH NCMEC");
+
 		var qrTerm = $scope.searchQuery.qrTerm;
 		var startIndex = $scope.searchQuery.startIndex;
 		var nResults = $scope.searchQuery.nResults;
