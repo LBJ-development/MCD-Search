@@ -8,10 +8,11 @@ angular.module('RFIapp.services', [])
 	var getScheme = function(collection){
 
 		var scheme = new Object({
-			tabsLabels 	: [],
-			tabsLinks 	: [],
-			fieldsLabels: [],
-			dbLabels 	: []
+			tabsLabels 		: [],
+			tabsLinks 		: [],
+			fieldsLabels	: [],
+			dbLabels 		: [],
+			fieldBehavior	: []
 		})
 
 		//var url = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
@@ -22,7 +23,7 @@ angular.module('RFIapp.services', [])
 			for(var i = 0; i < data.length; i++){	
 
 				// CHECK IF THE OBJECTS IN THE SCHEME HAVE THE REQUIRED # OF ITEMS
-				if(Object.keys(data[i]).length != 6) alert('The "' + data[i].rs_linker + '" doesn\'t seem to have all the data required! ');
+				if(Object.keys(data[i]).length != 7) alert('The "' + data[i].rs_linker + '" doesn\'t seem to have all the data required! ');
 
 				if(data[i].Tab_Label != undefined) scheme.tabsLabels.push(data[i].Tab_Label);
 				if(data[i].rs_linker != undefined)scheme.tabsLinks.push(data[i].rs_linker);
@@ -36,6 +37,8 @@ angular.module('RFIapp.services', [])
 					.replace(/\t/g, '')
 					.replace(/\n/g, '')
 					.split(","));
+				if(data[i].field_behavior_list != undefined)scheme.fieldBehavior.push(data[i].field_behavior_list);
+
 				}
 			})
 		var deferred = $q.defer();
@@ -154,6 +157,8 @@ angular.module('RFIapp.services', [])
 							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
 							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
 							var hiValue = HightlightFtry.hightlight(dataSet[key][n], searchTerms );
+							//
+							//console.log(dataScheme)
 							
 							sectionData.push({"label" : dataScheme.fieldsLabels[index][i], "value" : hiValue, "fieldsize" : fieldsize })
 						}

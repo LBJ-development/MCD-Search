@@ -20,6 +20,7 @@ angular.module('MCDSearch.caseDisplay', [])
 	var sectionIndex;
 	var sectionTitle;
 	var schemesName = [];
+	var currentCollectionName = "";
 
 	// GET ALL THE SCHEMES
 	var schemeUrl = serverPath.contextPath + "gsa/procs"
@@ -66,7 +67,10 @@ angular.module('MCDSearch.caseDisplay', [])
 		dataScheme = {};
 
 		for(var i=0; i< schemesName.length; i++){
-			if(schemesName[i] == data.Header[0].collection_name) dataScheme = dataSchemeArr[i];
+			if(schemesName[i] == data.Header[0].collection_name){
+				dataScheme = dataSchemeArr[i];
+				currentCollectionName = schemesName[i];
+			} 
 		}
 
 		// DISPLAY THE TAB LABELS THAT ARE RETURNED WITH DATA
@@ -75,6 +79,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		tabsLinks = [];
 
 		for(var i=1; i< dataScheme.tabsLinks.length; i++){
+
 			//if(i==1)console.log(dataScheme.tabsLinks);
 			for(var section in data) {	
 				if(section == dataScheme.tabsLinks[i] && data[section].length > 0){
@@ -119,6 +124,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		dataForDetached.tabLabels = $scope.tabsLabels;
 		dataForDetached.tabLinks = tabsLinks;
 		dataForDetached.tabsCounter = $scope.tabsCounter;
+		//dataForDetached.currentSchemeName = currentSchemeName;
 
 		// EMPTY THE REPORT HISTORY ARRAY WHEN A NEW SEARCH IS PERFORMED
 		$scope.$on('SEARCH-RESULT', function(event) {
@@ -132,31 +138,31 @@ angular.module('MCDSearch.caseDisplay', [])
 	});
 
 	$scope.selectSection = function(evt){
-
 		$(".caseMenuItem").removeClass("caseMenu-sel");
 		$(evt.currentTarget).addClass('caseMenu-sel');
 		sectionIndex = evt.currentTarget.parentElement.parentElement.id;
 		sectionTitle =  evt.currentTarget.text;
 		sectionTitle == "Photos " ? $scope.photoDisplay = true : $scope.photoDisplay = false;
-		//console.log($scope.photoDisplay)
 		setSection();
 	};
 
 	function setSection(){
 		$scope.sectionTitle = sectionTitle;
-		//console.log(tabsLinks)
-		//console.log(tabsLinks)
 		//	 MAP THE DATA ////////////////	
 		$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
+		
 		// SET THE IMAGE ////////////////////////////////////
-		$scope.basePath = serverPath.contextPath.replace("/ws-gsa", "/");
-		console.log($scope.fieldList);
-		if($scope.fieldList[0][1] != undefined)$scope.imagePath = $scope.fieldList[0][1].value;
+		//$scope.basePath = serverPath.contextPath.replace("/ws-gsa", "/");
+		$scope.basePath = serverPath.contextPath + "files/getImage?fileName=";
+		$scope.currentCollectionName = "&collection=" + currentCollectionName;
+		//if($scope.fieldList[0][0] != undefined)$scope.imagePath = $scope.fieldList[0][0].value + "&collection=SOCM";
 
 		// CHECK IF THERE ARE MULTIPLE ITEMS IN THE SECTIONS AND DISPLAYS THE INDEX 
 		$scope.fieldList.length > 1 ? $scope.displayIndex = true :  $scope.displayIndex = false;
 		$scope.showCase = true;
 		$scope.genericInfo = true;
+
+
 	}
 
 	$scope.detachCase = function(){

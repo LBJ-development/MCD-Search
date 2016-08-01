@@ -167,7 +167,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 			DataFtry.getData(caseN).then(function(data){
 				if(jQuery.isEmptyObject(data)){
 					alert("No data for this case...")
-				}else {
+				} else {
 					$rootScope.$broadcast('DISPLAY-CASE',data, searchTerms);
 				}
 			});

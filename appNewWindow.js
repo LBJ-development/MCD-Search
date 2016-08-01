@@ -35,7 +35,7 @@ var app = angular.module('detachedCaseApp', [
 		})
 	})
 */
-	.controller('DetachedCaseCtrl',[ "$rootScope",  "$scope",  "DataFtry",  "MapArrayFtry", "HightlightFtry", "MapDataFtry","$window", "$timeout",  function(  $rootScope, $scope,  DataFtry, MapArrayFtry, HightlightFtry, MapDataFtry, $window, $timeout){
+	.controller('DetachedCaseCtrl',[ "$rootScope",  "$scope",  "DataFtry",  "MapArrayFtry", "HightlightFtry", "MapDataFtry","$window", "$timeout", "serverPath" , function(  $rootScope, $scope,  DataFtry, MapArrayFtry, HightlightFtry, MapDataFtry, $window, $timeout, serverPath){
 
 		var detachedData = JSON.parse(localStorage.getItem("dataForDetached"));
 		// DISTRIBUTING THE DATA FROM THE SAVED OBJECT 
@@ -49,6 +49,7 @@ var app = angular.module('detachedCaseApp', [
 		var genData  = {};
 		var sectionIndex;
 		var sectionTitle;
+		//var currentSchemeName = detachedData.data.currentSchemeName;
 
 		console.log($scope.tabsCounter)
 
@@ -78,6 +79,7 @@ var app = angular.module('detachedCaseApp', [
 			$(evt.currentTarget).addClass('caseMenu-sel');
 			sectionIndex = evt.currentTarget.parentElement.parentElement.id;
 			sectionTitle =  evt.currentTarget.text;
+			sectionTitle == "Photos " ? $scope.photoDisplay = true : $scope.photoDisplay = false;
 			setSection();
 		};
 
@@ -85,6 +87,12 @@ var app = angular.module('detachedCaseApp', [
 			$scope.sectionTitle = sectionTitle;
 			//	 MAP THE DATA ////////////////		
 			$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
+			
+			// SET THE IMAGE ////////////////////////////////////
+			//$scope.basePath = serverPath.contextPath.replace("/ws-gsa", "/");
+			$scope.basePath = serverPath.contextPath + "files/getImage?fileName=";
+			$scope.currentCollectionName = "&collection=" + $scope.collection;
+
 			// CHECK IF THERE ARE MULTIPLE ITEMS IN THE SECTIONS AND DISPLAYS THE INDEX 
 			$scope.fieldList.length > 1 ? $scope.displayIndex = true :  $scope.displayIndex = false;
 			$scope.showCase = true;
