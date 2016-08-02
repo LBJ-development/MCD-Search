@@ -49,9 +49,6 @@ var app = angular.module('detachedCaseApp', [
 		var genData  = {};
 		var sectionIndex;
 		var sectionTitle;
-		//var currentSchemeName = detachedData.data.currentSchemeName;
-
-		console.log($scope.tabsCounter)
 
 		$scope.fieldList = [];
 

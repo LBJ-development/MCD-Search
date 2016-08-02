@@ -10,7 +10,6 @@ angular.module('MCDSearch.caseDisplay', [])
 	$scope.tabsCounter = [];
 	$scope.header = "";
 	$scope.reportHistory = [];
-	$scope.photoDisplay = false;
 	var tabsLinks = [];
 	var dataScheme = {};
 	var dataSchemeArr  =[];
@@ -142,7 +141,6 @@ angular.module('MCDSearch.caseDisplay', [])
 		$(evt.currentTarget).addClass('caseMenu-sel');
 		sectionIndex = evt.currentTarget.parentElement.parentElement.id;
 		sectionTitle =  evt.currentTarget.text;
-		sectionTitle == "Photos " ? $scope.photoDisplay = true : $scope.photoDisplay = false;
 		setSection();
 	};
 
@@ -150,7 +148,7 @@ angular.module('MCDSearch.caseDisplay', [])
 		$scope.sectionTitle = sectionTitle;
 		//	 MAP THE DATA ////////////////	
 		$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
-		
+		console.log($scope.fieldList)
 		// SET THE IMAGE ////////////////////////////////////
 		//$scope.basePath = serverPath.contextPath.replace("/ws-gsa", "/");
 		$scope.basePath = serverPath.contextPath + "files/getImage?fileName=";

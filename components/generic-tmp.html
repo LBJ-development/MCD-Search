@@ -1,34 +1,13 @@
 
-<!-- REGULAR FIELD TEMPLATE ################################## -->
-<section   ng-if="!photoDisplay" ng-repeat="item in fieldList track by $index"> 
-	<div class="pers-sep"  ng-show="$index >0"></div>
-	<div class="sub-title">{{sectionTitle}}<span ng-show="displayIndex"> {{$index + 1}}</span> </div>
-	<div class="row"  >
-		<div ng-repeat="sectionData in fieldList[$index] track by $index">
-			<div class="{{sectionData.fieldsize}} form-group">
-				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml"></span> 
-			</div>
-		</div>
-	</div>
-</section> 
-<!-- PHOTO TEMPLATE  ################################## -->
-<section ng-if="photoDisplay" ng-repeat="item in fieldList track by $index"> 
+<section  ng-repeat="item in fieldList track by $index"> 
 	<div class="pers-sep"  ng-show="$index >0"></div>
 	<div class="sub-title">{{sectionTitle}}<span ng-show="displayIndex"> {{$index + 1}}</span> </div>
 	<div class="row">
-		<!-- <div style="padding-left: 15px; float: left">
-			<img ng-src="{{basePath}}{{imagePath}}" alt="Photo" />
-		</div> -->
-		
 		<div ng-repeat="sectionData in fieldList[$index] track by $index" ng-if="$index !== 1">
-
-			<div class="form-group" ng-if="sectionData.label == 'Image'" style="float:left; padding-left:15px">
-				<img ng-src="{{basePath}}{{sectionData.value}}{{currentCollectionName}}" alt="Photo
-				" />
+			<div class="form-group" ng-if="sectionData.fieldbehavior == 'Img'" style="float:left; padding-left:15px">
+				<img ng-src="{{basePath}}{{sectionData.value}}{{currentCollectionName}}" alt="Photo"/>
 			</div>
-			
-			<div class="col-sm-6 form-group" ng-if="sectionData.label !== 'Image'">
-			<!-- <div class="{{sectionData.fieldsize}} form-group" ng-if="sectionData.label !== 'Image'"> -->
+			<div class="{{sectionData.fieldsize}} form-group" ng-if="sectionData.fieldbehavior == 'Text'">
 				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml"></span> 
 			</div>
 		</div>
