@@ -3,13 +3,14 @@
 	<div class="pers-sep"  ng-show="$index >0"></div>
 	<div class="sub-title">{{sectionTitle}}<span ng-show="displayIndex"> {{$index + 1}}</span> </div>
 	<div class="row">
-		<div ng-repeat="sectionData in fieldList[$index] track by $index" ng-if="$index !== 1">
+		<div ng-repeat="sectionData in fieldList[$index] track by $index">
 			<div class="form-group" ng-if="sectionData.fieldbehavior == 'Img'" style="float:left; padding-left:15px">
 				<img ng-src="{{basePath}}{{sectionData.value}}{{currentCollectionName}}" alt="Photo"/>
 			</div>
-			<div class="{{sectionData.fieldsize}} form-group" ng-if="sectionData.fieldbehavior == 'Text'">
+			<div class="{{sectionData.fieldsize}} form-group" ng-if="sectionData.fieldbehavior !== 'Img'">
 				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml"></span> 
 			</div>
 		</div>
 	</div>
 </section> 
+
