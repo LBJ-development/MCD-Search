@@ -161,7 +161,7 @@ angular.module('RFIapp.services', [])
 							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
 							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
 							var hiValue = HightlightFtry.hightlight(dataSet[key][n], searchTerms );
-							var fieldBehavior = dataScheme.fieldBehavior[index][i];
+							if(dataScheme.fieldBehavior[index] != null) var fieldBehavior = dataScheme.fieldBehavior[index][i];
 							sectionData.push({"label" : dataScheme.fieldsLabels[index][i], "value" : hiValue, "fieldsize" : fieldsize, "fieldbehavior" : fieldBehavior })
 						}
 					}	
