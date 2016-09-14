@@ -23,8 +23,7 @@ angular.module('RFIapp.services', [])
 			for(var i = 0; i < data.length; i++){	
 
 				// CHECK IF THE OBJECTS IN THE SCHEME HAVE THE REQUIRED # OF ITEMS
-				if(
-					Object.keys(data[i]).length != 7) alert('The "' + data[i].rs_linker + '" doesn\'t seem to have all the data required! ');
+				//if( Object.keys(data[i]).length != 7) alert('The "' + data[i].rs_linker + '" doesn\'t seem to have all the data required! ');
 
 				if(data[i].Tab_Label != undefined) scheme.tabsLabels.push(data[i].Tab_Label);
 				if(data[i].rs_linker != undefined)scheme.tabsLinks.push(data[i].rs_linker);

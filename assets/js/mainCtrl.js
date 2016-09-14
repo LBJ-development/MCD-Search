@@ -20,6 +20,11 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	var searchTerms = [];
 	var currentCollection;
 
+	$scope.onInit = function(){
+
+		console.log("FROM ON INIT");
+	}
+
 	// GET APP VERSION //////////////////////////////////////////////
 	var versionUrl = serverPath.contextPath + "utils/version" ;
 	DataFtry.getData(versionUrl).then(function(result){ 
@@ -36,6 +41,19 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
 		$scope.stateName = toState.name;
+
+		if($scope.stateName == "login" || $scope.stateName == "mainSearch"){
+			$('#utilsNav').css("top" , "-105px");
+			$('.searchForm').css({"padding-top" : "50px", "top":"-0px"});
+
+			$('#NGS-logo').switchClass("NGS-logo-small" , "NGS-logo-large", 1000, "easeInOutQuad");
+
+
+		} else {
+			$('#utilsNav').css("top" , "-60px");
+			$('#NGS-logo').switchClass("NGS-logo-large" , "NGS-logo-small", 1000, "easeInOutQuad");
+			$('.searchForm').css({"padding-top" : "0px", "top":"-20px"});
+		}
 	})
 
 /*	$scope.$watch (
