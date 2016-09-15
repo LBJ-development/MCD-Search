@@ -23,6 +23,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$scope.onInit = function(){
 
 		console.log("FROM ON INIT");
+		console.log($scope.stateName);
 	}
 
 	// GET APP VERSION //////////////////////////////////////////////
@@ -40,19 +41,24 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	});
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
+		
 		$scope.stateName = toState.name;
-
+		console.log($scope.stateName);
 		if($scope.stateName == "login" || $scope.stateName == "mainSearch"){
-			$('#utilsNav').css("top" , "-105px");
-			$('.searchForm').css({"padding-top" : "50px", "top":"-0px"});
-
-			$('#NGS-logo').switchClass("NGS-logo-small" , "NGS-logo-large", 1000, "easeInOutQuad");
-
+			$timeout(function() {
+				$('#utilsNav').css("top" , "-105px");
+				
+				$('#NGS-logo').switchClass("NGS-logo-small" , "NGS-logo-large", 500, "easeInOutQuad");
+				$('.searchForm').css({"padding-top" : "50px", "padding-left" : "100px", "top":"-0px"});
+			}, 300);
 
 		} else {
-			$('#utilsNav').css("top" , "-60px");
-			$('#NGS-logo').switchClass("NGS-logo-large" , "NGS-logo-small", 1000, "easeInOutQuad");
-			$('.searchForm').css({"padding-top" : "0px", "top":"-20px"});
+			$timeout(function() {
+				$('#utilsNav').css("top" , "-60px");
+				$('#NGS-logo').switchClass("NGS-logo-large" , "NGS-logo-small", 500, "easeInOutQuad");
+				console.log("FROM TIMEOUT")
+				$('.searchForm').css({"padding-top" : "0px", "padding-left" : "100px", "top":"-20px"});
+			}, 300);
 		}
 	})
 
