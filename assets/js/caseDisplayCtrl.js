@@ -92,7 +92,9 @@ angular.module('MCDSearch.caseDisplay', [])
 						var searchWord = searchTerms[n];
 						count += CountOccurencesFtry.countOccurences( data[section], searchWord );
 					}
+
 					$scope.tabsCounter.push( count );
+					//console.log($scope.tabsCounter)
 				} 
 			}
 		}
@@ -147,8 +149,9 @@ angular.module('MCDSearch.caseDisplay', [])
 	function setSection(){
 		$scope.sectionTitle = sectionTitle;
 		//	 MAP THE DATA ////////////////	
+		//$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
 		$scope.fieldList =  MapDataFtry.mapData(genData[tabsLinks[sectionIndex]] , tabsLinks[sectionIndex] , dataScheme, searchTerms );
-		console.log($scope.fieldList)
+		//console.log($scope.fieldList)
 		// SET THE IMAGE ////////////////////////////////////
 		//$scope.basePath = serverPath.contextPath.replace("/ws-gsa", "/");
 		$scope.basePath = serverPath.contextPath + "files/getImage?fileName=";

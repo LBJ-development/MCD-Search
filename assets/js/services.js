@@ -63,13 +63,21 @@ angular.module('RFIapp.services', [])
 		var occurences = 0;
 		var valueArray 	= [];
 
+	
+
 		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH SECTION /////////////////////////////////
 		for (var key in data){
 			valueArray = $.map(data[key], function(value, label){
+
 				return [value]
 			});
 			for (var i=0; i<valueArray.length; i++) {	
-				occurences  += (valueArray[i].match(searchTerms, "gi") || []).length
+				
+				occurences  += (valueArray[i].match(searchTerms, "gi") || []).length;
+
+				var res = valueArray[i].match(/searchTerms/gi)
+				var regexp = /searchTerms/gi;
+				console.log(valueArray[i].match(regexp));
 			}
 		}
 		return occurences
@@ -118,8 +126,11 @@ angular.module('RFIapp.services', [])
 
 	var mapData = function(data, section, dataScheme, searchTerms){
 
+		//console.log(data)
+
 		// TO DEFINE THE INDEX OF THE SECTION ////////////////////
 		var index;
+
 		for(var i=0 ; i<dataScheme.tabsLinks.length; i++){
 			if(dataScheme.tabsLinks[i] == section ){
 			index = i;
@@ -127,9 +138,18 @@ angular.module('RFIapp.services', [])
 		}
 	
 		// MAP THE DB LABEL DATA INTO AN ARRAY/////////////////////////////////
-		var dbLabelArray =  $.map(data[0], function(value, label){
+	/*	var dbLabelArray =  $.map(data[0], function(value, label){
 			return [label]
-		});
+		});*/
+			
+		// TEST /////////////////////////////////
+		var dbLabelsSet	= [];
+		for (var key in data){
+			var dbLabelArray =  $.map(data[key], function(value, label){
+				return [label]
+			});
+			dbLabelsSet.push(dbLabelArray);
+		}
 
 		//console.log(dbLabelArray)
 		var dataSet	= []; // TO STORE THE ORIGINAL DATA VALUE SET BEFORE MAPPING
@@ -149,14 +169,17 @@ angular.module('RFIapp.services', [])
 			
 			var sectionData = [];
 
+
+
 			// DON'T DISPLAY IS THERE IS NO VALUE
 			for(var i=0;  i< dataScheme.dbLabels[index].length; i++){
-
-				for(var n=0; n < dbLabelArray.length; n++){
+				//for(var n=0; n < dbLabelArray.length; n++){
+				for(var n=0; n < dbLabelsSet[key].length; n++){
 
 					if( dataSet[key][n] !== undefined && dataSet[key][n].length > 0 && dataSet[key][n] !== "0"){
 						
-						if(dataScheme.dbLabels[index][i] == dbLabelArray[n]){
+						//if(dataScheme.dbLabels[index][i] == dbLabelArray[n]){
+						if(dataScheme.dbLabels[index][i] == dbLabelsSet[key][n]){
 							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
 							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
 							var hiValue = HightlightFtry.hightlight(dataSet[key][n], searchTerms );
