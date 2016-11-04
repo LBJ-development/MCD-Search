@@ -62,22 +62,16 @@ angular.module('RFIapp.services', [])
 
 		var occurences = 0;
 		var valueArray 	= [];
-
-	
+		var searchString = new RegExp(searchTerms, "gi");
 
 		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH SECTION /////////////////////////////////
 		for (var key in data){
 			valueArray = $.map(data[key], function(value, label){
-
+				console.log("this key: " + key);
 				return [value]
 			});
 			for (var i=0; i<valueArray.length; i++) {	
-				
-				occurences  += (valueArray[i].match(searchTerms, "gi") || []).length;
-
-				var res = valueArray[i].match(/searchTerms/gi)
-				var regexp = /searchTerms/gi;
-				console.log(valueArray[i].match(regexp));
+				occurences  += (valueArray[i].match(searchString) || []).length;
 			}
 		}
 		return occurences

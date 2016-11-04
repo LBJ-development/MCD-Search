@@ -22,8 +22,8 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 	$scope.onInit = function(){
 
-		console.log("FROM ON INIT");
-		console.log($scope.stateName);
+		//console.log("FROM ON INIT");
+		//console.log($scope.stateName);
 	}
 
 	// GET APP VERSION //////////////////////////////////////////////
@@ -43,7 +43,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
 		
 		$scope.stateName = toState.name;
-		console.log($scope.stateName);
+		//console.log($scope.stateName);
 		if($scope.stateName == "login" || $scope.stateName == "mainSearch"){
 			$timeout(function() {
 				$('#utilsNav').css("top" , "-105px");
@@ -56,7 +56,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 			$timeout(function() {
 				$('#utilsNav').css("top" , "-60px");
 				$('#NGS-logo').switchClass("NGS-logo-large" , "NGS-logo-small", 500, "easeInOutQuad");
-				console.log("FROM TIMEOUT")
+				//console.log("FROM TIMEOUT")
 				$('.searchForm').css({"padding-top" : "0px", "padding-left" : "100px", "top":"-20px"});
 			}, 300);
 		}
