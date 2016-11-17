@@ -68,15 +68,14 @@ a, a:active, a:focus {
 .searchResultList{
 	display: inline-block;
 	float: left;
-	width: 40%;
-	padding-right: 30px;
+	width: 35%;
+	padding-right: 20px;
 }
 .caseDisplay{
 	display: inline-block;
 	float: left;
-	width: 60%;
+	width: 65%;
 	padding: 0 0 20px 0;
-
 }
 
 .caseMenu{
@@ -118,6 +117,42 @@ a, a:active, a:focus {
 .sectionWrapper label span{
 	float: left;
 }
+
+.caseSensitivity {
+	display: inline-block;
+	float:left;
+	width: 25px;
+	height: 25px;
+	margin-right:5px;
+	background-image:url(../images/CC-wingdings-2.png);
+	background-repeat:no-repeat;
+	background-size: 25px @wingdingsheight2;
+	background-position: 0px -425px;	
+}
+
+.sensitivityLevel-0 {
+	.caseSensitivity;
+		background-position: 0px -425px;
+}
+.sensitivityLevel-1 {
+	.caseSensitivity;
+		background-position: 0px -450px;
+}
+.sensitivityLevel-2 {
+	.caseSensitivity;
+		background-position: 0px -475px;
+}
+
+.sensitivityLevel-3 {
+	.caseSensitivity;
+		background-position: 0px -600px;
+}
+
+.angular-with-newlines {
+    white-space: pre-wrap;
+}
+
+
 
 
 

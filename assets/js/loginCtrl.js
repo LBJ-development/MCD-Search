@@ -4,14 +4,14 @@
 
 angular.module('RFIapp.login', [])
 
-    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http',  'MCDSearchPath', function($rootScope, $scope,  $state, $http, MCDSearchPath) {
+    .controller('LoginCtrl', [ '$rootScope', '$scope', '$state', '$http',  'serverPath',   function($rootScope, $scope,  $state, $http, serverPath) {
 
         $scope.login = function() {
           /*  console.log("FROM LOGIN");
             console.log($scope.username);*/
             var req = {
                 method: 'POST',
-                url: MCDSearchPath.contextPath  + "getLogin" ,
+                url: serverPath.contextPath  + "gsa/getLogin" ,
                 headers: {
                     'Content-Type': 'application/json'
                 } ,
@@ -21,20 +21,26 @@ angular.module('RFIapp.login', [])
                 }
             };
 
+
             $http(req).
                 success(function(data, status, headers, config){
                    /* console.log("FROM HTTP");
                     console.log(data);*/
 
+                    //console.log(data)
+
                     //$rootScope.currentUser =  $scope.username;
                     
                     // STORES THE USERNAME FOR THE SESSION
-                    sessionStorage.setItem('userName', JSON.stringify($scope.username));
+                    localStorage.setItem('userName', JSON.stringify($scope.username));
                   
                     $scope.username = "";
                     $scope.password = "";
                     if(data.status.status == 'SUCCESS') {
                         //ServicesFtry.setRequestor(data.user);
+
+                 
+                    //console.log(config);
 
                         //location.path('/mainSearch');
                         $state.go('mainSearch');

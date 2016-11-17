@@ -2,7 +2,7 @@
 
 <!-- SEARCH RESULT  //////////////////////////////////////////////////////// -->
 	<div class="tabHead">
-		<span class="tab-title">MCD Google Search Result</span>
+		<span class="tab-title">Search Result</span>
 		<span style="float:right; color:white; font-family:arial; font-size: 0.9em; padding: 3px 10px 0 0;" ng-show="totalReports !== 0">Number of Reports: {{totalReports}}</span>
 	</div>
 	<div class="tabWrapper" style="opacity: 1; display:inline-block; background-color:white">
@@ -18,16 +18,18 @@
 						<a ng-href="{{result.u}}"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a> -->
 
 						<!-- FOR DEVELOPMENT -->
-						<a href="" ng-click="getCase(result.mt[0].v, result.u,  result.t)"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a>
+						<a ng-click="getCase(result.attributes.id, result.attributes.collection)" href=""><p ng-bind-html="result.title | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a>
 
 						<!--  <a ui-sref=".children"><p ng-bind-html="result.t | rawHtml" style="font-size:1.1em; color:#1d57a0"></p></a> -->
 					</div>
-					<div ng-bind-html="result.s | rawHtml" style="font-size:0.9em; color:#5e6778"> </div>
+					<div ng-bind-html="result.synopsis | rawHtml" style="font-size:0.9em; color:#5e6778"> </div>
+					<div ng-bind-html="result.crawldate | rawHtml" style="font-size:0.9em; color:#5e6778"> </div>
 				</li>
 			</ul>
 			<!-- CASE DISPLAY ///////////////////////////////////////////////////-->
-
-			<case-display class="caseDisplay show-hide" ng-show="showCase"></case-display>
+			<div sha-loading="viewLoading" top="30%">
+				<case-display class="caseDisplay show-hide" ng-show="showCase"></case-display>
+			</div>
 			<!-- <div ui-view class="fader-animation"></div> -->
 
 		</div>
@@ -37,9 +39,9 @@
 				<uib-pagination total-items="totalReports" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="false" ng-change="pageChanged($event)">
 				</uib-pagination>
 			</div>
-			<div class="col-sm-12 form-group">
+			<div class="col-sm-12 form-group" style="text-align: center">
 					<div class="h-sep" style="margin:0 30px 10px 0" ></div>
-				<span style="font-size:0.9em; color:#65768a"> Powered by Google Search Appliance</span>
+				<span style="font-size:0.9em; color:#65768a"> NCMEC Global Search -- v.{{apVersion}}</span>
 			</div>
 		</div>
 	</div>   

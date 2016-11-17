@@ -6,4 +6,14 @@ angular.module('RFIapp.filters', [])
   return function(val) {
     return $sce.trustAsHtml(val);
   };
-}]);
+}])
+
+.filter('keys', function() {
+    return function(input) {
+      if (!input) {
+        return [];
+      }
+      return Object.keys(input);
+    };
+})
+

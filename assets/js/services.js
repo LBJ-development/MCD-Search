@@ -3,31 +3,41 @@
 //  SETTER AND GETTER FOR THE REQUESTOR ///////////////////////////////////////////////////////////
 angular.module('RFIapp.services', [])
 
+.factory('MapArrayFtry', [ 'DataFtry' , '$q' , 'serverPath' ,  function(DataFtry, $q, serverPath) {
 
-.factory('MapArrayFtry', [ 'DataFtry' , '$q' ,   function(DataFtry, $q) {
-
-	var getScheme = function(){
+	var getScheme = function(collection){
 
 		var scheme = new Object({
-			tabsLabels : [],
-			fieldsLabels : [],
-			dbLabels : []
+			tabsLabels 		: [],
+			tabsLinks 		: [],
+			fieldsLabels	: [],
+			dbLabels 		: [],
+			fieldBehavior	: []
 		})
 
-		var url = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
-
-		//var urlServer = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/";
+		//var url = "http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/columnMap";
+		var url = serverPath.contextPath + "report/columnMap/" +  collection;
 
 		var $promise =  DataFtry.getData(url).then(function(data){
 
-			for(var i = 0; i < (data.length -1); i++){
-				
-				scheme.tabsLabels.push(data[i].Tab_Label);
-				scheme.fieldsLabels.push(data[i].display_columns
+			for(var i = 0; i < data.length; i++){	
+
+				// CHECK IF THE OBJECTS IN THE SCHEME HAVE THE REQUIRED # OF ITEMS
+				//if( Object.keys(data[i]).length != 7) alert('The "' + data[i].rs_linker + '" doesn\'t seem to have all the data required! ');
+
+				if(data[i].Tab_Label != undefined) scheme.tabsLabels.push(data[i].Tab_Label);
+				if(data[i].rs_linker != undefined)scheme.tabsLinks.push(data[i].rs_linker);
+				if(data[i].display_columns != undefined)scheme.fieldsLabels.push(data[i].display_columns
 					.toString()
-					.replace(/\t/g, '').replace(/\n/g, '')
+					.replace(/\t/g, '')
+					.replace(/\n/g, '')
 					.split(","));
-				scheme.dbLabels.push(data[i].dbcolumns
+				if(data[i].dbcolumns != undefined)scheme.dbLabels.push(data[i].dbcolumns
+					.toString()
+					.replace(/\t/g, '')
+					.replace(/\n/g, '')
+					.split(","));
+				if(data[i].field_behavior_list != undefined)scheme.fieldBehavior.push(data[i].field_behavior_list
 					.toString()
 					.replace(/\t/g, '')
 					.replace(/\n/g, '')
@@ -46,32 +56,144 @@ angular.module('RFIapp.services', [])
 	}	
 }])
 
+.factory('CountOccurencesFtry', function() {
+
+	var countOccurences = function(data, searchTerms){
+
+		var occurences = 0;
+		var valueArray 	= [];
+		var searchString = new RegExp(searchTerms, "gi");
+
+		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH SECTION /////////////////////////////////
+		for (var key in data){
+			valueArray = $.map(data[key], function(value, label){
+				//console.log("this key: " + key);
+				return [value]
+			});
+			for (var i=0; i<valueArray.length; i++) {	
+				occurences  += (valueArray[i].match(searchString) || []).length;
+			}
+		}
+		return occurences
+		}
+	return {
+		countOccurences: countOccurences,
+	}	
+})
+
+.factory('HightlightFtry',[  function() {
+
+	var hightlight = function(data, searchTerms){
+
+		var dataString = data;
+
+		for(var i= 0; i< searchTerms.length; i++){
+
+			var searchWord = searchTerms[i];
+
+			if(searchWord.length >0){ // AVOID AN OUT OF MEMORY IF THE STRING IS EMPTY
+
+				var searchString1 = new RegExp(searchWord, "g");
+				var searchString2 = new RegExp(searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase(), "g");
+				var searchString3 = new RegExp(searchWord.toUpperCase(), "g" );
+				var searchString4 = new RegExp(searchWord.toLowerCase(), "g");
+
+				var replaceString1 = searchWord;
+				var replaceString2 = searchWord.charAt(0).toUpperCase() + searchWord.slice(1).toLowerCase();
+				var replaceString3 = searchWord.toUpperCase();
+				var replaceString4 = searchWord.toLowerCase();				
+
+				dataString = dataString.replace(searchString1, "<span class='searchHightlight'>" + replaceString1 + "</span>")
+										.replace(searchString2, "<span class='searchHightlight'>" + replaceString2 + "</span>")
+										.replace(searchString3, "<span class='searchHightlight'>" + replaceString3 + "</span>")
+										.replace(searchString4, "<span class='searchHightlight'>" + replaceString4 + "</span>");				
+				}
+			}
+		return   dataString;
+		}
+	return {
+		hightlight: hightlight,
+	}
+}])
+	
+.factory('MapDataFtry',[  "HightlightFtry" , function( HightlightFtry){
+
+	var mapData = function(data, section, dataScheme, searchTerms){
+
+		//console.log(data)
+
+		// TO DEFINE THE INDEX OF THE SECTION ////////////////////
+		var index;
+
+		for(var i=0 ; i<dataScheme.tabsLinks.length; i++){
+			if(dataScheme.tabsLinks[i] == section ){
+			index = i;
+			}
+		}
+	
+		// MAP THE DB LABEL DATA INTO AN ARRAY/////////////////////////////////
+	/*	var dbLabelArray =  $.map(data[0], function(value, label){
+			return [label]
+		});*/
+			
+		// TEST /////////////////////////////////
+		var dbLabelsSet	= [];
+		for (var key in data){
+			var dbLabelArray =  $.map(data[key], function(value, label){
+				return [label]
+			});
+			dbLabelsSet.push(dbLabelArray);
+		}
+
+		//console.log(dbLabelArray)
+		var dataSet	= []; // TO STORE THE ORIGINAL DATA VALUE SET BEFORE MAPPING
+		var valueArray 	= [];
+
+		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH SECTION /////////////////////////////////
+		for (var key in data){
+			valueArray = $.map(data[key], function(value, label){
+				return [value]
+			});
+			dataSet.push(valueArray);
+		}
+
+		var sectionSet 	= [];
+
+		for (var key in dataSet){
+			
+			var sectionData = [];
+
+
+
+			// DON'T DISPLAY IS THERE IS NO VALUE
+			for(var i=0;  i< dataScheme.dbLabels[index].length; i++){
+				//for(var n=0; n < dbLabelArray.length; n++){
+				for(var n=0; n < dbLabelsSet[key].length; n++){
+
+					if( dataSet[key][n] !== undefined && dataSet[key][n].length > 0 && dataSet[key][n] !== "0"){
+						
+						//if(dataScheme.dbLabels[index][i] == dbLabelArray[n]){
+						if(dataScheme.dbLabels[index][i] == dbLabelsSet[key][n]){
+							// IF IT'S A NARRATIVE FIELD TAKE THE WHOLE WIDTH
+							var fieldsize = dataSet[key][n].length > 100 ? "col-sm-12" : "col-sm-4";
+							var hiValue = HightlightFtry.hightlight(dataSet[key][n], searchTerms );
+							if(dataScheme.fieldBehavior[index] != null) var fieldBehavior = dataScheme.fieldBehavior[index][i];
+							sectionData.push({"label" : dataScheme.fieldsLabels[index][i], "value" : hiValue, "fieldsize" : fieldsize, "fieldbehavior" : fieldBehavior })
+						}
+					}	
+				}
+			}
+			sectionSet.push(sectionData);
+		}
+		return sectionSet
+	}
+	return {mapData : mapData}
+}])
 
 //  DATA FACTORY ///////////////////////////////////////////////////////////
 .factory('DataFtry', [ '$http' , '$q' ,   function($http, $q) {
 
-/*	var getData = function(url){
-		var $promise =  $http({
-				method: 'GET',
-				url:  url,
-				headers: {'Content-Type': 'application/json'}
-			});
-			var deferred = $q.defer();
-			$promise.then(function(result){
-
-				if(result.data.status.status == 'SUCCESS'){
-					deferred.resolve(result);
-				} else  if( result.data.status.status == 'FAILED') {
-					alert(result.data.status.message);
-				}
-			});
-			return deferred.promise;
-		};
-
 	var sendData = function(url, data){
-
-		console.log("FROM DATA SEND");
-		console.log(url);
 
 		var $promise =  $http({
 			method: 'POST',
@@ -82,15 +204,15 @@ angular.module('RFIapp.services', [])
 		var deferred = $q.defer();
 		$promise.then(function(result){
 
-			if(result.data.status == 'SUCCESS'){
-				deferred.resolve(result.data.message);
+			if(result.statusText == 'OK'){
+				deferred.resolve(result);
 				} else {
 					alert('Woops something wen wrong with the AJAX call');
 				}
 			});
 			return deferred.promise;
 		};
-*/
+
 	var getData = function(url){
 		var $promise =  $http({
 			method: 'GET',
@@ -106,7 +228,8 @@ angular.module('RFIapp.services', [])
 		return deferred.promise;
 		};
 	return {
-		getData	: getData
+		getData	: getData,
+		sendData : sendData
 	};
 }]);
 

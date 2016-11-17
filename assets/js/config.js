@@ -1,18 +1,22 @@
 'use strict';
 
 angular.module('RFIapp.config', [])
-	.constant('RFIConfig', {
-		contextPath:'http://pnguyen-l.ncmecad.net:8080/rfi'
-	})
-	.constant('MCDSearchPath', {
-		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/gsa/'
-		//contextPath:'http://172.25.6.137:8080/ws-gsa/gsa/'
-		contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/gsa/'
-	})
-	.constant('searchResult', {
-		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/mcd/gson/287'
-		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/616541'
-		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/report/mcd/gson/'
-		contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/report/json/MCDDB/'
+
+	.constant('serverPath', {
+		
+		//contextPath:'http://ngsstaging.ncmecad.net/ws-gsa/'
+		//contextPath:'http://hqdev1.ncmecad.net:8080/ws-gsa/'
+		//contextPath:'http://pnguyen-l.ncmecad.net:8080/ws-gsa/'
+
+		contextPath:'http://hqdev1.ncmecad.net:8080/ws-search/'
+
+		//http://hqdev1.ncmecad.net:8080/ws-search/files/getImage?fileName=Sex Offenders/TA%201%20-%20500/TA%20139/03092005.jpg&collection=SOCM
+
+		//http://hqdev1.ncmecad.net:8080/ws-search/files/getImage?fileName=SuspectPhotos/111.jpg&collection=SOCM
 	});
+
+	
+
+
+
 

@@ -1,0 +1,12 @@
+<div class="sub-title" ng-show="parentGuardiansList.length == 0">No Parent/Guardian found in this report</div> 
+<section class="children" ng-repeat="item in parentGuardiansList track by $index"> 
+	<div class="pers-sep"  ng-show="$index >0"></div>
+	<div class="sub-title">Guardian {{$index + 1}} </div>
+	<div class="row ">
+		<div  ng-repeat="sectionData in parentGuardiansList[$index] track by $index">
+			<div class="{{sectionData.fieldsize}} form-group">
+				<label>{{sectionData.label}}: </label> <span ng-bind-html="sectionData.value | rawHtml"></span> 
+			</div>
+		</div>
+	</div>
+</section> 

@@ -1,11 +1,10 @@
 'use strict';
 
-app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "MCDSearchPath", "searchResult", "MapArrayFtry",  function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, MCDSearchPath, searchResult, MapArrayFtry){
+app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$state", "$http",  "$log", "DataFtry", "serverPath", "MapArrayFtry", function(  $rootScope, $scope, $timeout, $window, $state, $http, $log,  DataFtry, serverPath, MapArrayFtry){
 
 	var win = angular.element($window);
-	var searchString,  setPage;
-	
-	$scope.displayAndOr = false;
+	$scope.apVersion;
+	$scope.displayOperand = false;
 	$scope.currentPage = 1;
 	$scope.maxSize = 9;
 	$scope.bigCurrentPage = 1;
@@ -14,19 +13,53 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$scope.caseTitle;
 	$scope.caseLink;
 	$scope.stateName;
-	$scope.search = { searchString: "", collections: "", operand:"" };
+	//$scope.search = { searchString: "", collections: "", operand:"" };
+	$scope.searchQuery = { qrTerm: "", startIndex: "", nResults: 10 , collections: "", operand: ""};
 	$scope.results = [];
 
-/*	var dataScheme;
+	var searchTerms = [];
+	var currentCollection;
 
-	MapArrayFtry.mapArray().then(function(data){
-		dataScheme = data;
-		console.log("FROM MAIN");
-		console.log(data);
-	})*/
+	$scope.onInit = function(){
+
+		//console.log("FROM ON INIT");
+		//console.log($scope.stateName);
+	}
+
+	// GET APP VERSION //////////////////////////////////////////////
+	var versionUrl = serverPath.contextPath + "utils/version" ;
+	DataFtry.getData(versionUrl).then(function(result){ 
+		$scope.apVersion = result.version;
+	});
+
+	// GET COLLECTIONS FOR SEARCHES  //////////////////////////////////////////////
+	var collectionUrl = serverPath.contextPath + "gsa/collections" ;
+	DataFtry.getData(collectionUrl).then(function(result){ 
+
+		$scope.searchQuery.collections = result;
+		//$scope.apVersion = result.version;
+	});
 
 	$rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams){ 
+		
 		$scope.stateName = toState.name;
+		//console.log($scope.stateName);
+		if($scope.stateName == "login" || $scope.stateName == "mainSearch"){
+			$timeout(function() {
+				$('#utilsNav').css("top" , "-105px");
+				
+				$('#NGS-logo').switchClass("NGS-logo-small" , "NGS-logo-large", 500, "easeInOutQuad");
+				$('.searchForm').css({"padding-top" : "50px", "padding-left" : "100px", "top":"-0px"});
+			}, 300);
+
+		} else {
+			$timeout(function() {
+				$('#utilsNav').css("top" , "-60px");
+				$('#NGS-logo').switchClass("NGS-logo-large" , "NGS-logo-small", 500, "easeInOutQuad");
+				//console.log("FROM TIMEOUT")
+				$('.searchForm').css({"padding-top" : "0px", "padding-left" : "100px", "top":"-20px"});
+			}, 300);
+		}
 	})
 
 /*	$scope.$watch (
@@ -40,6 +73,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 		$scope.$apply();
 	});
 
+	//  SPECIFICS FOR COLLECTIONS //////////////////////////////
 	var collectionData = [
 		{label : "MCD Test", value : "MCDTest"},
 		{label : "SOCM", value: "SOCM"}
@@ -52,16 +86,15 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$scope.collectionOptions = {
 		dataTextField: "label",
 		dataValueField: "value",
-		placeholder: "Select a collection...",
+		placeholder: "Select a collection(s)...",
 		
 		//dataSource: DataFtry.fakeTable().data,
 		dataSource: collectionData,
 		change: function(e){
 			$timeout(function() {
-				//console.log($scope.search.collections)
-				//console.log($scope.search.collections[0].value)
-				if($scope.search.collections) {
-					$scope.search.collections.length > 1  ?  $scope.displayAndOr = true : $scope.displayAndOr = false;
+
+				if($scope.searchQuery.collections) {
+					$scope.searchQuery.collections.length > 1  ?  $scope.displayOperand = true : $scope.displayOperand = false;
 				}
 			}, 300);
 		}
@@ -75,59 +108,71 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 		dataSource: operandData,
 		change: function(e){
 			$timeout(function() {
-
-				console.log($scope.search.andor)
 			}, 300);
 		}
 	}
-
+	// ////////////////////////////////////////////////////
 	//console.log($scope.selectOptions.dataSource)
 
 	// WHEN CLICKING THE SEARCH BUTTON //////////////////////////////////////
 	$scope.initSearch = function() {
 		$rootScope.$broadcast('RESET-PAGINATION');
-		setPage =  0;
+		$scope.searchQuery.startIndex = 0; 
+		//setPage =  0;
 		searchNCMEC();
 	};
 
 	// WHEN CLICKING THE PAGINATION //////////////////////////////////////
 	$scope.$on('PAGE-CHANGED', function(event, page) {
-		setPage =  ((page * 10) - 10);
+		//setPage =  ((page * 10) - 10);
+		var nResults = $scope.searchQuery.nResults;
+		$scope.searchQuery.startIndex = ((page * nResults) - nResults);;
 		searchNCMEC();
 	});
 
 	// SEARCH DATABASE //////////////////////////////////////
 	function searchNCMEC(){ 
-		searchString = $scope.search.searchString;
 
+		console.log("FROM SEARCH NCMEC");
+
+		var qrTerm = $scope.searchQuery.qrTerm;
+		var startIndex = $scope.searchQuery.startIndex;
+		var nResults = $scope.searchQuery.nResults;
+		var operand = $scope.searchQuery.operand;
 		var url;
-		var collections = "MCDTest"; // DEFAULT
-		var operand = $scope.search.operand;
 
-		if($scope.search.collections) {
-			collections = $scope.search.collections != "" ? collections =  $scope.search.collections : collections = "MCDTest" ;
-			//console.log(collections)
-		}
+		/*if($scope.searchQuery.collections == "" || $scope.searchQuery.collections == null ){
+			$scope.searchQuery.collections = ["mcdstaging"];
+			//console.log($scope.searchQuery.collections)
+		}*/
 
-		url = MCDSearchPath.contextPath + searchString +  "/" + setPage + "/10/" + collections + "/" + operand;
+		url = serverPath.contextPath + "gsa/search/";
 
-		DataFtry.getData(url).then(function(data){
-			if(setPage === 0){
-				$scope.setPage = 1;
-				data.numHits >= 9 ? $scope.showPagination = true : $scope.showPagination = false;
+		DataFtry.sendData(url, $scope.searchQuery).then(function(result){ 
+		//DataFtry.getData(url).then(function(data){
+
+			if(startIndex === 0){
+				startIndex = 1;
+				result.data.numHits >= 9 ? $scope.showPagination = true : $scope.showPagination = false;
 				$state.go('searchResult');
 			}
-			$scope.totalReports = data.numHits;
+			$scope.totalReports = result.data.numHits;
 			$scope.results = [];
-			$scope.results = data.results;
+			$scope.results = result.data.results;
+			searchTerms = result.data.searchObj.qrWords;
+
+			// TO EMPTY THE REPORT HISTORY ARRAY
+			$rootScope.$broadcast('SEARCH-RESULT');
 		});
 	}
 
 	// GET THE SELECTED CASE //////////////////////////////////////
-	$scope.getCase = function(caseID){
+	$scope.getCase = function(caseID, collection){
 
-		//$scope.caseLink 	= link;
 		$rootScope.$broadcast('RESET-CASE');
+		$rootScope.viewLoading = true;
+
+		if(collection != undefined) currentCollection = collection;
 
 		if(caseID == undefined){
 			// CREATE AN ERROR WINDOW WITH A LINK THAT DISPLAYS THE CASE IN A NEW TAB
@@ -142,22 +187,30 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 
 		} else {
 			// DISPLAY THE CASE WITHIN THE APP. 
-			var caseN = searchResult.contextPath + caseID;
+			var caseN = serverPath.contextPath + "report/json/" + currentCollection + "/" + caseID;
 
 			DataFtry.getData(caseN).then(function(data){
-
-				$rootScope.$broadcast('DISPLAY-CASE',data);
-
+				if(jQuery.isEmptyObject(data)){
+					alert("No data for this case...")
+				} else {
+					$rootScope.$broadcast('DISPLAY-CASE',data, searchTerms);
+				}
 			});
 		}
 	}
+
 // LOGOUT & CLEANING /////////////////////////////////////////////////////////////////
 	$rootScope.logout = function(data) {
 		$scope.log = '';
 		$state.go('login');
-		sessionStorage.clear();
+		localStorage.clear();
 		$rootScope.loggedIn = false;
-		$scope.search.searchString = "";
+		$scope.searchQuery.qrTerm = "";
+		//window.location.href = "http://hqdev1.ncmecad.net:8080/ws-gsa/";
+		var url = serverPath.contextPath  + "gsa/logout" ;
+		DataFtry.getData(url).then(function(data){
+			console.log("FROM LOGOUT")
+		});
 	};
 }])
 

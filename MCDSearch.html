@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>MCD Google Search</title>
+		<title>NCMEC Global Search</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <!-- JQUERY  //////////////////////////////////////////////////////// -->
 		<script type="text/javascript" src="lib/jquery-2.1.4.js"></script>
 		<script type="text/javascript" src="lib/jquery-ui.min.js"></script>
@@ -24,13 +25,13 @@
 
 		<!-- KENDOUI///////////////////////////////////////////////////////////////////////////////////-->
 		
-		<script src="lib/kendoui/js/jszip.min.js"></script>
+<!-- 		<script src="lib/kendoui/js/jszip.min.js"></script>
 		<link href="lib/kendoui/examples/content/shared/styles/examples-offline.css" rel="stylesheet">
 		<link href="lib/kendoui/styles/kendo.common.min.css" rel="stylesheet">
 		<link href="lib/kendoui/styles/kendo.silver.min.css" rel="stylesheet">
 		<link href="lib/kendoui/styles/kendo.dataviz.min.css" rel="stylesheet">
 		<link href="lib/kendoui/styles/kendo.dataviz.silver.min.css" rel="stylesheet">
-		<script src="http://cdn.kendostatic.com/2014.3.1411/js/kendo.all.min.js"></script>
+		<script src="http://cdn.kendostatic.com/2014.3.1411/js/kendo.all.min.js"></script> -->
 
 <!-- STYLES  //////////////////////////////////////////////////////// -->      
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -68,19 +69,51 @@
 			</ul>
 		</script>
 	</head>
-	<body ng-app="RFIapp" ng-controller="MainCtrl">
+	<body ng-app="RFIapp" ng-controller="MainCtrl" ng-init="onInit()">
 <!-- HTML  //////////////////////////////////////////////////////// --> 
 		<div id="wrapper" class="clearfix" >
-			<div id="masthead" class="clearfix">
+			
+			<div id="masthead" class="clearfix" style="display:block;position:relative">
 				<div id="MK-logo" class="clearfix"></div>
-				<div class="logout-btn" class="show-hide" ng-hide="stateName == 'login'">
-					<a href=""  ng-click="logout()" >Logout</a>
+
+			<!-- 	<div class="title show-hide" ng-show="stateName == 'mainSearch' || stateName == 'login' ">NCMEC Global Search</div> -->
+				<!-- <div ng-if="stateName == 'mainSearch' || stateName == 'login' " style="text-align:center"> -->
+					<div id="NGS-logo" class="clearfix NGS-logo-large" style="display:inline-block;left:-70px;position:relative;top:40px"></div>
+				<!-- </div> -->
+
+				<div id="utilsNav" style="width:100%; height:25px; text-align:right; top:10px;position:relative;display:block" class="clearfix">
+					<span class="help-btn tabPos2-btn show-hide" ng-show="stateName != 'login'" style="  padding: 10px 20px 0px 0px">
+						<a href=""  ng-click="help()" class="" data-toggle="modal" data-target="#myModal" >NGS Search Help</a>
+					</span>
+					<span class="logout-btn tabPos2-btn show-hide" ng-show="stateName != 'login'" style=" padding: 10px 10px 0px 0px">
+						<a href=""  ng-click="logout()" class="" >Logout</a>
+					</span>
 				</div>
-				<div class="title show-hide" ng-show="stateName == 'mainSearch' || stateName == 'login' ">MCD Google Search</div>
+
 				<search-ncmec  ng-show="stateName == 'searchResult'" ></search-ncmec>
 				
 			</div>
-			<div ui-view="" class="fader-animation"></div>
+			<div ui-view="" class="fader-animation" style="position:relative; top:-20px"></div>
+		</div>
+
+		<!-- MODALS //////////////////////////////////////////////////////////////// -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<span class="panel-header"><span class="white-title">Query Term Separators</span></span>
+					<div class="modal-body">
+						<div style="padding-bottom:20px">
+							<label ><strong>Double quote mark (" "):</strong></label> <span>Used as a special query term for phrase searches, i.e  "National Center for Missing and Exploited Children" </span>
+						</div>
+						<div style="padding-bottom:10px">
+							<label><strong>Plus sign (+):</strong> </label>  <span>Treated as a Boolean AND, i.e "National Center for Missing and Exploited Children" AND MCD</span>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" style="margin-right:20px" class="btn-primary" data-dismiss="modal"> CLOSE </button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!-- ALERT BOX-->
@@ -93,7 +126,8 @@
 	  <button class='btn' ng-click="addAlert()">Add Alert</button> -->
 
 <!-- CONTROLER  //////////////////////////////////////////////////////// --> 
-		<script type="text/javascript" src="app.js"></script>         
+		<script type="text/javascript" src="app.js"></script>
+		<script type="text/javascript" src="assets/js/spin.min.js"/>"></script>         
 		<script type="text/javascript" src="assets/js/mainCtrl.js"></script>
 		<script type="text/javascript" src="assets/js/loginCtrl.js"></script>
 		<script type="text/javascript" src="assets/js/services.js"></script>
