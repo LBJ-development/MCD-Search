@@ -3,7 +3,7 @@
 angular.module('MCDSearch.caseDisplay', [])
 
 // CASE DISPLAY CONTROLLER /////////////////////////////////////////////////////////
-.controller('CaseDisplayCtrl', ["$scope", "$state","MapArrayFtry", "HightlightFtry", "MapDataFtry", "$timeout", "DataFtry", "serverPath", "CountOccurencesFtry", function($scope, $state, MapArrayFtry, HightlightFtry, MapDataFtry, $timeout, DataFtry, serverPath, CountOccurencesFtry ){
+.controller('CaseDisplayCtrl', ["$rootScope", "$scope", "$state","MapArrayFtry", "HightlightFtry", "MapDataFtry", "$timeout", "DataFtry", "serverPath", "CountOccurencesFtry", function($rootScope, $scope, $state, MapArrayFtry, HightlightFtry, MapDataFtry, $timeout, DataFtry, serverPath, CountOccurencesFtry ){
 
 	$scope.fieldList = [];
 	$scope.tabsLabels = [];
@@ -46,7 +46,11 @@ angular.module('MCDSearch.caseDisplay', [])
 		}, 500);*/
 	});
 
-	$scope.showCase = false;
+	//$scope.showCase = false;
+
+
+	console.log("FROM CASE DISPLAY CONTROLER");
+	console.log($scope.viewLoading);
 
 	$scope.$on('RESET-PAGINATION', function(event) {
 		$scope.showCase = false;
@@ -57,6 +61,10 @@ angular.module('MCDSearch.caseDisplay', [])
 	})
 
 	$scope.$on('DISPLAY-CASE', function(event, data, searchString) {
+
+		$rootScope.viewLoading = false;
+
+
 		genData = data;
 		//console.log(data)
 
@@ -162,8 +170,8 @@ angular.module('MCDSearch.caseDisplay', [])
 		$scope.fieldList.length > 1 ? $scope.displayIndex = true :  $scope.displayIndex = false;
 		$scope.showCase = true;
 		$scope.genericInfo = true;
-
-
+		$rootScope.viewLoading = false;
+		
 	}
 
 	$scope.detachCase = function(){

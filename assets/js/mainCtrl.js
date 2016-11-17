@@ -170,6 +170,7 @@ app.controller('MainCtrl',[ "$rootScope",  "$scope", "$timeout", "$window", "$st
 	$scope.getCase = function(caseID, collection){
 
 		$rootScope.$broadcast('RESET-CASE');
+		$rootScope.viewLoading = true;
 
 		if(collection != undefined) currentCollection = collection;
 

@@ -67,7 +67,7 @@ angular.module('RFIapp.services', [])
 		// MAP THE VALUE DATA INTO AN ARRAY FOR EACH SECTION /////////////////////////////////
 		for (var key in data){
 			valueArray = $.map(data[key], function(value, label){
-				console.log("this key: " + key);
+				//console.log("this key: " + key);
 				return [value]
 			});
 			for (var i=0; i<valueArray.length; i++) {	
